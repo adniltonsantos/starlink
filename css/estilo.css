@@ -1,0 +1,118 @@
+html, body { margin: 0; height: 100%;}
+
+
+/* Bloco do Topo  */
+header#cabecalho { display: block; position: fixed; width: 100%; text-align: center; background:#045FB4; height:50px;font-size: 18px; color: white; font-weight: bold; padding-top: 12px;}
+header a:link { color: white; text-decoration: none; display: block;}
+header a:hover {color:white; opacity: 0.7;}
+header a:visited {color :white;}
+
+
+/* Bloco Lateral do Usuario e Menus */
+aside {display: none;}
+@media (min-width: 768px) {
+aside{position: fixed; top: 50px; left: 0; bottom: 0; display: block;}
+}
+aside#bloco-menu {background: #EEEEEE; border-right: 1px solid #CCCCCC;}
+aside #bloco-user{display: table;  width: 200px; height: 50px; border-bottom: 1px solid #CCCCCC; }
+aside img#icon-user{padding:10px; float: left; width: 80px; height: 80px;}
+aside #user {padding-top: 15px;}
+aside #edit-perfil{ font-size: 12px; color:#2692FF;}
+#edit-perfil a:link {text-decoration: none;}
+#edit-perfil a:hover {opacity: 0.5}
+/* Efeitos do Menu */
+
+nav {width: 100%; padding: 0; margin: 0;}
+nav ul {list-style: none; padding: 0; margin: 0; }
+
+nav a:link {padding: 6px 0px 0px 10px; color: #777777; display: block; text-decoration: none; height: 35px; border-bottom:1px solid #CCCCCC;}
+nav a:hover {background: #DBDBEA;}
+nav a:visited {background: #DBDBEA; color:#777777;  border-bottom:1px solid #CCCCCC;}
+
+/* Efeitos do Sub-Menu */
+nav ul li:hover .dropdown-sub{display: block; width:100%; }
+nav ul.dropdown-sub{ display: none; position: absolute; margin-top: -35px; margin-left: 200px; border-left: 5px solid gray; border-right: 1px solid #CCCCCC; border-top:1px solid #CCCCCC; background: #EEEEEE;} 
+nav ul li.dropdown-sub-menu a:link { color: #777777; display: block; text-decoration: none; height: 35px; padding-right: 20px;}
+
+ 
+/* Bloco do conteudo */
+section {width :100 %; height: auto;}
+@media (min-width: 768px) {
+section {width : calc ( 100 %  -  200px ); height: auto; margin-left: 200px;}
+}
+
+
+/* Padrao Janela */
+#janela{width:800px; height:auto; margin:0 auto; padding-top:70px;}
+#conteudo{width:800px;}
+
+/* Tabela de Vendas*/
+
+table.venda thead th{
+  background-color:#045FB4;
+  padding:6px;
+  color:#fff;
+  font-size:14px;
+}
+
+table.venda  thead th.header{
+  cursor:pointer;
+}
+
+table.venda  tbody td{
+  padding:6px;
+  color:#333;
+  background-color:#EEE9E9;
+}
+
+table.venda  tbody tr.odd td{
+  background-color:#CDC9C9;
+}
+
+table.venda tbody tr.hover td{
+  background-color:#a9d0f5;
+}
+
+table.venda  tbody tr.selected td{
+  background-color:#a9f5a9!important;
+}
+table.venda tfoot th{
+  background-color:LightGray;
+  padding:6px;
+  color:red;
+  font-size:14px;
+}
+
+/* fluxo de caixa */
+.mes {font-size: 10px; margin-top: 10px; margin-bottom: 10px;}
+.mes a:link {color:#FFFFFF; opacity: 1.0;}
+.mes a:hover {color:#FFFFFF; text-decoration: none;}
+.mes a:visited {color:#FFFFFF;}
+.bloco-fluxo{width: 800px; display: block;}
+.receita {width: 380px; float: left;}
+.despesa {width: 380px; float: left; margin-left: 40px;}
+.resumo {width: 800px; clear: both;}
+.panel-footer{margin-top: -20px;}
+
+
+.wellv{margin-top: 10px; width: 630px;  height: 290px; float: left; overflow-x: hidden; background-color: #f5f5f5; border-radius: 4px;   border: 1px solid #e3e3e3;}
+.grupo-venda{width: 150px; height: 300px; position: relative; float: right; margin-top: 10px;}
+.acao{margin-left: 10px;}
+
+/* Layout Modal Cliente */
+.grupo-cliente-modal{width: 800px; height: 400px;}
+.wellc{margin-top: 10px; width: 630px;  height: 290px; float: left; overflow-x: hidden; background-color: #f5f5f5; border-radius: 4px;   border: 1px solid #e3e3e3;}
+.grupo-vendac{width: 150px; height: 300px;  margin-top: 10px; float: right;}
+
+
+/* Outros */
+.version {position:absolute; bottom: 100px; left: 25px; color: gray; }
+.pesquise {margin-bottom:20px; margin-top: 20px;}
+.clear{clear: both; float}
+.info-produto{width: 400px; position: relative; float: right;}
+img:hover {opacity: 0.5;}
+a:hover .opaco {opacity: 0.5;}
+.centro-table{text-align: center;}/* Centraliza no centro na tabela  */
+input.maiuscula { text-transform: uppercase;}/* Input Com letra Maiuscula  */
+.size-btn{width: 20px; height: 20px; padding: 0; font-size: 9px;}
+
