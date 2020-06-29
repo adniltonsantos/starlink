@@ -92,6 +92,21 @@ $setor = $linha['setor'];
 <?php } ?>
 
 
+<?php if($setor == 'adm/agendamento'){ ?>
+   <nav id="menu">
+        <ul>
+          <li><a href='#'>Técnico</a>
+            <ul class="dropdown-sub"> 
+                <li class="dropdown-sub-menu"><a href="?pg=inseri-tecnico">Cadastrar</a></li>
+                <li class="dropdown-sub-menu"><a href="?pg=relatorio-tecnico-ativos">Ativos</a></li> 
+                <!-- <li class="dropdown-sub-menu"><a href="?pg=relatorio-tecnico-inativos">Inativos</a></li>    -->
+            </ul> 
+         </li>
+         </ul>
+   </nav>
+<?php } ?>
+
+
 
 
 <div class="version">Versão do Sistema 3.0</div>

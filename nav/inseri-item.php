@@ -57,7 +57,7 @@ if ($linha >= 1 ){
 
  // Insere os dados no banco 
  
- $sql = $pdo->prepare("INSERT INTO itens (nome_item,codbarra_item, qtd,minimo) VALUES ('$nome','$codbarra','$qtd','$minimo')");  
+ $sql = $pdo->prepare("INSERT INTO itens (nome_item,codbarra_item, qtd,minimo, status_item) VALUES ('$nome','$codbarra','$qtd','$minimo','ativo')");  
  $sql->execute();
  // Se os dados forem inseridos com sucesso 
  
