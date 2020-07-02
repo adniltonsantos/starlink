@@ -43,25 +43,25 @@ $linha = $select->fetch(PDO::FETCH_ASSOC);
 <form method="POST" name="enviar" action="?pg=update-fornecedora&submit">
 
 <div class="form-group">
-<input type="text" name="nome" class="form-control" placeholder="Nome do fornecedora" value="<?php echo $linha['nome'];?>">
+<input type="text" onkeyup="this.value = this.value.toUpperCase()" required name="nome" class="form-control" placeholder="Nome do fornecedora" value="<?php echo $linha['nome'];?>">
 </div>
 
 <div class="form-group">
-<input type="text" name="cnpj" class="form-control" placeholder="Digite o CNPJ" value="<?php echo $linha['cnpj'];?>">
+<input type="text" onkeyup="this.value = this.value.toUpperCase()" name="cnpj" class="form-control" placeholder="Digite o CNPJ" value="<?php echo $linha['cnpj'];?>">
 </div>
 
 <div class="form-group">
-<input type="text" name="contato" class="form-control" placeholder="Digite o Contato" value="<?php echo $linha['contato'];?>">
-</div>
-
-
-<div class="form-group">
-<input type="text" name="telefone" class="form-control" placeholder="Digite o Telefone" value="<?php echo $linha['telefone'];?>">
+<input type="text" onkeyup="this.value = this.value.toUpperCase()" name="contato" class="form-control" placeholder="Digite o Contato" value="<?php echo $linha['contato'];?>">
 </div>
 
 
 <div class="form-group">
-<input type="text" name="sites" class="form-control" placeholder="Digite o Site" value="<?php echo $linha['sites'];?>">
+<input type="text" onkeyup="this.value = this.value.toUpperCase()" name="telefone" class="form-control" placeholder="Digite o Telefone" value="<?php echo $linha['telefone'];?>">
+</div>
+
+
+<div class="form-group">
+<input type="text" onkeyup="this.value = this.value.toUpperCase()" name="sites" class="form-control" placeholder="Digite o Site" value="<?php echo $linha['sites'];?>">
 </div>
 
 <div class="form-group">

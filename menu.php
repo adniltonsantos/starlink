@@ -36,41 +36,22 @@ $setor = $linha['setor'];
                           
                            
                      </ul> </li>  
-            <!-- <li><a href='?pg=venda'>Venda</a></li>
-        <li><a href='?pg=fluxo-caixa&mes=<?php echo date('m'); ?>&ano=<?php echo $ano = date('Y'); ?>'>Fluxo de Caixa </a></li> -->
-
-            <li><a href='#'>Item</a>
+           <li><a href='#'>Item</a>
                       <ul class="dropdown-sub"> 
                           <li class="dropdown-sub-menu"><a href="?pg=inseri-item">Cadastrar</a></li> 
                           <li class="dropdown-sub-menu"><a href="?pg=consulte-item">Consultar</a></li> 
                      </ul> </li>
-
-           <!-- <li><a href='#'>Produto </a>
-                      <ul class="dropdown-sub"> 
-                          <li class="dropdown-sub-menu"><a href="?pg=inseri-produto">Inseri Produto</a></li> 
-                  
-                     </ul> </li> -->
                           
           <li><a href='#'>Fornecedora</a>
                       <ul class="dropdown-sub"> 
                           <li class="dropdown-sub-menu"><a href="?pg=inseri-fornecedora">Cadastrar</a></li>
                           <li class="dropdown-sub-menu"><a href="?pg=relatorio-fornecedora">Consultar</a></li> 
                      </ul> </li>    
+            <li><a href='#'>Gerar Pedido</a>
+            <ul class="dropdown-sub"> 
+                <li class="dropdown-sub-menu"><a href="">Cotacao</a></li>
+     </ul> </li>    
 
-
-          <!-- <li><a href='#'>Pedido</a>
-                      <ul class="dropdown-sub"> 
-                          <li class="dropdown-sub-menu"><a href="?pg=inseri-pedido">Gerar</a></li>
-                          <li class="dropdown-sub-menu"><a href="?pg=relatorio-fornecedora">Consultar</a></li> 
-                     </ul> </li>     -->
-
-          <!-- <li><a href='#'>Despesa</a>
-                      <ul class="dropdown-sub">
-                          <li class="dropdown-sub-menu"><a href="?pg=inseri-despesa">Inseri Despesa</a></li> 
-                          <li class="dropdown-sub-menu"><a href="?pg=despesas-futuras">Pagamento</a></li>
-                          <li class="dropdown-sub-menu"><a href="?pg=inseri-tipo-despesa">Tipo de Despesa</a></li>  
-                  
-                     </ul> </li>                  -->
 </ul>
    </nav>
 <?php } ?>
@@ -80,13 +61,20 @@ $setor = $linha['setor'];
 <?php if($setor == 'adm'){ ?>
    <nav id="menu">
         <ul>
-          <li><a href='#'>Técnico</a>
-            <ul class="dropdown-sub"> 
-                <li class="dropdown-sub-menu"><a href="?pg=inseri-tecnico">Cadastrar</a></li>
-                <li class="dropdown-sub-menu"><a href="?pg=relatorio-tecnico-ativos">Ativos</a></li> 
-                <!-- <li class="dropdown-sub-menu"><a href="?pg=relatorio-tecnico-inativos">Inativos</a></li>    -->
-            </ul> 
-         </li>
+            <li><a href='#'>Técnico</a>
+                <ul class="dropdown-sub"> 
+                    <li class="dropdown-sub-menu"><a href="?pg=inseri-tecnico">Cadastrar</a></li>
+                    <li class="dropdown-sub-menu"><a href="?pg=relatorio-tecnico-ativos">Ativos</a></li> 
+                    <!-- <li class="dropdown-sub-menu"><a href="?pg=relatorio-tecnico-inativos">Inativos</a></li>    -->
+                </ul> 
+            </li>
+                                
+            <li><a href='#'>Setor</a>
+                <ul class="dropdown-sub"> 
+                    <li class="dropdown-sub-menu"><a href="?pg=inseri-fornecedora">Cadastrar</a></li>
+                    <li class="dropdown-sub-menu"><a href="?pg=relatorio-fornecedora">Consultar</a></li> 
+                </ul> 
+            </li>
          </ul>
    </nav>
 <?php } ?>
@@ -95,14 +83,21 @@ $setor = $linha['setor'];
 <?php if($setor == 'adm/agendamento'){ ?>
    <nav id="menu">
         <ul>
-          <li><a href='#'>Técnico</a>
-            <ul class="dropdown-sub"> 
-                <li class="dropdown-sub-menu"><a href="?pg=inseri-tecnico">Cadastrar</a></li>
-                <li class="dropdown-sub-menu"><a href="?pg=relatorio-tecnico-ativos">Ativos</a></li> 
-                <!-- <li class="dropdown-sub-menu"><a href="?pg=relatorio-tecnico-inativos">Inativos</a></li>    -->
-            </ul> 
-         </li>
+         <li><a href='#'>Clientes</a>
+                <ul class="dropdown-sub"> 
+                    <li class="dropdown-sub-menu"><a href="?pg=import-xls">Agendados</a></li>
+                    <li class="dropdown-sub-menu"><a href="?pg=clientes-correcao">Validar</a></li> 
+                </ul> 
+            </li>
+            <li><a href='#'>Importar</a>
+                <ul class="dropdown-sub"> 
+                    <li class="dropdown-sub-menu"><a href="?pg=import-xls">CSV</a></li>
+                    <li class="dropdown-sub-menu"><a href="?pg=import-validar">Inconsistências</a></li> 
+                </ul> 
+            </li>
          </ul>
+
+         
    </nav>
 <?php } ?>
 

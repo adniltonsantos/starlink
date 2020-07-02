@@ -90,7 +90,7 @@ if ($linha >= 1 ){
 
 <div class="form-group">
 <label for="">Nome do Item</label>
-<input type="text" name="nome" class="form-control" placeholder="Digite o Nome do Item">
+<input type="text" required onkeyup="this.value = this.value.toUpperCase()" name="nome" class="form-control" placeholder="Digite o Nome do Item">
 </div>
 
 <div class="form-group">
@@ -100,7 +100,7 @@ if ($linha >= 1 ){
 
 <div class="form-group">
 <label for="">Estoque Minimo</label>
-<input type="text" name="minimo" class="form-control" placeholder="Digite o Estoque Minimo">
+<input type="number" required name="minimo" class="form-control" placeholder="Digite o Estoque Minimo">
 </div>
 
 

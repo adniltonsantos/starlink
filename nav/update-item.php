@@ -114,7 +114,7 @@ $linha = $select->fetch(PDO::FETCH_ASSOC);
 
 <div class="form-group">
 <label for="">Nome do Item</label>
-<input type="text" required name="nome" class="form-control" placeholder="Nome do Item" value="<?php echo $linha['nome_item'];?>">
+<input type="text" onkeyup="this.value = this.value.toUpperCase()" required name="nome" class="form-control" placeholder="Nome do Item" value="<?php echo $linha['nome_item'];?>">
 </div>
 
 <div class="form-group">

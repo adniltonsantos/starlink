@@ -4,9 +4,9 @@ if(isset($_GET['pg'])){
 
 switch($_GET['pg']){
 		
-		//Venda
-		case'venda';
-		include "nav/venda.php";
+		//Clientes
+		case'clientes-correcao';
+		include "nav/clientes-correcao.php";
 		break;
 
 		//Fluxo de Caixa
@@ -124,8 +124,20 @@ switch($_GET['pg']){
 		case'perfil';
 		include "nav/perfil.php";
 		break;
-		
-		
+
+		//Import XLS
+		case'import-xls';
+		include "nav/import-xls.php";
+		break;
+
+		//Import XLS
+		case'import-validar';
+		include "nav/import-validar.php";
+		break;
+		//Import XLS
+		case'import-consulta';
+		include "nav/import-consulta.php";
+		break;		
 		default:
 		include ("home.php");
 		break;

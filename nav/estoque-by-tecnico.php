@@ -70,7 +70,7 @@ function FormataReais(fld, milSep, decSep, e) {
 
 <legend>Estoque por técnico</legend>
         <!-- Formulario do envio de codbarra para a inseri-estoque -->
-<form method="POST" name="enviar" id="enviar" action="?pg=estoque-by-tecnico&submit">
+<form method="POST" name="enviar" id="enviar" action="?pg=estoque-by-tecnico&between&id_tecnico=<?php echo $_GET['id_tecnico']?>">
 <div class="form-row">
     <div class="form-group col-md-3">
       <label for="inputEmail4">Técnico </label>
@@ -91,13 +91,13 @@ function FormataReais(fld, milSep, decSep, e) {
 
     <div class="form-group col-md-3">
       <label for="">Data Inicial</label>
-      <input type="date" class="form-control" name="data" value="<?php echo date('Y-m-d'); ?>">
+      <input type="date" class="form-control" name="data" value="<?php if($_POST['data']){echo $_POST['data'];}else{echo date('Y-m-d');}; ?>">
     </div>
 
 
     <div class="form-group col-md-3">
       <label for="">Data Final</label>
-      <input type="date" class="form-control" name="data" value="<?php echo date('Y-m-d'); ?>">
+      <input type="date" class="form-control" name="data2" value="<?php if($_POST['data2']){echo $_POST['data2'];}else{echo date('Y-m-d');}; ?>">
     </div>
 
 
@@ -110,53 +110,11 @@ function FormataReais(fld, milSep, decSep, e) {
 <!-- END do Formulario do envio de codbarra para a venda -->
 
 
-<!-- Dados vindo do Formulario de cima -->
 
-<?php
-if (isset($_GET['submit'])){
- 
- $id_tecnico = $_POST['id_tecnico'];
- $data = $_POST['data'];
-
-?>
-
-<br />
-<label for="">Retiradas</label>
-<table class="table table-hover">
-
-<thead>
-<tr>
-<th>Nome do Item</th>
-<th>Quantidade</th>
-<th>Nome do Técnico</th>
-<th>Data</th>
-</tr>
-</thead>
-<?php 
-$retiradasql = $pdo->prepare("SELECT retiradas.id_retirada, itens.nome_item, tecnicos.nome, retiradas.data_retirada , retiradas.quantidade  FROM retiradas INNER JOIN itens ON retiradas.id_item=itens.id_item INNER JOIN tecnicos ON retiradas.id_tecnico=tecnicos.id_tecnico  LIKE retiradas.data_retirada='%2020-06-28%' WHERE tecnicos.id_tecnico='$id_tecnico' ORDER BY retiradas.id_retirada DESC LIMIT 7");
-$retiradasql->execute();
-while($linha = $retiradasql->fetch(PDO::FETCH_ASSOC)){
-
-?>
-
-<tr>
-<td><?php echo $linha['nome_item']?></td>
-<td><?php echo $linha['quantidade']?></td>
-<td><?php echo $linha['nome']?></td>
-<td><?php echo $linha['data_retirada']?></td>
-</tr>
-
-
-<?php } // fim do while
-
-} ?>
-</table>
-
-
-
+<!-- Filtro por técnico -->
 <?php if (isset($_GET['selecionado'])){ ?>
         <br />
-        <label for="">Retiradas</label>
+        <label for="">Retiradas de Hoje</label>
         <table class="table table-hover">
 
         <thead>
@@ -169,18 +127,67 @@ while($linha = $retiradasql->fetch(PDO::FETCH_ASSOC)){
         </thead>
         <?php 
         $id_tecnico = $_GET['id_tecnico'];
-        echo $data = $_GET['data'];
-        $retiradasql = $pdo->prepare("SELECT *, DATE_FORMAT(data_retirada,'%Y-%m-%d') AS data_formatada from retiradas WHERE data_retirada='$data");
+        $data = $_GET['data'];
+        $retiradasql = $pdo->prepare("SELECT *,CURDATE(), DATE_FORMAT(r.data_retirada,'%Y-%m-%d') AS data_formatada from retiradas  as r 
+        INNER JOIN  itens as i ON i.id_item=r.id_item 
+        INNER JOIN tecnicos as t ON t.id_tecnico = r.id_tecnico 
+        WHERE r.id_tecnico = $id_tecnico AND
+        DATE(data_retirada) = CURDATE()");
         $retiradasql->execute();
         while($linha = $retiradasql->fetch(PDO::FETCH_ASSOC)){
 
         ?>
 
         <tr>
-        <td><?php echo $linha['data_formatada']?></td>
+        <td><?php echo $linha['nome_item']?></td>
         <td><?php echo $linha['quantidade']?></td>
         <td><?php echo $linha['nome']?></td>
-        <td><?php echo $linha['data_retirada']?></td>
+        <td><?php $data = str_replace("/", "-", $linha['data_retirada']);
+        echo date('d-m-Y h:m', strtotime($data))?></td>
+        </tr>
+       
+
+<?php } }?>
+</table>
+
+<!-- Filtro por Técnico entre Datas -->
+<?php if (isset($_GET['between'])){ ?>
+     
+
+        <br />
+        <label for="">Retiradas entre datas</label>
+        <table class="table table-hover">
+
+        <thead>
+        <tr>
+        <th>Nome do Item</th>
+        <th>Quantidade</th>
+        <th>Nome do Técnico</th>
+        <th>Data</th>
+        </tr>
+        </thead>
+        <?php 
+
+        $id_tecnico = $_POST['id_tecnico'];
+        $data = $_POST['data'];  
+        $data2 = $_POST['data2'];
+
+        $retiradasql = $pdo->prepare("SELECT *,CURDATE(), DATE_FORMAT(r.data_retirada,'%Y-%m-%d') AS data_formatada from retiradas  as r 
+        INNER JOIN  itens as i ON i.id_item=r.id_item 
+        INNER JOIN tecnicos as t ON t.id_tecnico = r.id_tecnico 
+        WHERE r.id_tecnico = '$id_tecnico' AND
+        DATE(data_retirada) BETWEEN '$data' AND '$data2'");
+        $retiradasql->execute();
+        while($linha = $retiradasql->fetch(PDO::FETCH_ASSOC)){
+
+        ?>
+
+        <tr>
+        <td><?php echo $linha['nome_item']?></td>
+        <td><?php echo $linha['quantidade']?></td>
+        <td><?php echo $linha['nome']?></td>
+        <td><?php $data = str_replace("/", "-", $linha['data_retirada']);
+        echo date('d-m-Y h:m', strtotime($data))?></td>
         </tr>
        
 

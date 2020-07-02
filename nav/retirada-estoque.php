@@ -187,7 +187,7 @@ if (isset($_GET['registra'])){
 </tr>
 </thead>
 <?php 
-$retiradasql = $pdo->prepare("SELECT retiradas.id_retirada, itens.nome_item, tecnicos.nome, retiradas.data_retirada , retiradas.quantidade  FROM retiradas INNER JOIN itens ON retiradas.id_item=itens.id_item INNER JOIN tecnicos ON retiradas.id_tecnico=tecnicos.id_tecnico ORDER BY retiradas.id_retirada DESC LIMIT 7");
+$retiradasql = $pdo->prepare("SELECT retiradas.id_retirada, itens.nome_item, tecnicos.nome,  retiradas.data_retirada , retiradas.quantidade  FROM retiradas INNER JOIN itens ON retiradas.id_item=itens.id_item INNER JOIN tecnicos ON retiradas.id_tecnico=tecnicos.id_tecnico ORDER BY retiradas.id_retirada DESC LIMIT 7");
 $retiradasql->execute();
 while($linha = $retiradasql->fetch(PDO::FETCH_ASSOC)){
 
@@ -197,7 +197,10 @@ while($linha = $retiradasql->fetch(PDO::FETCH_ASSOC)){
 <td><?php echo $linha['nome_item']?></span></td>
 <td><?php echo $linha['quantidade']?></span></td>
 <td><?php echo $linha['nome']?></span></td>
-<td><?php echo $linha['data_retirada']?></span></td>
+<td><?php $data = str_replace("/", "-", $linha['data_retirada']);
+         echo date('d-m-Y h:m', strtotime($data))
+    
+    ?> </span></td>
 </tr>
 
 

@@ -39,23 +39,23 @@ $sites = $_POST['sites'];
     <form method="POST" name="enviar" action="?pg=inseri-fornecedora&submit">
 
     <div class="form-group">
-    <input type="text" name="nome" required class="form-control" placeholder="Digite o Nome do Fornecedora">
+    <input type="text" onkeyup="this.value = this.value.toUpperCase()" name="nome" required class="form-control" placeholder="Digite o Nome do Fornecedora">
     </div>
 
     <div class="form-group">
-    <input type="text" name="cnpj"  class="form-control" placeholder="Digite o CNPJ">
+    <input type="text" onkeyup="this.value = this.value.toUpperCase()" name="cnpj"  class="form-control" placeholder="Digite o CNPJ">
     </div>
 
     <div class="form-group">
-    <input type="text" name="contato" class="form-control" placeholder="Digite o Contato">
+    <input type="text" onkeyup="this.value = this.value.toUpperCase()" name="contato" class="form-control" placeholder="Digite o Contato">
     </div>
 
     <div class="form-group">
-    <input type="text" name="telefone" class="form-control" placeholder="Digite o Telefone">
+    <input type="text" onkeyup="this.value = this.value.toUpperCase()" name="telefone" class="form-control" placeholder="Digite o Telefone">
     </div>
 
     <div class="form-group">
-    <input type="text" name="sites" class="form-control" placeholder="Digite o Site">
+    <input type="text" onkeyup="this.value = this.value.toUpperCase()" name="sites" class="form-control" placeholder="Digite o Site">
     </div>
 
     <button class="btn btn-primary">Salvar Dados</button>

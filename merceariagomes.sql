@@ -259,3 +259,46 @@ CREATE TABLE `vendaprovisoria` (
 --
 -- Dumping data for table `vendaprovisoria`
 --
+
+
+CREATE TABLE `setores` (
+  `id_setor` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(20) NOT NULL,
+  PRIMARY KEY (`id_setor`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `bairros` (
+  `id_bairro` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(20) NOT NULL,
+  `fk_id_setor` int,
+   PRIMARY KEY (`id_bairro`),
+   FOREIGN KEY (`fk_id_setor`) REFERENCES setores(`id_setor`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `prevclientes` (
+  `id_prevcliente` int(11) NOT NULL AUTO_INCREMENT,
+  `cod_cliente` int(11) NOT NULL,
+  `data_cadastro` date NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `endereco` varchar(150) NOT NULL,
+  `referencia` varchar(150) NOT NULL,
+  `bairro` varchar(150) NOT NULL,
+  `celular` varchar(50) NOT NULL,
+   PRIMARY KEY (`id_prevcliente`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `clientes` (
+  `id_clientes` int(11) NOT NULL AUTO_INCREMENT,
+  `cod_cliente` int(11) NOT NULL,
+  `data_cadastro` date NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `endereco` varchar(150) NOT NULL,
+  `referencia` varchar(150) NOT NULL,
+  `celular` varchar(50) NOT NULL,
+  `tipo` varchar(50) NOT NULL,
+  `status_cliente` varchar(50) NOT NULL,
+   `fk_id_bairro` int NOT NULL,
+   PRIMARY KEY (`id_clientes`),
+    FOREIGN KEY (`fk_id_bairro`) REFERENCES bairros(`id_bairro`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
