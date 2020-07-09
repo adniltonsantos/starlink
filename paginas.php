@@ -9,6 +9,74 @@ switch($_GET['pg']){
 		include "nav/clientes-correcao.php";
 		break;
 
+		//Clientes
+		case'clientes-agendar';
+		include "nav/clientes-agendar.php";
+		break;
+
+		
+		//Clientes
+		case'clientes-by-tecnicos-all';
+		include "nav/clientes-by-tecnicos-all.php";
+		break;
+
+		//Clientes
+		case'clientes-by-tecnicos-by';
+		include "nav/clientes-by-tecnicos-by.php";
+		break;
+
+
+		//Clientes
+		case'clientes-by-tecnicos-today';
+		include "nav/clientes-by-tecnicos-today.php";
+		break;
+		
+		//Clientes - Concluido
+		case'clientes-concluido-today';
+		include "nav/clientes-concluido-today.php";
+		break;
+
+		//Clientes - Concluido
+		case'clientes-concluido-all';
+		include "nav/clientes-concluido-all.php";
+		break;
+
+		//Clientes - Concluido
+		case'clientes-concluido-tecnico';
+		include "nav/clientes-concluido-tecnico.php";
+		break;
+		
+		//Clientes - Concluido
+		case'clientes-cto';
+		include "nav/clientes-cto.php";
+		break;
+
+		//Clientes - Concluido
+		case'clientes-cancelou';
+		include "nav/clientes-cancelou.php";
+		break;
+
+		//Clientes - Concluido
+		case'clientes-indis';
+		include "nav/clientes-indis.php";
+		break;
+
+		//Clientes - Concluido
+		case'clientes-rede';
+		include "nav/clientes-rede.php";
+		break;
+
+		//Clientes - Concluido
+		case'clientes-rc';
+		include "nav/clientes-rc.php";
+		break;
+
+		//Producao - Terceiros
+		case'producao-terceiros';
+		include "nav/producao-terceiros.php";
+		break;
+				
+				
 		//Fluxo de Caixa
 		case'fluxo-caixa';
 		include "nav/fluxo-caixa.php";

@@ -109,10 +109,12 @@ $confirmacao->bindValue(':senha',$senha , PDO::PARAM_STR);
 $confirmacao->execute();
 $linha = $confirmacao->fetch(PDO::FETCH_ASSOC);
 $setor = $linha['setor'];
+$idusuario = $linha['idusuario'];
 $linha = $confirmacao ->rowCount();
 
 if ($linha == 1 ){
 
+    setcookie ("idusuario", $idusuario);
     setcookie ("usuario", $usuario);
     setcookie ("senha", $senha);
     setcookie ("setor", $setor);

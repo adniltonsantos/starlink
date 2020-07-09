@@ -211,7 +211,7 @@ if (isset($_GET['migration'])){
     $referencia= $linha['referencia'];
     $fk_id_bairro= $linha['bairro'];
     $celular= $linha['celular'];
-    $tipo= NULL;
+    $tipo= 'NULL';
     $status_cliente= "aguardando-tipo";
       
     $sql .= "('$cod_cliente','$data_cadastro','$nome','$endereco','$referencia','$celular','$tipo','$status_cliente','$fk_id_bairro'),";
@@ -230,7 +230,7 @@ if (isset($_GET['migration'])){
     echo 'alert("Arquivo Processado com Sucesso")';
     echo '</script>'; 
 
-    echo "<script>location.href='?pg=clientes-tipo'</script>";
+    echo "<script>location.href='?pg=clientes-correcao'</script>";
 }
 ?>
 
