@@ -86,18 +86,19 @@ $setor = $linha['setor'];
          <li><a href='#'>Clientes</a>
                 <ul class="dropdown-sub"> 
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-correcao">Correção</a></li>
-                    <li class="dropdown-sub-menu"><a href="?pg=clientes-correcao">Pesquisar</a></li>
+                    <li class="dropdown-sub-menu"><a href="?pg=clientes-pesquisa">Pesquisar</a></li>
                  </ul> 
             </li>
             <li><a href='?pg=clientes-agendar'>Agendar</a></li>
             <li><a href='#'>Agendados</a>
             <ul class="dropdown-sub"> 
+                    <li class="dropdown-sub-menu"><a href="?pg=clientes-by-agendamento">Marcio</a></li>
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-by-tecnicos-today">Hoje</a></li>
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-by-tecnicos-all&between&data=<?php echo date('Y-m-d')?>&data2=<?php echo date('Y-m-d')?>">Geral</a></li>
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-by-tecnicos-by&between&data=<?php echo date('Y-m-d')?>&data2=<?php echo date('Y-m-d')?>">Por Técnico</a></li>
                  </ul> 
             </li>
-            <li><a href='?pg=clientes-concluido&selecionado'>Concluidos</a>
+            <li><a href=''>Concluidos</a>
             <ul class="dropdown-sub"> 
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-concluido-today">Hoje</a></li>
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-concluido-all">Geral</a></li>
@@ -127,6 +128,15 @@ $setor = $linha['setor'];
 <?php } ?>
 
 
+<?php if($setor == 'agendamento'){ ?>
+   <nav id="menu">
+        <ul>
+            <li><a href='?pg=cliente-agendar'>Agendar</a></li>      
+            <li><a href='?pg=cliente-sem-contato'>Sem Contato</a></li>    
+            <li><a href='?pg=cliente-whats'>Aguardando Whats App</a></li>                           
+         </ul>
+   </nav>
+<?php } ?>
 
 
 <div class="version">Versão do Sistema 3.0</div>

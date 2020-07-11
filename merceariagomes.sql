@@ -15,6 +15,7 @@ CREATE TABLE `tecnicos` (
   `id_tecnico` int(11) NOT NULL AUTO_INCREMENT,
   `nome` text NOT NULL,
   `status` varchar(15) NOT NULL,
+  `tipo` varchar(55) NOT NULL,
   PRIMARY KEY (`id_tecnico`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -129,7 +130,7 @@ CREATE TABLE `instalacoes` (
 
 CREATE TABLE `comentarios` (
   `id_comentario` int(11) NOT NULL AUTO_INCREMENT,
-  `comatario` text NOT NULL,
+  `comentario` text NOT NULL,
   `data_comentario` datetime NOT NULL,
   `fk_id_usuario` int(11) NOT NULL,
   `fk_id_cliente` int(11) NOT NULL,

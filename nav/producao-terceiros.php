@@ -50,21 +50,7 @@
         $data = $_GET['data'];  
         $data2 = $_GET['data2'];
 
-        /* $finalizadosql = $pdo->prepare("SELECT * from instalacoes as i
-            GROUP BY fk_id_tecnico
-          -- INNER JOIN tecnicos as t on i.fk_id_tecnico=t.id_tecnico
-          -- GROUP BY i.fk_id_tecnico
-          -- WHERE i.status_agendamento='finalizado' OR i.status_agendamento='finalizado2' AND
-          -- DATE(data_fechamento) BETWEEN '$data' AND '$data2'
-          
-        ");
-        // -- INNER JOIN tecnicos as t ON i.fk_id_tecnico=t.id_tecnico
-        // -- WHERE i.status_agendamento='finalizado' AND
-        // -- DATE(data_fechamento) BETWEEN '$data' AND '$data2'
-        // $finalizadosql->execute();
-
-        */
-        $tecnicossql = $pdo->prepare("SELECT * FROM tecnicos");
+        $tecnicossql = $pdo->prepare("SELECT * FROM tecnicos WHERE tipo='terceiro'");
         $tecnicossql->execute();
       
   

@@ -3,12 +3,33 @@
 if(isset($_GET['pg'])){
 
 switch($_GET['pg']){
+		//Clientes
+		case'cliente-agendar';
+		include "nav/cliente-agendar.php";
+		break;
+
+		//Clientes
+		case'cliente-sem-contato';
+		include "nav/cliente-sem-contato.php";
+		break;
+		//Clientes
+		case'cliente-whats';
+		include "nav/cliente-whats.php";
+		break;
 		
+		//Clientes
+		case'clientes-by-agendamento';
+		include "nav/clientes-by-agendamento.php";
+		break;
+
 		//Clientes
 		case'clientes-correcao';
 		include "nav/clientes-correcao.php";
 		break;
-
+		//Clientes
+		case'clientes-pesquisa';
+		include "nav/clientes-pesquisa.php";
+		break;
 		//Clientes
 		case'clientes-agendar';
 		include "nav/clientes-agendar.php";
