@@ -78,9 +78,10 @@ location.href = src;
         <thead>
         <tr>
         <th>O.S</th>
+        <th>COD</th>
         <th>Nome do Cliente</th>
-        <th>Nome do Técnico</th>
-        <th>Data</th>
+        <th>Data do Agendamento</th>
+        <th>Data do Encerramento</th>
         </tr>
         </thead>
        
@@ -104,11 +105,13 @@ location.href = src;
 
         <tr>
         <td><?php echo $linha['id_instalacao']?></td>
+        <td><?php echo $linha['cod_cliente']?></td>
         <td><?php echo $linha['nomeCliente']?></td>
-        <td><?php echo $linha['nome']?></td>
         <td><?php $data = str_replace("/", "-", $linha['data_agendamento']);
         echo date('d/m/Y', strtotime($data))?></td>
-         </tr>
+        <td><?php $data = str_replace("/", "-", $linha['data_fechamento']);
+        echo date('d/m/Y', strtotime($data))?></td>
+        </tr>
        
 <?php } }?>
 </table>

@@ -50,8 +50,7 @@
         <td><?php echo $linha['cod_cliente']?></td>
         <td><?php echo $linha['nomeCliente']?></td>
         <td><?php echo $linha['nome']?></td>
-        <td><?php $data = str_replace("/", "-", $linha['data_agendamento']);
-        echo date('d/m/Y', strtotime($data))?></td>
+        <td><?php $dataBR = dataBR($linha['data_agendamento']);?></td>
         <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal1<?php echo $linha['id_instalacao']?>" class="glyphicon glyphicon-ok-sign" title="Finalizar" data-toggle="tooltip"></a></td> 
         <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal2<?php echo $linha['id_instalacao']?>" class="glyphicon glyphicon-info-sign" title="Resolução" data-toggle="tooltip"></a></td>
         <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal3<?php echo $linha['id_instalacao']?>" class="glyphicon glyphicon-transfer" title="Transferir" data-toggle="tooltip"></a></td> 
@@ -71,6 +70,7 @@
       <div style="padding:20px">
           <form method="POST" id="finalizar<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-by-tecnicos-today&selecionado&finalizar">
             <input type="hidden" name="os" value="<?php echo $linha['id_instalacao'] ?>">
+            <input type="hidden" name="id_cliente" value="<?php echo $linha['id_cliente'] ?>">
             Tem certeza que deseja finalizar a o.s de nº <strong><?php echo $linha['id_instalacao']; ?></strong> ?
           
           <?php 
@@ -230,9 +230,14 @@ document.getElementById("myForm").submit();
 
   $os =  $_POST['os'];
   $status_agendamento =  $_POST['status_agendamento'];
+  $id_cliente =  $_POST['id_cliente'];
   $data_fechamento = date('Y-m-d');
-  $sql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='$status_agendamento' , data_fechamento='$data_fechamento' WHERE id_instalacao='$os'");
+  $sql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='finalizado' , data_fechamento='$data_fechamento' WHERE id_instalacao='$os'");
   $sql->execute();
+
+  $cliente = $pdo->prepare("UPDATE clientes SET status_cliente='ativo' WHERE id_cliente='$id_cliente'");
+  $cliente->execute();
+  
   echo "<script>location.href='?pg=clientes-by-tecnicos-today&selecionado'</script>"; 
  } ?>
 

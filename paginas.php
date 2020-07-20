@@ -3,54 +3,37 @@
 if(isset($_GET['pg'])){
 
 switch($_GET['pg']){
-		//Clientes
-		case'cliente-agendar';
-		include "nav/cliente-agendar.php";
+	// SETOR ATENDIMENTO
+		// Cadastra Transferência
+		case'cliente-inseri-transf';
+		include "nav/atendimento/cliente-inseri-transf.php";
 		break;
 
+	// SETOR DE AGENDAMENTO
+		case'cliente-agendar';
+		include "nav/agendamento/cliente-agendar.php";
+		break;
+
+		case'cliente-transferencia';
+		include "nav/agendamento/cliente-transferencia.php";
+		break;
 		//Clientes
 		case'cliente-sem-contato';
 		include "nav/cliente-sem-contato.php";
 		break;
 		//Clientes
 		case'cliente-whats';
-		include "nav/cliente-whats.php";
+		include "nav/agendamento/cliente-whats.php";
 		break;
 		
-		//Clientes
-		case'clientes-by-agendamento';
-		include "nav/clientes-by-agendamento.php";
-		break;
 
-		//Clientes
-		case'clientes-correcao';
-		include "nav/clientes-correcao.php";
-		break;
+
 		//Clientes
 		case'clientes-pesquisa';
 		include "nav/clientes-pesquisa.php";
 		break;
-		//Clientes
-		case'clientes-agendar';
-		include "nav/clientes-agendar.php";
-		break;
-
-		
-		//Clientes
-		case'clientes-by-tecnicos-all';
-		include "nav/clientes-by-tecnicos-all.php";
-		break;
-
-		//Clientes
-		case'clientes-by-tecnicos-by';
-		include "nav/clientes-by-tecnicos-by.php";
-		break;
 
 
-		//Clientes
-		case'clientes-by-tecnicos-today';
-		include "nav/clientes-by-tecnicos-today.php";
-		break;
 		
 		//Clientes - Concluido
 		case'clientes-concluido-today';
@@ -67,30 +50,7 @@ switch($_GET['pg']){
 		include "nav/clientes-concluido-tecnico.php";
 		break;
 		
-		//Clientes - Concluido
-		case'clientes-cto';
-		include "nav/clientes-cto.php";
-		break;
 
-		//Clientes - Concluido
-		case'clientes-cancelou';
-		include "nav/clientes-cancelou.php";
-		break;
-
-		//Clientes - Concluido
-		case'clientes-indis';
-		include "nav/clientes-indis.php";
-		break;
-
-		//Clientes - Concluido
-		case'clientes-rede';
-		include "nav/clientes-rede.php";
-		break;
-
-		//Clientes - Concluido
-		case'clientes-rc';
-		include "nav/clientes-rc.php";
-		break;
 
 		//Producao - Terceiros
 		case'producao-terceiros';
@@ -214,14 +174,64 @@ switch($_GET['pg']){
 		include "nav/perfil.php";
 		break;
 
+	// GERENTE DE AGENDAMENTO
+	
+		case'clientes-correcao';
+		include "nav/gerente-agendamento/clientes-correcao.php";
+		break;
+
+		case'clientes-agendar';
+		include "nav/gerente-agendamento/clientes-agendar.php";
+		break;
+
+		case'clientes-by-agendamento';
+		include "nav/gerente-agendamento/clientes-by-agendamento.php";
+		break;
+
+		case'clientes-by-tecnicos-today';
+		include "nav/gerente-agendamento/clientes-by-tecnicos-today.php";
+		break;
+
+		case'clientes-by-tecnicos-all';
+		include "nav/gerente-agendamento/clientes-by-tecnicos-all.php";
+		break;
+
+		case'clientes-by-tecnicos-by';
+		include "nav/gerente-agendamento/clientes-by-tecnicos-by.php";
+		break;
+
+		case'clientes-rede';
+		include "nav/gerente-agendamento/clientes-rede.php";
+		break;
+
+		case'clientes-rc';
+		include "nav/gerente-agendamento/clientes-rc.php";
+		break;
+
+		case'clientes-indis';
+		include "nav/gerente-agendamento/clientes-indis.php";
+		break;
+
+		case'clientes-cto';
+		include "nav/gerente-agendamento/clientes-cto.php";
+		break;
+
+		case'clientes-cancelou';
+		include "nav/gerente-agendamento/clientes-cancelou.php";
+		break;
+
+		case'clientes-transferencias';
+		include "nav/gerente-agendamento/clientes-transferencias.php";
+		break;
+
 		//Import XLS
 		case'import-xls';
-		include "nav/import-xls.php";
+		include "nav/gerente-agendamento/import-xls.php";
 		break;
 
 		//Import XLS
 		case'import-validar';
-		include "nav/import-validar.php";
+		include "nav/gerente-agendamento/import-validar.php";
 		break;
 		//Import XLS
 		case'import-consulta';

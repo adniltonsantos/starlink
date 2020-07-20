@@ -22,7 +22,6 @@
         <th>COD</th>
         <th>Nome do Cliente</th>
         <th>Data do Contrato</th>
-        <th>Fechamento</th>
         </tr>
         </thead>
        
@@ -40,8 +39,6 @@
         <tr>
         <td><?php echo $linha['cod_cliente']?></td>
         <td><?php echo $linha['nome']?></td>
-        <td><?php $data = str_replace("/", "-", $linha['data_cadastro']);
-        echo date('d/m/Y', strtotime($data))?></td>
         <td><?php $data = str_replace("/", "-", $linha['data_cadastro']);
         echo date('d/m/Y', strtotime($data))?></td>
         </tr>

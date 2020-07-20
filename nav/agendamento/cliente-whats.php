@@ -4,7 +4,7 @@
 
 <div id="janela">
 
-<legend>Lista de clientes com indisponibilidade</legend>
+<legend>Clientes Aguardando Retorno do Whats</legend>
 
 <!-- Formulario de Pesquisa em Jquery-->
 <form method="post" action="exemplo.html" class="pesquise" >     
@@ -18,23 +18,17 @@
 
         <thead>
         <tr>
-        <th>O.S</th>
         <th>COD</th>
         <th>Nome do Cliente</th>
-        <th>Técnico</th>
-        <th>Pedido</th>
-        <th>Fechamento</th>
+        <th></th>
         </tr>
         </thead>
        
        <?php 
-   
+
       
-        $agendadosql = $pdo->prepare("SELECT *, c.nome as nomeCliente from instalacoes as i 
-        INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente
-        INNER JOIN tecnicos as t ON i.fk_id_tecnico=t.id_tecnico
-        WHERE status_agendamento='INDIS' 
-        ORDER BY i.data_agendamento ASC ");
+      
+        $agendadosql = $pdo->prepare("SELECT * from clientes WHERE status_cliente='whats' AND tipo='res' ORDER BY data_cadastro ASC ");
       
         $agendadosql->execute();
         while($linha = $agendadosql->fetch(PDO::FETCH_ASSOC)){
@@ -42,15 +36,41 @@
         ?>
 
         <tr>
-        <td><?php echo $linha['id_instalacao']?></td>
         <td><?php echo $linha['cod_cliente']?></td>
-        <td><?php echo $linha['nomeCliente']?></td>
         <td><?php echo $linha['nome']?></td>
-        <td><?php $data = str_replace("/", "-", $linha['data_agendamento']);
-        echo date('d/m/Y', strtotime($data))?></td>
-        <td><?php $data = str_replace("/", "-", $linha['data_fechamento']);
-        echo date('d/m/Y', strtotime($data))?></td>
+        <td class="centro-table"><a href="?pg=cliente-whats&id_cliente=<?php echo $linha['id_cliente'];?>"><div aria-hidden="true" data-toggle="modal" data-target="#myModal<?php echo $linha['id_cliente']?>" class="glyphicon glyphicon-time"></div></td>
         </tr>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal<?php echo $linha['id_cliente']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+<?php echo $linha['cod_cliente']?> - <?php echo $linha['nome']?>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    
+     </div>
+
+      <form method="POST" id="agendar<?php echo $linha['id_cliente'];?>" action="?pg=cliente-whats&update">
+          <input type="hidden" name="id_cliente" value="<?php echo $linha['id_cliente']?>">
+         
+          <div style="padding:20px">
+          
+           <br />
+          <label for="">Data de Instalação</label>
+          <input style="width:200px" required name="data" type="date" class="form-control">
+          
+            <br />
+            <button onclick="document.getElementById('agendar<?php echo $linha['id_cliente'];?>').submit()"; class="btn btn-primary">OK</button></div>    
+          </form>
+       
+
+    </div>
+  </div>
+</div>
 
 <?php }?>
 </table>
@@ -59,6 +79,27 @@
 
 </div><!-- Fecha Id Janela-->
 </section>
+
+
+<?php 
+if (isset($_GET['update'])){
+
+    $data = $_POST['data'];
+    $fk_id_cliente = $_POST['id_cliente'];
+    $idusuario = $_COOKIE["idusuario"];
+
+
+    $insertsql = $pdo->prepare("INSERT INTO instalacoes (fk_id_usuario,fk_id_tecnico,fk_id_cliente,data_agendamento,status_agendamento) values
+    ('$idusuario','0','$fk_id_cliente','$data','agendado') ");
+    $insertsql->execute();
+    
+    $updatesql = $pdo->prepare("UPDATE clientes SET status_cliente='agendado' WHERE id_cliente='$fk_id_cliente' ");
+    $updatesql->execute();
+
+  echo "<script>location.href='?pg=cliente-whats'</script>";  
+}
+?>
+
 
 <script LANGUAGE="Javascript">  
 

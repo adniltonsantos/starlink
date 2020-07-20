@@ -1,18 +1,10 @@
 <?php require_once "config.php"; $pdo = conectar(); require_once "function.php";?>
 
 
-<!-- <script>
-function Redireciona(obj)
-{
-var src = "?pg=clientes-agendar&selecionado&tipo="+obj.value;
-location.href = src;
-}
-</script> -->
-
 <section>
 <div id="janela">
 <div id="conteudo">
-
+<legend>Transferência</legend>
 <table class="table table-hover">
         <label for="">Grade de Agendamentos</label>
         <thead>
@@ -34,11 +26,12 @@ location.href = src;
   <td><span style="color:white;background:#836FFF	; padding:8px 15px">Setor 0<?php echo $setor='1'?></span></td>
   
   <?php 
+  $tipo = $_GET['tipo'];
   $dataHoje = date('Y-m-d');
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -48,7 +41,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -57,7 +50,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -66,7 +59,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -75,7 +68,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -84,7 +77,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -93,7 +86,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -102,7 +95,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -116,7 +109,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -126,7 +119,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -135,7 +128,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -144,7 +137,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -153,7 +146,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -162,7 +155,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -171,7 +164,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -180,7 +173,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -194,7 +187,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -204,7 +197,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -213,7 +206,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -222,7 +215,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -231,7 +224,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -240,7 +233,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -249,7 +242,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -258,78 +251,56 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
 </tr>
 
-
 </table>
-<?php 
 
-$tipo = 'res';
-$consulta = $pdo->prepare("SELECT *, c.nome as nomeCliente , b.nome as nomeBairro from clientes as c INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro WHERE c.tipo='$tipo' AND c.status_cliente='aguardando-agendamento' ORDER BY c.data_cadastro ASC");
-$consulta->execute();
-$linha = $consulta->fetch(PDO::FETCH_ASSOC)
-?>
 
-<div class="panel panel-default">
-  <!-- Default panel contents -->
-  <div class="panel-heading">
-    <?php echo $linha['cod_cliente']?> - <?php echo $linha['nomeCliente']?>
-    <?php 
-      $setor = $linha['fk_id_setor'];
-      if($setor == 1){ ?>
-          <span style="color:white;background:#836FFF	; padding:5px 10px; float:right; margin-top:-5px;border-radius:80px;">Setor 01</span>
-        <?php } ?>
- 
-    <?php 
-      $setor = $linha['fk_id_setor'];
-      if($setor == 2){ ?>
-          <span style="color:white;background:#4682B4	; padding:5px 10px; float:right; margin-top:-5px;border-radius:80px;">Setor 02</span>
-        <?php } ?>
-   
-    <?php 
-      $setor = $linha['fk_id_setor'];
-      if($setor == 3){ ?>
-          <span style="color:white;background:#BC8F8F	; padding:5px 10px; float:right; margin-top:-5px;border-radius:80px;">Setor 03</span>
-        <?php } ?>
-    </div>
-  
-  <!-- <div class="panel-body">
-  </div> -->
+<table class="table table-hover">
 
-  <!-- List group -->
-  <ul class="list-group">
-    <li class="list-group-item"><strong>BAIRRO : </strong><?php echo $bairro = $linha['nomeBairro']?></li>
-    <li class="list-group-item"><strong>ENDEREÇO : </strong><?php echo $bairro = $linha['endereco']?></li>
-    <li class="list-group-item"><strong>REFERENCIA : </strong><?php echo $bairro = $linha['referencia']?></li>
-    <li class="list-group-item"><strong>CELULAR  : </strong><?php echo $bairro = $linha['celular']?></li>
-    <li class="list-group-item">
-      <button type="button" class="btn btn-primary btn-sm" aria-hidden="true" data-toggle="modal" data-target="#myModal<?php echo $linha['id_cliente']?>"><div>Agendar</button>
-      
-      <button type="button" class="btn btn-info btn-sm" aria-hidden="true" data-toggle="modal" data-target="#myModal2<?php echo $linha['id_cliente']?>"><div>Comentário 
-      <?php 
-      $id_cliente = $linha['id_cliente'];
-      $comentariosql = $pdo->prepare("SELECT * from comentarios WHERE fk_id_cliente='$id_cliente'");
-      $comentariosql->execute(); 
-      if($comentariosql->rowCount() > 0){ ?> 
-      <span class="glyphicon glyphicon-eye-open" style="margin:0px 0 0 5px"></span>
-      <?php } ?>
-      </button>
-      
-      <a href="?pg=cliente-agendar&whats&id_cliente=<?php echo $linha['id_cliente'];?>"><button type="button" class="btn btn-success btn-sm">Whats APP</button></a>
-   
-      <a href="?pg=cliente-agendar&sem-contato&id_cliente=<?php echo $linha['id_cliente'];?>" onclick="if (! confirm('Deseja marcar o cliente como Sem Contato ? ')) { return false; }"><button type="button" class="btn btn-danger btn-sm">Sem Contato</button></a>
-      </li>
-
-  </ul>
-</div>
-
+    <thead>
+    <tr>
+    <th>Cod</th>
+    <th>Nome</th>
+    <th>Bairro</th>
+    <th>Data Limite para Agendar</th>
+    <th colspan="2">Funções</th>
+    </tr>
+    </thead>
 
      
-    
+    <?php 
+
+    $consulta = $pdo->prepare("SELECT *, c.nome as nomeCliente , b.nome as nomeBairro FROM instalacoes as i
+    INNER JOIN clientes as c ON c.id_cliente=i.fk_id_cliente
+    INNER JOIN bairros as b ON b.id_bairro=c.fk_id_bairro
+    WHERE i.tipo_instalacao='transfres' AND i.status_agendamento='agendar'
+    ");
+    $consulta->execute();
+    while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){ ?>
+    <tr>
+    <td><?php echo $linha['cod_cliente']?></span></td>
+    <td><?php echo $linha['nomeCliente']?></span></td>
+    <td><?php echo $bairro = $linha['nome']?></span></td>
+    <td><?php echo $dataBR = dataBR($linha['data_cadastro']);?></span></td>
+    <td class="centro-table"><a href="?pg=cliente-transferencia&id_cliente=<?php echo $linha['id_cliente'];?>"><div aria-hidden="true" data-toggle="modal" data-target="#myModal<?php echo $linha['id_cliente']?>" class="glyphicon glyphicon-time"></div></td>
+    <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal5<?php echo $linha['id_cliente']?>"  title="Comentário" data-toggle="tooltip">
+        <?php 
+          $id_cliente = $linha['id_cliente'];
+          $comentariosql = $pdo->prepare("SELECT * from comentarios WHERE fk_id_cliente='$id_cliente'");
+          $comentariosql->execute(); 
+          if($comentariosql->rowCount() > 0){ ?> 
+        <span class="glyphicon glyphicon-comment" style="color:red"></span>
+        <?php } else { ?>
+
+        <span class="glyphicon glyphicon-comment"></span>
+        <?php } ?>
+        </a></td>
+    </tr>
 
 
 <!-- Modal -->
@@ -338,32 +309,53 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC)
     <div class="modal-content">
 
       <div class="modal-header">
-<?php echo $linha['cod_cliente']?> - <?php echo $linha['nomeCliente']?>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    
-     </div>
+        <h4 class="modal-title" id="myModalLabel"><?php echo $linha['nomeCliente']?></h4>
+      </div>
 
-      <form method="POST" id="agendar<?php echo $linha['id_cliente'];?>" action="?pg=cliente-agendar&update">
+
+      <form method="POST" name="enviar" action="?pg=cliente-transferencia&update">
           <input type="hidden" name="id_cliente" value="<?php echo $linha['id_cliente']?>">
+          <input type="hidden" name="tipo" value="<?php echo $_GET['tipo']?>">
          
           <div style="padding:20px">
           
-           <br />
-          <label for="">Data de Instalação</label>
-          <input style="width:200px" required name="data" type="date" class="form-control">
-          
-            <br />
-            <button onclick="document.getElementById('agendar<?php echo $linha['id_cliente'];?>').submit()"; class="btn btn-primary">OK</button></div>    
+
+          <ul class="list-group">
+          <li class="list-group-item disabled">Dados do Integrator</li>
+          <li class="list-group-item">Bairro : <?php echo $linha['nomeBairro']?> </li>
+          <li class="list-group-item">Endereço: <?php echo $linha['endereco']?></li>
+          <li class="list-group-item">Referência: <?php echo $linha['referencia']?></li>
+          <li class="list-group-item">Celular: <?php echo $linha['celular']?></li>
+          <li class="list-group-item">Outro Celular: <?php echo $linha['celular2']?></li>
+          <li class="list-group-item">Telefone: <?php echo $linha['telefone']?></li>
+          </ul>
+
+          <div class="form-row">
+
+
+            <div class="form-group col-md-12">
+              <label for="">Data de Instalação</label>
+              <input  required name="data" type="date" class="form-control">
+            </div>
+        </div>
+        
+
+        <button onclick="return validar();" class="btn btn-primary">Agendar</button>  
+
+              
+        </div>    
           </form>
-       
+
 
     </div>
   </div>
 </div>
 
 
+
 <!-- Modal -->
-<div class="modal fade" id="myModal2<?php echo $linha['id_cliente']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal5<?php echo $linha['id_cliente']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
 
@@ -374,9 +366,9 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC)
      </div>
      <div style="padding:20px">
 
-      <form method="POST" id="comentario<?php echo $linha['id_cliente'];?>" action="?pg=cliente-agendar&comentario">
+      <form method="POST" id="comentario<?php echo $linha['id_cliente'];?>" action="?pg=cliente-transferencia&comentario">
           <input type="hidden" name="id_cliente" value="<?php echo $id_cliente = $linha['id_cliente']?>">
-         
+          <input type="hidden" name="tipo" value="<?php echo $_GET['tipo']?>">
           
           
           <label for="">Comentário</label>
@@ -387,7 +379,9 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC)
 
           <ul class="list-group"style="margin:10px">
           <?php 
-            $comentariosql = $pdo->prepare("SELECT * from comentarios WHERE fk_id_cliente='$id_cliente' ORDER BY data_comentario DESC");
+            $comentariosql = $pdo->prepare("SELECT * from comentarios as c INNER JOIN 
+            usuarios as u ON u.idusuario = c.fk_id_usuario
+            WHERE c.fk_id_cliente='$id_cliente' ORDER BY c.data_comentario DESC");
             $comentariosql->execute();
              while($linha = $comentariosql->fetch(PDO::FETCH_ASSOC)){
             
@@ -400,7 +394,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC)
                 echo date('d/m/Y H:i:s', strtotime($data))?>
               </div>
              
-              <div class="badge" style="background:#6495ED">escrito por : Adnilton</div></li>
+              <div class="badge" style="background:#6495ED">escrito por : <?php echo $linha['usuario'];?></div></li>
   
                  
       <?php } ?>
@@ -411,29 +405,34 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC)
   </div>
 </div>
 
+<?php }  ?>
 
+</table>
+  
 
+<!-- Atualizando o cliente com o bairro correto -->
 <?php 
 if (isset($_GET['update'])){
 
     $data = $_POST['data'];
     $fk_id_cliente = $_POST['id_cliente'];
     $idusuario = $_COOKIE["idusuario"];
+    $tipo = $_POST['tipo'];
 
-
-    $insertsql = $pdo->prepare("INSERT INTO instalacoes (fk_id_usuario,fk_id_tecnico,fk_id_cliente,data_agendamento,status_agendamento) values
-    ('$idusuario','0','$fk_id_cliente','$data','agendado') ");
+    $insertsql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='agendado',fk_id_tecnico='0',data_agendamento='$data' WHERE fk_id_cliente='$fk_id_cliente'");
     $insertsql->execute();
     
     $updatesql = $pdo->prepare("UPDATE clientes SET status_cliente='agendado' WHERE id_cliente='$fk_id_cliente' ");
     $updatesql->execute();
 
-  echo "<script>location.href='?pg=cliente-agendar'</script>";  
+  echo "<script>location.href='?pg=cliente-transferencia&selecionado&tipo=$tipo'</script>";  
 }
 ?>
 
+
 <?php 
 if (isset($_GET['comentario'])){
+    $tipo = $_POST['tipo'];
 
     $comentario = $_POST['comentario'];
     $data = date('Y-m-d H:i:s');
@@ -444,34 +443,7 @@ if (isset($_GET['comentario'])){
     values ('$comentario','$data','$idusuario','$id_cliente')");
     $comentsql->execute();
 
-    echo "<script>location.href='?pg=cliente-agendar'</script>"; 
-}
-?>
-
-<?php 
-if (isset($_GET['sem-contato'])){
-
-
-    $fk_id_cliente = $_GET['id_cliente'];
-    $idusuario = $_COOKIE["idusuario"];
-
-    $updatesql = $pdo->prepare("UPDATE clientes SET status_cliente='sem-contato' WHERE id_cliente='$fk_id_cliente' ");
-    $updatesql->execute();
-   
-    echo "<script>location.href='?pg=cliente-agendar'</script>"; 
-}
-?>
-<?php 
-if (isset($_GET['whats'])){
-
-
-    $fk_id_cliente = $_GET['id_cliente'];
-    $idusuario = $_COOKIE["idusuario"];
-
-    $updatesql = $pdo->prepare("UPDATE clientes SET status_cliente='whats' WHERE id_cliente='$fk_id_cliente' ");
-    $updatesql->execute();
-   
-    echo "<script>location.href='?pg=cliente-agendar'</script>"; 
+    echo "<script>location.href='?pg=cliente-transferencia&selecionado&tipo=$tipo'</script>";  
 }
 ?>
 

@@ -23,8 +23,8 @@
         <th>COD</th>
         <th>Nome do Cliente</th>
         <th>Técnico</th>
-        <th>Pedido</th>
-        <th>Fechamento</th>
+        <th>Data do Agendamento</th>
+        <th>Data do Encerramento</th>
         </tr>
         </thead>
        

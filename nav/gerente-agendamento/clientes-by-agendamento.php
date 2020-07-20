@@ -47,89 +47,27 @@
         <td><?php echo $linha['id_instalacao']?></td>
         <td><?php echo $linha['cod_cliente']?></td>
         <td><?php echo $linha['nomeCliente']?></td>
-        <td><?php $data = str_replace("/", "-", $linha['data_cadastro']);
-        echo date('d/m/Y', strtotime($data))?></td>
-        <td><?php $data = str_replace("/", "-", $linha['data_agendamento']);
-        echo date('d/m/Y', strtotime($data))?></td>
-        <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal1<?php echo $linha['id_instalacao']?>" class="glyphicon glyphicon-ok-sign" title="Finalizar" data-toggle="tooltip"></a></td> 
-        <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal2<?php echo $linha['id_instalacao']?>" class="glyphicon glyphicon-info-sign" title="Resolução" data-toggle="tooltip"></a></td>
-        <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal3<?php echo $linha['id_instalacao']?>" class="glyphicon glyphicon-transfer" title="Transferir" data-toggle="tooltip"></a></td> 
-        <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal4<?php echo $linha['id_instalacao']?>" class="glyphicon glyphicon glyphicon-time" title="Reagendar" data-toggle="tooltip"></a></td>
+        <td><?php echo $dataBR = dataBR($linha['data_cadastro']);?></td>
+        <td><?php echo $dataBRagendamento = dataBR($linha['data_agendamento']);?></td>
+        <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal1<?php echo $linha['id_instalacao']?>" class="glyphicon glyphicon-transfer" title="Transferir" data-toggle="tooltip"></a></td> 
+        <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal2<?php echo $linha['id_instalacao']?>" class="glyphicon glyphicon glyphicon-time" title="Reagendar" data-toggle="tooltip"></a></td>
+        <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal3<?php echo $linha['id_instalacao']?>"  title="Comentário" data-toggle="tooltip">
+        <?php 
+          $id_cliente = $linha['id_cliente'];
+          $comentariosql = $pdo->prepare("SELECT * from comentarios WHERE fk_id_cliente='$id_cliente'");
+          $comentariosql->execute(); 
+          if($comentariosql->rowCount() > 0){ ?> 
+        <span class="glyphicon glyphicon-comment" style="color:red"></span>
+        <?php } else { ?>
+
+        <span class="glyphicon glyphicon-comment"></span>
+        <?php } ?>
+        </a></td>
         </tr>
+
 
   <!-- Modal -->
   <div class="modal fade" id="myModal1<?php echo $linha['id_instalacao']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Finalizar - <?php echo $linha['nomeCliente']?></h4>
-      </div>
-
-      <div style="padding:20px">
-          <form method="POST" id="finalizar<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-by-tecnicos-today&selecionado&finalizar">
-            <input type="hidden" name="os" value="<?php echo $linha['id_instalacao'] ?>">
-            Tem certeza que deseja finalizar a o.s de nº <strong><?php echo $linha['id_instalacao']; ?></strong> ?
-          
-          <?php 
-            $id_instalacao = $linha['id_instalacao'];
-            $sqltipo = $pdo->prepare("SELECT tipo from instalacoes as i INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente WHERE id_instalacao = '$id_instalacao'");
-            $sqltipo->execute();
-            $tipo = $sqltipo->fetch(PDO::FETCH_ASSOC);
-   
-            if($tipo['tipo'] == 'cond'){  ?>
-              <br /><br />
-              <select class="form-control" name="status_agendamento" id="status_agendamento">
-              <option value="finalizado">Normal</option>
-              <option value="finalizado2">Condominio Tubulação</option>
-              </select>
-
-            <?php } ?>
-        
-          <br />
-          <br />
-          <button onclick="document.getElementById('finalizar<?php echo $linha['id_instalacao'];?>').submit()"; class="btn btn-primary">OK</button>  
-          </form>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-  <!-- Modal -->
-<div class="modal fade" id="myModal2<?php echo $linha['id_instalacao']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Resolução - <?php echo $linha['nomeCliente']?></h4>
-      </div>
-      <div style="padding:20px">
-          <form method="POST" id="motivo<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-by-tecnicos-today&selecionado&resolucao">
-            <input type="hidden" name="os" value="<?php echo $linha['id_instalacao'] ?>">
-            <label for="">Motivo</label>
-            <select class="form-control" name="motivo">
-              <option value="CTO">CTO</option>
-              <option value="CANCELOU">CANCELOU</option>
-              <option value="INDIS">INDISPONIBILIDADE</option>
-              <option value="REDE">REDE</option>
-              <option value="RC">RETORNO DE CLIENTE</option>
-            </select>
-          
-
-          <br />
-          <button onclick="document.getElementById('motivo<?php echo $linha['id_instalacao'];?>').submit()"; class="btn btn-primary">OK</button>  
-          </form>
-        
-      </div>
-    </div>
-  </div>
-</div>
-
-  <!-- Modal -->
-  <div class="modal fade" id="myModal3<?php echo $linha['id_instalacao']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -141,7 +79,7 @@
 
       <div style="padding:20px">
       
-          <form method="POST" id="transferencia<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-by-tecnicos-today&selecionado&transferencia">
+          <form method="POST" id="transferencia<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-by-agendamento&transferencia">
           
               <label for="inputEmail4">Técnico </label>
               <input type="hidden" name="os" value="<?php echo $linha['id_instalacao']?>">
@@ -173,7 +111,7 @@
 
 
   <!-- Modal -->
-  <div class="modal fade" id="myModal4<?php echo $linha['id_instalacao']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="myModal2<?php echo $linha['id_instalacao']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -182,7 +120,7 @@
         <h4 class="modal-title" id="myModalLabel"><?php echo $linha['nomeCliente']?></h4>
       </div>
 
-      <form method="POST" id="reagendar<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-by-tecnicos-today&selecionado&reagendar">
+      <form method="POST" id="reagendar<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-by-agendamento&reagendar">
       <input type="hidden" name="os" value="<?php echo $linha['id_instalacao']?>">
 
          
@@ -208,6 +146,62 @@
     </div>
   </div>
 </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal3<?php echo $linha['id_instalacao']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+<?php echo $linha['cod_cliente']?> - <?php echo $linha['nomeCliente']?>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    
+     </div>
+     <div style="padding:20px">
+
+      <form method="POST" id="comentario<?php echo $linha['id_cliente'];?>" action="?pg=clientes-by-agendamento&comentario">
+          <input type="hidden" name="id_cliente" value="<?php echo $id_cliente = $linha['id_cliente']?>">
+         
+          
+          
+          <label for="">Comentário</label>
+          <textarea name="comentario" required cols="30" rows="2" class="form-control"></textarea> 
+            <br />
+            <button onclick="document.getElementById('comentario<?php echo $linha['id_cliente'];?>').submit()"; class="btn btn-primary">Comentar</button></div>    
+          </form>
+
+          <ul class="list-group"style="margin:10px">
+          <?php 
+            $comentariosql = $pdo->prepare("SELECT * from comentarios as c INNER JOIN 
+            usuarios as u ON u.idusuario = c.fk_id_usuario
+            WHERE c.fk_id_cliente='$id_cliente' ORDER BY c.data_comentario DESC");
+            $comentariosql->execute();
+             while($linha = $comentariosql->fetch(PDO::FETCH_ASSOC)){
+            
+          ?>
+            
+              <li class="list-group-item" style="margin-bottom:20px; ">
+              <div style="padding:10px"><?php echo $linha['comentario']?></div>
+              <div class="badge"> 
+                <?php $data = str_replace("/", "-", $linha['data_comentario']);
+                echo date('d/m/Y H:i:s', strtotime($data))?>
+              </div>
+             
+              <div class="badge" style="background:#6495ED">escrito por : <?php echo $linha['usuario'];?></div></li>
+  
+                 
+      <?php } ?>
+      </ul>
+       </div>
+
+    </div>
+  </div>
+</div>
+
+
+
 <?php }?>
 </table>
 
@@ -225,25 +219,6 @@ document.getElementById("myForm").submit();
 </script>  
 
 
-<?php if (isset($_GET['finalizar'])){
-
-  $os =  $_POST['os'];
-  $status_agendamento =  $_POST['status_agendamento'];
-  $data_fechamento = date('Y-m-d');
-  $sql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='$status_agendamento' , data_fechamento='$data_fechamento' WHERE id_instalacao='$os'");
-  $sql->execute();
-  echo "<script>location.href='?pg=clientes-by-tecnicos-today&selecionado'</script>"; 
- } ?>
-
-<?php if (isset($_GET['resolucao'])){
-
-$motivo =  $_POST['motivo'];
-$os = $_POST['os'];
-$sql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='$motivo' WHERE id_instalacao='$os'");
-$sql->execute();
-echo "<script>location.href='?pg=clientes-by-tecnicos-today&selecionado'</script>"; 
-} ?>
-
 <?php if (isset($_GET['transferencia'])){
 
 $id_tecnico =  $_POST['id_tecnico'];
@@ -251,7 +226,7 @@ $os = $_POST['os'];
 $id_usuario = $_COOKIE['idusuario'];
 $sql = $pdo->prepare("UPDATE instalacoes SET fk_id_tecnico='$id_tecnico', fk_id_usuario='$id_usuario' WHERE id_instalacao='$os'");
 $sql->execute();
-echo "<script>location.href='?pg=clientes-by-tecnicos-today&selecionado'</script>"; 
+echo "<script>location.href='?pg=clientes-by-agendamento'</script>"; 
 } ?>
 
 <?php if (isset($_GET['reagendar'])){
@@ -261,9 +236,25 @@ $data_agendamento = $_POST['data_agendamento'];
 $id_usuario = $_COOKIE['idusuario'];
 $sql = $pdo->prepare("UPDATE instalacoes SET data_agendamento='$data_agendamento', fk_id_usuario='$id_usuario' WHERE id_instalacao='$os'");
 $sql->execute();
-echo "<script>location.href='?pg=clientes-by-tecnicos-today&selecionado'</script>"; 
+echo "<script>location.href='?pg=clientes-by-agendamento'</script>"; 
 } ?>
 
+
+<?php 
+if (isset($_GET['comentario'])){
+
+    $comentario = $_POST['comentario'];
+    $data = date('Y-m-d H:i:s');
+    $idusuario = $_COOKIE['idusuario'];
+    $id_cliente = $_POST['id_cliente'];
+   
+    $comentsql = $pdo->prepare("INSERT INTO comentarios (comentario,data_comentario,fk_id_usuario,fk_id_cliente)
+    values ('$comentario','$data','$idusuario','$id_cliente')");
+    $comentsql->execute();
+
+    echo "<script>location.href='?pg=clientes-by-agendamento'</script>"; 
+}
+?>
  <!-- Paginação em Jquery-->
 
     
