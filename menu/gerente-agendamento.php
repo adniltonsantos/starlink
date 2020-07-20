@@ -1,4 +1,5 @@
 
+<?php require_once "config.php"; $pdo = conectar(); require_once "function.php"; ?>
 <?php if($setor == 'adm/agendamento'){ ?>
    <nav id="menu">
         <ul>

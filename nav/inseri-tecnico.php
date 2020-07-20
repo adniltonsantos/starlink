@@ -73,11 +73,12 @@ return false;
 if(isset($_GET['submit'])){
 
 $nome = $_POST['nome']; 
+$tipo = $_POST['tipo']; 
 $status = "ativo";
 
  //Cadastra Cliente
 
-$insert = $pdo->prepare("INSERT INTO tecnicos (nome,status_tecnico) values ('$nome','$status')");
+$insert = $pdo->prepare("INSERT INTO tecnicos (nome,status_tecnico,tipo) values ('$nome','$status','$tipo')");
 $insert->execute();
 
 echo "<script>location.href='?pg=inseri-tecnico&sucesso'</script>"; 
@@ -101,6 +102,14 @@ echo "<script>location.href='?pg=inseri-tecnico&sucesso'</script>";
 <div class="form-group">
 <input type="text" name="nome" class="form-control" placeholder="Nome do Cliente">
 </div>
+
+<div class="form-group">
+<select class="form-control" name="tipo">
+<option value="fixo">Fixo</option>
+<option value="terceiro">Terceiro</option>
+</select>
+</div>
+
 
 <button onclick="return validar();" class="btn btn-primary">Salvar Dados</button>
 

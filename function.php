@@ -1,5 +1,5 @@
 <?php 
-
+include require_once "config.php"; $pdo = conectar();
 // transformar em Real
 function real($var){
 
@@ -29,4 +29,11 @@ function dataBR( $data ){
 	return date('d/m/Y', strtotime($dataBR));
 }
 
+// Soma total Agendar
+
+function totalTransf($value){
+ $transf = $pdo->prepare("SELECT * FROM instalacoes where status_agendamento='$value'");
+ $transf->execute();
+ return $transf->rowCount();
+}
 ?>

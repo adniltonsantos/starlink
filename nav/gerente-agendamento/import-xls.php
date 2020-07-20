@@ -19,7 +19,7 @@ if(isset($_GET['submit'])){
                    $values[] = "('".$csv[1]."', '".$data = implode('-', array_reverse(explode('/', $csv[2])))."', '".$csv[3]."',
                    '".$csv[4]."','".$csv[5]."', '".$csv[6]."', '".$csv[7]."')"; 
                  }
-        //      echo 'estou aqui';   
+        
         unset($values[0]);
 
       
