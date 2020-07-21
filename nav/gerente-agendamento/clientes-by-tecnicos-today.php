@@ -23,7 +23,7 @@
         <th>COD</th>
         <th>Nome do Cliente</th>
         <th>Técnico</th>
-        <th>Pedido</th>
+        <th>Agendado</th>
         <th colspan="4">Funções</th>
         </tr>
         </thead>
@@ -49,7 +49,7 @@
         <td><?php echo $linha['cod_cliente']?></td>
         <td><?php echo $linha['nomeCliente']?></td>
         <td><?php echo $linha['nome']?></td>
-        <td><?php $dataBR = dataBR($linha['data_agendamento']);?></td>
+        <td><?php echo $dataBR = dataBR($linha['data_agendamento']);?></td>
         <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal1<?php echo $linha['id_instalacao']?>" class="glyphicon glyphicon-ok-sign" title="Finalizar" data-toggle="tooltip"></a></td> 
         <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal2<?php echo $linha['id_instalacao']?>" class="glyphicon glyphicon-info-sign" title="Resolução" data-toggle="tooltip"></a></td>
         <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal3<?php echo $linha['id_instalacao']?>" class="glyphicon glyphicon-transfer" title="Transferir" data-toggle="tooltip"></a></td> 

@@ -81,7 +81,6 @@ location.href = src;
         <th>COD</th>
         <th>Nome do Cliente</th>
         <th>Técnico</th>
-        <th>Data do Contrato</th>
         <th>Agendado</th>
         <th colspan="5">Funções</th>
         </tr>
@@ -110,7 +109,6 @@ location.href = src;
         <td><?php echo $linha['cod_cliente']?></td>
         <td><?php echo $linha['nomeCliente']?></td>
         <td><?php echo $linha['nome']?></td>
-        <td><?php echo $dataContrato = dataBR($linha['data_contrato']);?></td>
         <td><?php echo $dataBR = dataBR($linha['data_agendamento']);?></td>
         <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal1<?php echo $linha['id_instalacao']?>" class="glyphicon glyphicon-ok-sign" title="Finalizar" data-toggle="tooltip"></a></td> 
         <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal2<?php echo $linha['id_instalacao']?>" class="glyphicon glyphicon-info-sign" title="Resolução" data-toggle="tooltip"></a></td>

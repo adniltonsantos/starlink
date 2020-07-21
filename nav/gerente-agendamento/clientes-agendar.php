@@ -295,6 +295,7 @@ location.href = src;
     <th>Cod</th>
     <th>Nome</th>
     <th>Bairro</th>
+    <th>Referência</th>
     <th>Data de Cadastro</th>
     <th colspan="2">Funções</th>
     </tr>
@@ -311,6 +312,7 @@ location.href = src;
     <td><?php echo $linha['cod_cliente']?></span></td>
     <td><?php echo $linha['nomeCliente']?></span></td>
     <td><?php echo $bairro = $linha['nomeBairro']?></span></td>
+    <td><?php echo $bairro = $linha['referencia']?></span></td>
     <td><?php echo $dataBR = dataBR($linha['data_cadastro']);?></span></td>
     <td class="centro-table"><a href="?pg=clientes-agendar&id_cliente=<?php echo $linha['id_cliente'];?>"><div aria-hidden="true" data-toggle="modal" data-target="#myModal<?php echo $linha['id_cliente']?>" class="glyphicon glyphicon-time"></div></td>
     <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal5<?php echo $linha['id_cliente']?>"  title="Comentário" data-toggle="tooltip">
