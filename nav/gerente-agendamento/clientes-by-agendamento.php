@@ -113,7 +113,7 @@ $total = $agendadosql->rowCount();
           
               <label for="inputEmail4">Técnico </label>
               <input type="hidden" name="os" value="<?php echo $linha['id_instalacao']?>">
-
+              <input type="hidden" name="data" value="<?php echo $_GET['data']?>">
                 <select name="id_tecnico" required class="form-control">
                     <option value="">Selecione o Técnico</option>
                     <?php 
@@ -152,6 +152,7 @@ $total = $agendadosql->rowCount();
 
       <form method="POST" id="reagendar<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-by-agendamento&reagendar">
       <input type="hidden" name="os" value="<?php echo $linha['id_instalacao']?>">
+      <input type="hidden" name="data" value="<?php echo $_GET['data']?>">
 
          
           <div style="padding:20px">
@@ -185,7 +186,7 @@ $total = $agendadosql->rowCount();
     <div class="modal-content">
 
       <div class="modal-header">
-<?php echo $linha['cod_cliente']?> - <?php echo $linha['nomeCliente']?>
+        <?php echo $linha['cod_cliente']?> - <?php echo $linha['nomeCliente']?>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     
      </div>
@@ -193,7 +194,7 @@ $total = $agendadosql->rowCount();
 
       <form method="POST" id="comentario<?php echo $linha['id_cliente'];?>" action="?pg=clientes-by-agendamento&comentario">
           <input type="hidden" name="id_cliente" value="<?php echo $id_cliente = $linha['id_cliente']?>">
-         
+          <input type="hidden" name="data2" value="<?php echo $_GET['data']?>">
           
           
           <label for="">Comentário</label>
@@ -253,10 +254,12 @@ document.getElementById("myForm").submit();
 
 $id_tecnico =  $_POST['id_tecnico'];
 $os = $_POST['os'];
+$data = $_POST['data'];
 $id_usuario = $_COOKIE['idusuario'];
+
 $sql = $pdo->prepare("UPDATE instalacoes SET fk_id_tecnico='$id_tecnico', fk_id_usuario='$id_usuario' WHERE id_instalacao='$os'");
 $sql->execute();
-echo "<script>location.href='?pg=clientes-by-agendamento'</script>"; 
+echo "<script>location.href='?pg=clientes-by-agendamento&data=".$data."'</script>"; 
 } ?>
 
 <?php if (isset($_GET['reagendar'])){
@@ -264,9 +267,12 @@ echo "<script>location.href='?pg=clientes-by-agendamento'</script>";
 $os = $_POST['os'];
 $data_agendamento = $_POST['data_agendamento'];
 $id_usuario = $_COOKIE['idusuario'];
+$data = $_POST['data'];
+
 $sql = $pdo->prepare("UPDATE instalacoes SET data_agendamento='$data_agendamento', fk_id_usuario='$id_usuario' WHERE id_instalacao='$os'");
 $sql->execute();
-echo "<script>location.href='?pg=clientes-by-agendamento'</script>"; 
+
+echo "<script>location.href='?pg=clientes-by-agendamento&data=".$data."'</script>"; 
 } ?>
 
 
@@ -277,12 +283,14 @@ if (isset($_GET['comentario'])){
     $data = date('Y-m-d H:i:s');
     $idusuario = $_COOKIE['idusuario'];
     $id_cliente = $_POST['id_cliente'];
+
+    $data2 = $_POST['data2'];
    
     $comentsql = $pdo->prepare("INSERT INTO comentarios (comentario,data_comentario,fk_id_usuario,fk_id_cliente)
     values ('$comentario','$data','$idusuario','$id_cliente')");
     $comentsql->execute();
 
-    echo "<script>location.href='?pg=clientes-by-agendamento'</script>"; 
+    echo "<script>location.href='?pg=clientes-by-agendamento&data=".$data2."'</script>"; 
 }
 ?>
 
