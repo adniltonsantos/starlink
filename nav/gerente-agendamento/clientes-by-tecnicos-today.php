@@ -115,6 +115,7 @@
               <option value="CTO">CTO</option>
               <option value="CANCELOU">CANCELOU</option>
               <option value="INDIS">INDISPONIBILIDADE</option>
+              <option value="INFRA">INFRAESTRUTURA</option>
               <option value="REDE">REDE</option>
               <option value="RC">RETORNO DE CLIENTE</option>
             </select>

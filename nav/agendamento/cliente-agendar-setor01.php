@@ -270,8 +270,10 @@ location.href = src;
 
 $tipo = 'res';
 $consulta = $pdo->prepare("SELECT *, c.nome as nomeCliente , b.nome as nomeBairro from clientes as c 
-INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro 
-WHERE c.tipo='$tipo' AND c.status_cliente='aguardando-agendamento' 
+INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
+INNER JOIN setores as s ON s.id_setor=b.fk_id_setor
+WHERE c.tipo='$tipo' AND c.status_cliente='aguardando-agendamento'
+AND s.id_setor='1'
 ORDER BY c.data_cadastro ASC");
 $consulta->execute();
 $linha = $consulta->fetch(PDO::FETCH_ASSOC)
@@ -322,9 +324,9 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC)
       <?php } ?>
       </button>
       
-      <a href="?pg=cliente-agendar&whats&id_cliente=<?php echo $linha['id_cliente'];?>"><button type="button" class="btn btn-success btn-sm">Whats APP</button></a>
+      <a href="?pg=cliente-agendar-setor01&whats&id_cliente=<?php echo $linha['id_cliente'];?>"><button type="button" class="btn btn-success btn-sm">Whats APP</button></a>
    
-      <a href="?pg=cliente-agendar&sem-contato&id_cliente=<?php echo $linha['id_cliente'];?>" onclick="if (! confirm('Deseja marcar o cliente como Sem Contato ? ')) { return false; }"><button type="button" class="btn btn-danger btn-sm">Sem Contato</button></a>
+      <a href="?pg=cliente-agendar-setor01&sem-contato&id_cliente=<?php echo $linha['id_cliente'];?>" onclick="if (! confirm('Deseja marcar o cliente como Sem Contato ? ')) { return false; }"><button type="button" class="btn btn-danger btn-sm">Sem Contato</button></a>
       </li>
 
   </ul>
@@ -346,7 +348,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC)
     
      </div>
 
-      <form method="POST" id="agendar<?php echo $linha['id_cliente'];?>" action="?pg=cliente-agendar&update">
+      <form method="POST" id="agendar<?php echo $linha['id_cliente'];?>" action="?pg=cliente-agendar-setor01&update">
           <input type="hidden" name="id_cliente" value="<?php echo $linha['id_cliente']?>">
          
           <div style="padding:20px">
@@ -377,7 +379,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC)
      </div>
      <div style="padding:20px">
 
-      <form method="POST" id="comentario<?php echo $linha['id_cliente'];?>" action="?pg=cliente-agendar&comentario">
+      <form method="POST" id="comentario<?php echo $linha['id_cliente'];?>" action="?pg=cliente-agendar-setor01&comentario">
           <input type="hidden" name="id_cliente" value="<?php echo $id_cliente = $linha['id_cliente']?>">
           <input type="hidden" name="tipo" value="<?php echo $tipo = $linha['tipo']?>">
          
@@ -428,13 +430,13 @@ if (isset($_GET['update'])){
 
 
     $insertsql = $pdo->prepare("INSERT INTO instalacoes (fk_id_usuario,fk_id_tecnico,fk_id_cliente,data_agendamento,status_agendamento,tipo) values
-    ('$idusuario','0','$fk_id_cliente','$data','agendado','$tipo') ");
+    ('$idusuario','0','$fk_id_cliente','$data','agendado','res') ");
     $insertsql->execute();
     
     $updatesql = $pdo->prepare("UPDATE clientes SET status_cliente='agendado' WHERE id_cliente='$fk_id_cliente' ");
     $updatesql->execute();
 
-  echo "<script>location.href='?pg=cliente-agendar'</script>";  
+  echo "<script>location.href='?pg=cliente-agendar-setor01'</script>";  
 }
 ?>
 
@@ -450,7 +452,7 @@ if (isset($_GET['comentario'])){
     values ('$comentario','$data','$idusuario','$id_cliente')");
     $comentsql->execute();
 
-    echo "<script>location.href='?pg=cliente-agendar'</script>"; 
+    echo "<script>location.href='?pg=cliente-agendar-setor01'</script>"; 
 }
 ?>
 
@@ -464,7 +466,7 @@ if (isset($_GET['sem-contato'])){
     $updatesql = $pdo->prepare("UPDATE clientes SET status_cliente='sem-contato' WHERE id_cliente='$fk_id_cliente' ");
     $updatesql->execute();
    
-    echo "<script>location.href='?pg=cliente-agendar'</script>"; 
+    echo "<script>location.href='?pg=cliente-agendar-setor01'</script>"; 
 }
 ?>
 <?php 
@@ -477,7 +479,7 @@ if (isset($_GET['whats'])){
     $updatesql = $pdo->prepare("UPDATE clientes SET status_cliente='whats' WHERE id_cliente='$fk_id_cliente' ");
     $updatesql->execute();
    
-    echo "<script>location.href='?pg=cliente-agendar'</script>"; 
+    echo "<script>location.href='?pg=cliente-agendar-setor01'</script>"; 
 }
 ?>
 
