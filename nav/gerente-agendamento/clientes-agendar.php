@@ -339,7 +339,7 @@ location.href = src;
       </div>
 
 
-      <form method="POST" name="enviar" action="?pg=clientes-agendar&update">
+      <form method="POST" name="agendar" id="agendar" action="?pg=clientes-agendar&update">
           <input type="hidden" name="id_cliente" value="<?php echo $linha['id_cliente']?>">
           <input type="hidden" name="tipo" value="<?php echo $linha['tipo']?>">
          
@@ -379,9 +379,7 @@ location.href = src;
             </div>
         </div>
         
-
-                <button onclick="return validar();" class="btn btn-primary">Agendar</button>  
-
+          <button onclick="document.getElementById('agendar').submit()"; class="btn btn-primary">Comentar</button></div>    
         
        
         </div>    
