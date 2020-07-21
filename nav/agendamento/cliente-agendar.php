@@ -427,7 +427,7 @@ if (isset($_GET['update'])){
     $idusuario = $_COOKIE["idusuario"];
 
 
-    $insertsql = $pdo->prepare("INSERT INTO instalacoes (fk_id_usuario,fk_id_tecnico,fk_id_cliente,data_agendamento,status_agendamento,tipo) values
+    $insertsql = $pdo->prepare("INSERT INTO instalacoes (fk_id_usuario,fk_id_tecnico,fk_id_cliente,data_agendamento,status_agendamento,tipo_instalacao) values
     ('$idusuario','0','$fk_id_cliente','$data','agendado','$tipo') ");
     $insertsql->execute();
     
