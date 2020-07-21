@@ -310,6 +310,7 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC)
     <li class="list-group-item"><strong>BAIRRO : </strong><?php echo $bairro = $linha['nomeBairro']?></li>
     <li class="list-group-item"><strong>ENDEREÇO : </strong><?php echo $bairro = $linha['endereco']?></li>
     <li class="list-group-item"><strong>REFERENCIA : </strong><?php echo $bairro = $linha['referencia']?></li>
+    <li class="list-group-item"><strong>DD  : </strong><?php echo $bairro = $linha['dd']?> - <?php echo $bairro = $linha['fone']?> <strong>Fax</strong> - <?php echo $bairro = $linha['fax']?> - </li>
     <li class="list-group-item"><strong>CELULAR  : </strong><?php echo $bairro = $linha['celular']?></li>
     <li class="list-group-item">
       <button type="button" class="btn btn-primary btn-sm" aria-hidden="true" data-toggle="modal" data-target="#myModal<?php echo $linha['id_cliente']?>"><div>Agendar</button>
