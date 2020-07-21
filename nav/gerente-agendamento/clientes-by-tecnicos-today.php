@@ -30,15 +30,14 @@
        
        <?php 
 
-        $data = date('Y-m-d');
-       
-      
+       $data = date('Y-m-d');
+
         $agendadosql = $pdo->prepare("SELECT *, c.nome as nomeCliente from instalacoes as i 
-        INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente
-        INNER JOIN tecnicos as t ON i.fk_id_tecnico=t.id_tecnico
-        WHERE status_agendamento='agendado' AND
-        data_agendamento='$data'
-        ORDER BY i.data_agendamento ASC ");
+        INNER JOIN clientes as c ON c.id_cliente = i.fk_id_cliente
+        INNER JOIN tecnicos as t ON t.id_tecnico = i.fk_id_tecnico
+        WHERE i.status_agendamento='agendado' AND
+        i.data_agendamento='$data'
+        ORDER BY i.data_agendamento ASC");
       
         $agendadosql->execute();
         while($linha = $agendadosql->fetch(PDO::FETCH_ASSOC)){
@@ -75,7 +74,7 @@
           
           <?php 
             $id_instalacao = $linha['id_instalacao'];
-            $sqltipo = $pdo->prepare("SELECT tipo from instalacoes as i INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente WHERE id_instalacao = '$id_instalacao'");
+            $sqltipo = $pdo->prepare("SELECT tipo_instalacao from instalacoes as i INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente WHERE id_instalacao = '$id_instalacao'");
             $sqltipo->execute();
             $tipo = $sqltipo->fetch(PDO::FETCH_ASSOC);
    

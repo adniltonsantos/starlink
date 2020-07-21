@@ -339,7 +339,7 @@ location.href = src;
       </div>
 
 
-      <form method="POST" name="agendar" id="agendar" action="?pg=clientes-agendar&update">
+      <form method="POST"  id="agendar<?php echo $linha['id_cliente'];?>" action="?pg=clientes-agendar&update">
           <input type="hidden" name="id_cliente" value="<?php echo $linha['id_cliente']?>">
           <input type="hidden" name="tipo" value="<?php echo $linha['tipo']?>">
          
@@ -351,9 +351,9 @@ location.href = src;
           <li class="list-group-item">Bairro : <?php echo $linha['nomeBairro']?> </li>
           <li class="list-group-item">Endereço: <?php echo $linha['endereco']?></li>
           <li class="list-group-item">Referência: <?php echo $linha['referencia']?></li>
+          <li class="list-group-item">DD: <?php echo $linha['dd']?> - <?php echo $linha['fone']?></li>
+          <li class="list-group-item">Fax: <?php echo $linha['fax']?></li>
           <li class="list-group-item">Celular: <?php echo $linha['celular']?></li>
-          <li class="list-group-item">Outro Celular: <?php echo $linha['celular2']?></li>
-          <li class="list-group-item">Telefone: <?php echo $linha['telefone']?></li>
           </ul>
 
           <div class="form-row">
@@ -379,7 +379,7 @@ location.href = src;
             </div>
         </div>
         
-          <button onclick="document.getElementById('agendar').submit()"; class="btn btn-primary">Agendar</button></div>    
+        <button onclick="document.getElementById('agendar<?php echo $linha['id_cliente'];?>').submit()"; class="btn btn-primary">Agendar</button></div>    
         
        
         </div>    

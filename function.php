@@ -31,9 +31,4 @@ function dataBR( $data ){
 
 // Soma total Agendar
 
-function totalTransf($value){
- $transf = $pdo->prepare("SELECT * FROM instalacoes where status_agendamento='$value'");
- $transf->execute();
- return $transf->rowCount();
-}
 ?>
