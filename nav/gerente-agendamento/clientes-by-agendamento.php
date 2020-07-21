@@ -89,7 +89,7 @@
                     <option value="">Selecione o Técnico</option>
                     <?php 
                         //Pegando todos Produto na loja
-                        $produto = $pdo->query("SELECT * FROM tecnicos WHERE status_tecnico = 'ativo'");
+                        $produto = $pdo->query("SELECT * FROM tecnicos WHERE status_tecnico = 'ativo' ORDER BY nome ASC");
                         $produto->execute();
                         while($linha2 = $produto->fetch(PDO::FETCH_ASSOC)){
                         ?>
