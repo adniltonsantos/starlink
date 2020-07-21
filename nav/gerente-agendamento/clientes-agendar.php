@@ -272,8 +272,8 @@ location.href = src;
 
 
 <div class="form-group col-md-9">
-     <label for="">Procure por qualquer dado do campo</label>
-     <input type="text" id="pesquisar" name="pesquisar" class="form-control" placeholder="Digite o Código de Barra ou o Nome do Produto" />
+     <label for="">Pesquise</label>
+     <input type="text" id="pesquisar" name="pesquisar" class="form-control" placeholder="Digite por qualquer parte do campo" />
 </div>
 
 
@@ -489,7 +489,72 @@ if (isset($_GET['comentario'])){
 }
 ?>
 
+ <!-- Paginação em Jquery-->
+
+    
+ <script>
+    $(function(){
+      
+      $('table > tbody > tr:odd').addClass('odd');
+      
+      $('table > tbody > tr').hover(function(){
+        $(this).toggleClass('hover');
+      });
+      
+      $('#marcar-todos').click(function(){
+        $('table > tbody > tr > td > :checkbox')
+          .attr('checked', $(this).is(':checked'))
+          .trigger('change');
+      });
+      
+      $('table > tbody > tr > td > :checkbox').bind('click change', function(){
+        var tr = $(this).parent().parent();
+        if($(this).is(':checked')) $(tr).addClass('selected');
+        else $(tr).removeClass('selected');
+      });
+      
+      $('form').submit(function(e){ e.preventDefault(); });
+      
+      $('#pesquisar').keydown(function(){
+        var encontrou = false;
+        var termo = $(this).val().toLowerCase();
+        $('table > tbody > tr').each(function(){
+          $(this).find('td').each(function(){
+            if($(this).text().toLowerCase().indexOf(termo) > -1) encontrou = true;
+          });
+          if(!encontrou) $(this).hide();
+          else $(this).show();
+          encontrou = false;
+        });
+      });
+      
+      $("table") 
+        .tablesorter({
+          dateFormat: 'uk',
+          headers: {
+            0: {
+              sorter: false
+            },
+            5: {
+              sorter: false
+            }
+          }
+        }) 
+        .tablesorterPager({container: $("#pager")})
+        .bind('sortEnd', function(){
+          $('table > tbody > tr').removeClass('odd');
+          $('table > tbody > tr:odd').addClass('odd');
+        });
+      
+    });
+    </script>
+
 </div>
 </div><!-- Fecha Id Janela-->
 </section>
 
+
+
+
+
+<!-- Fecha Paginação-->
