@@ -4,32 +4,55 @@
 
 <div id="janela">
 <?php 
-  $data = date('Y-m-d');
-       
-      
-  $agendadosql = $pdo->prepare("SELECT *, c.nome as nomeCliente from instalacoes as i 
-  INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente
-  INNER JOIN bairros as b on b.id_bairro=c.fk_id_bairro
-  WHERE status_agendamento='agendado' AND
-  fk_id_tecnico='0'
-  ORDER BY i.data_agendamento ASC ");
-  $agendadosql->execute();
-  $total = $agendadosql->rowCount();
-  
-  ?>
+
+$data = $_GET['data'];
+              
+              
+$agendadosql = $pdo->prepare("SELECT *, c.nome as nomeCliente from instalacoes as i 
+INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente
+INNER JOIN bairros as b on b.id_bairro=c.fk_id_bairro
+WHERE status_agendamento='agendado' AND
+fk_id_tecnico='0' AND 
+data_agendamento='$data'
+ORDER BY i.data_agendamento ASC ");
+$agendadosql->execute();
+$total = $agendadosql->rowCount();
+
+?>
+
+
 <legend>Agendamento do Marcio <span style="float:right">Total ( <?php echo $total ?> )</span>
 </legend>
 
 
 <!-- Formulario de Pesquisa em Jquery-->
+
 <form method="post" action="exemplo.html" class="pesquise" >     
- <input type="text" id="pesquisar" name="pesquisar" class="form-control" autofocus  placeholder="Pesquise" />
- </form>
+
+
+<div class="form-group col-md-6">
+     <label for="">Procure por qualquer dado do campo</label>
+     <input type="text" id="pesquisar" name="pesquisar" class="form-control" placeholder="Digite o Código de Barra ou o Nome do Produto" />
+</div>
+</form>
+
+<form method="POST" name="myForm" id="myForm"  action="?pg=clientes-by-agendamento&filtro" >  
+   <div class="form-group col-md-4">
+     <label for="">Data do Agendamento</label>
+      <input type="date" name="data" class="form-control" value="<?php echo $_GET['data'];?>">
+   </div>
+
+   <div class="form-group col-md-2" style="margin-top:25px">
+     <label for=""></label>
+     <button type="submit"  onclick="document.getElementById('myForm').submit()"; class="btn btn-primary">Filtar</button>
+    
+   </div>
+</form>
 <!-- Fecha Formulario-->
 
 
         <br />
-        <table class="table table-hover">
+        <table class="table table-hover" id="teste">
 
         <thead>
         <tr>
@@ -43,6 +66,8 @@
         </thead>
        
        <?php 
+
+
 
         while($linha = $agendadosql->fetch(PDO::FETCH_ASSOC)){
 
@@ -260,6 +285,17 @@ if (isset($_GET['comentario'])){
     echo "<script>location.href='?pg=clientes-by-agendamento'</script>"; 
 }
 ?>
+
+<?php 
+if (isset($_GET['filtro'])){
+
+    $data = $_POST['data'];
+   
+
+    echo "<script>location.href='?pg=clientes-by-agendamento&data=".$data."'</script>"; 
+}
+?>
+
  <!-- Paginação em Jquery-->
 
     
@@ -319,3 +355,4 @@ if (isset($_GET['comentario'])){
       
     });
     </script> 
+
