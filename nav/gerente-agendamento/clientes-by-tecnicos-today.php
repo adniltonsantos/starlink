@@ -71,7 +71,10 @@
             <input type="hidden" name="os" value="<?php echo $linha['id_instalacao'] ?>">
             <input type="hidden" name="id_cliente" value="<?php echo $linha['id_cliente'] ?>">
             Tem certeza que deseja finalizar a o.s de nº <strong><?php echo $linha['id_instalacao']; ?></strong> ?
-          
+          <br />  <br />  
+          <label for="">Data do fechamenteo</label>
+          <input style="width:200px" required name="data" type="date" class="form-control">
+
           <?php 
             $id_instalacao = $linha['id_instalacao'];
             $sqltipo = $pdo->prepare("SELECT tipo_instalacao from instalacoes as i INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente WHERE id_instalacao = '$id_instalacao'");
@@ -231,7 +234,8 @@ document.getElementById("myForm").submit();
   $os =  $_POST['os'];
   $status_agendamento =  $_POST['status_agendamento'];
   $id_cliente =  $_POST['id_cliente'];
-  $data_fechamento = date('Y-m-d');
+  $data_fechamento = $_POST['data'];
+  
   $sql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='finalizado' , data_fechamento='$data_fechamento' WHERE id_instalacao='$os'");
   $sql->execute();
 

@@ -144,11 +144,16 @@ location.href = src;
       <div style="padding:20px">
           <form method="POST" id="finalizar<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-by-tecnicos-by&finalizar">
             <input type="hidden" name="os" value="<?php echo $linha['id_instalacao'] ?>">
+            <input type="hidden" name="id_cliente" value="<?php echo $linha['id_cliente'] ?>">
             <input type="hidden" name="data" value="<?php echo $_GET['data']?>">
             <input type="hidden" name="data2" value="<?php echo $_GET['data2']?>">
             <input type="hidden" name="pg_id_tecnico" value="<?php echo $_GET['id_tecnico']?>">
             Tem certeza que deseja finalizar a o.s de nº <strong><?php echo $linha['id_instalacao']; ?></strong> ?
-           
+            <br />  <br />  
+           <label for="">Data do fechamenteo</label>
+           <input style="width:200px" required name="data_fechamento" type="date" class="form-control">
+
+
             <?php 
             $id_instalacao = $linha['id_instalacao'];
             $sqltipo = $pdo->prepare("SELECT tipo from instalacoes as i INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente WHERE id_instalacao = '$id_instalacao'");
@@ -359,9 +364,15 @@ $data =  $_POST['data'];
 $data2 =  $_POST['data2'];
 $os =  $_POST['os'];
 $pg_id_tecnico =  $_POST['pg_id_tecnico'];
-$data_fechamento = date('Y-m-d');
+$data_fechamento = $_POST['data_fechamento'];
+$id_cliente = $_POST['id_cliente'];
+
 $sql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='finalizado' , data_fechamento='$data_fechamento' WHERE id_instalacao='$os'");
 $sql->execute();
+
+$cliente = $pdo->prepare("UPDATE clientes SET status_cliente='ativo' WHERE id_cliente='$id_cliente'");
+$cliente->execute();
+
 echo "<script>location.href='?pg=clientes-by-tecnicos-by&between&data=".$data."&data2=".$data2."&id_tecnico=".$pg_id_tecnico."'</script>"; 
 } ?>
 
