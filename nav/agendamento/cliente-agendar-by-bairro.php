@@ -344,8 +344,9 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC)
       </button>
       
       <a href="?pg=cliente-agendar-bairro&whats&id_cliente=<?php echo $linha['id_cliente'];?>&bairro=<?php echo $_GET['bairro'];?>"><button type="button" class="btn btn-success btn-sm">Whats APP</button></a>
-   
-      <a href="?pg=cliente-agendar-bairro&sem-contato&id_cliente=<?php echo $linha['id_cliente'];?>&bairro=<?php echo $_GET['bairro'];?>" onclick="if (! confirm('Deseja marcar o cliente como Sem Contato ? ')) { return false; }"><button type="button" class="btn btn-danger btn-sm">Sem Contato</button></a>
+      <a href="?pg=cliente-agendar-bairro&sem-contato&id_cliente=<?php echo $linha['id_cliente'];?>&bairro=<?php echo $_GET['bairro'];?>" onclick="if (! confirm('Deseja marcar o cliente como Sem Contato ? ')) { return false; }"><button type="button" class="btn btn-warning btn-sm">Sem Contato</button></a>
+      <a href="?pg=cliente-agendar-bairro&cancelou&id_cliente=<?php echo $linha['id_cliente'];?>&bairro=<?php echo $_GET['bairro'];?>" onclick="if (! confirm('Deseja marcar o cliente como Cancelou ? ')) { return false; }"><button type="button" class="btn btn-danger btn-sm">Cancelou</button></a>
+     
       </li>
 
   </ul>
@@ -506,6 +507,21 @@ if (isset($_GET['whats'])){
     echo "<script>location.href='?pg=cliente-agendar-bairro&selecionado&bairro=".$id_bairro."'</script>"; 
 
 }
+?>
+
+<?php 
+if (isset($_GET['cancelou'])){
+    $id_bairro = $_GET['bairro'];
+
+    $fk_id_cliente = $_GET['id_cliente'];
+    $idusuario = $_COOKIE["idusuario"];
+
+    $updatesql = $pdo->prepare("UPDATE clientes SET status_cliente='cancelou' WHERE id_cliente='$fk_id_cliente' ");
+    $updatesql->execute();
+   
+    echo "<script>location.href='?pg=cliente-agendar-bairro&selecionado&bairro=".$id_bairro."'</script>"; 
+
+  }
 ?>
 
 </div>

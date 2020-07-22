@@ -199,7 +199,7 @@ if (isset($_GET['migration'])){
     $prevclientes = $pdo->query("SELECT * FROM prevclientes ");
     $prevclientes->execute();
 
-    $sql = "INSERT INTO clientes (cod_cliente,data_cadastro,nome,endereco,referencia,celular,tipo,status_cliente,fk_id_bairro) values ";
+    $sql = "INSERT INTO clientes (cod_cliente,data_cadastro,nome,endereco,referencia,dd,fone,fax,celular,tipo,status_cliente,fk_id_bairro,vendedor) values ";
 
     //Loop dos dados da venda provisoria
     while($linha = $prevclientes->fetch(PDO::FETCH_ASSOC)){
@@ -210,17 +210,29 @@ if (isset($_GET['migration'])){
     $endereco= $linha['endereco'];
     $referencia= $linha['referencia'];
     $fk_id_bairro= $linha['bairro'];
+    $dd= $linha['dd'];
+    $fone= $linha['fone'];
+    $fax= $linha['fax'];
     $celular= $linha['celular'];
     $tipo= 'NULL';
     $status_cliente= "aguardando-tipo";
-      
-    $sql .= "('$cod_cliente','$data_cadastro','$nome','$endereco','$referencia','$celular','$tipo','$status_cliente','$fk_id_bairro'),";
+    $vendedor= $linha['vendedor'];
+
+    //update no vendedor
+    if( $vendedor == 'Suporte (EliteSoft)'){
+      $vendedor = 'atendimento';
+    }
+    if( $vendedor == 'Cleide - Boiçucanga' OR 'Tatiane - Boiçucanga'){
+      $vendedor = 'equipe-vendas';
+    }
+    
+    $sql .= "('$cod_cliente','$data_cadastro','$nome','$endereco','$referencia','$dd','$fone','$fax','$celular','$tipo','$status_cliente','$fk_id_bairro','$vendedor'),";
     }
 
     // Tira o último caractere (vírgula extra)
     $sql = substr($sql, 0, -1);
 
-    //Inseri os dados na tabela de Vendas
+    // Inseri os dados na tabela de Vendas
     $clientes = $pdo->prepare($sql);
     $clientes->execute();
 

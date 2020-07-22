@@ -16,14 +16,16 @@ if(isset($_GET['submit'])){
             
             while (($csv = fgetcsv($file, 10000, ",")) !== FALSE) 
                 {
-                   $values[] = "('".$csv[1]."', '".$data = implode('-', array_reverse(explode('/', $csv[2])))."', '".$csv[3]."',
-                   '".$csv[4]."','".$csv[5]."', '".$csv[6]."', '".$csv[7]."')"; 
+                   $values[] = "('".$csv[2]."',  '".$csv[3]."','".$csv[4]."',
+                   '".$csv[5]."','".$csv[6]."', '".$csv[7]."', '".$csv[8]."', '".$csv[9]."', '".$csv[10]."','".$data = implode('-', array_reverse(explode('/', $csv[11])))."',
+                   '".$csv[12]."'
+                   )"; 
                  }
         
-        unset($values[0]);
-
+              unset($values[0]);
+                 echo $values[1];
       
-            $sql = "INSERT INTO prevclientes (cod_cliente, data_cadastro, nome, endereco, referencia, bairro, celular) VALUES "
+            $sql = "INSERT INTO prevclientes (cod_cliente, nome, referencia,dd,fone,fax,celular,endereco,bairro,data_cadastro, vendedor) VALUES "
                  . implode(',',$values); 
          
          $sql = $pdo->prepare($sql);
