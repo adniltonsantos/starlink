@@ -366,7 +366,7 @@ location.href = src;
                 <select name="tecnico" required class="form-control" style="width:200px;" autofocus>
                 <option value="">Selecione o Técnico</option>
                 <?php 
-                $tecnicosql = $pdo->prepare("SELECT * FROM tecnicos WHERE status_tecnico='ativo'");
+                $tecnicosql = $pdo->prepare("SELECT * FROM tecnicos WHERE status_tecnico='ativo' ORDER BY nome ASC");
                 $tecnicosql->execute();
                 while($linha2 = $tecnicosql->fetch(PDO::FETCH_ASSOC)){
                 ?>

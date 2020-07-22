@@ -186,7 +186,7 @@ if(isset($_GET['submit'])){
 
     // insert instalacoes
 
-    $instalacao = $pdo->prepare("INSERT INTO instalacoes (fk_id_usuario,fk_id_tecnico,fk_id_cliente,data_agendamento,status_agendamento,tipo) 
+    $instalacao = $pdo->prepare("INSERT INTO instalacoes (fk_id_usuario,fk_id_tecnico,fk_id_cliente,data_agendamento,status_agendamento,tipo_instalacao) 
     values ('$idusuario','0','$id_cliente','$data_limite','agendar','$tipoTransferencia')");
     $instalacao->execute();
 
