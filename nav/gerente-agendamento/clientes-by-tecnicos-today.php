@@ -3,8 +3,21 @@
 <section>
 
 <div id="janela">
+<?php
 
-<legend>Controle de Agendamento de Hoje  </legend>
+$data = date('Y-m-d');
+
+$agendadosql = $pdo->prepare("SELECT *, c.nome as nomeCliente from instalacoes as i 
+INNER JOIN clientes as c ON c.id_cliente = i.fk_id_cliente
+INNER JOIN tecnicos as t ON t.id_tecnico = i.fk_id_tecnico
+WHERE i.status_agendamento='agendado' AND
+i.data_agendamento='$data'
+ORDER BY i.data_agendamento ASC");
+
+$agendadosql->execute();
+$total = $agendadosql->rowCount();
+?>
+<legend>Controle de Agendamento de Hoje <span style="float:right">Total ( <?php echo $total ?> )</span> </legend>
 
 <!-- Formulario de Pesquisa em Jquery-->
 <form method="post" action="exemplo.html" class="pesquise" >     
@@ -30,16 +43,7 @@
        
        <?php 
 
-       $data = date('Y-m-d');
-
-        $agendadosql = $pdo->prepare("SELECT *, c.nome as nomeCliente from instalacoes as i 
-        INNER JOIN clientes as c ON c.id_cliente = i.fk_id_cliente
-        INNER JOIN tecnicos as t ON t.id_tecnico = i.fk_id_tecnico
-        WHERE i.status_agendamento='agendado' AND
-        i.data_agendamento='$data'
-        ORDER BY i.data_agendamento ASC");
-      
-        $agendadosql->execute();
+  
         while($linha = $agendadosql->fetch(PDO::FETCH_ASSOC)){
 
         ?>
