@@ -107,7 +107,7 @@ location.href = src;
 
         <tr>
         <td>
-          <?php if($linha['status_iclass'] == '0'){ ?>
+          <?php if($linha['status_iclass'] == NULL){ ?>
             
             <a href="?pg=clientes-by-tecnicos-by&iclass&os=<?php echo $linha['id_instalacao'];?>&data=<?php echo $_GET['data']; ?>&data2=<?php echo $_GET['data']; ?>&id_tecnico=<?php echo $_GET['id_tecnico']; ?>">
             <span class="glyphicon glyphicon-random" style="color:blue" title="enviado" data-toggle="tooltip"></span>

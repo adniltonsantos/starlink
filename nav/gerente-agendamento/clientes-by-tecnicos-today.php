@@ -51,7 +51,7 @@ $total = $agendadosql->rowCount();
 
         <tr>
         <td>
-          <?php if($linha['status_iclass'] == '0'){ ?>
+          <?php if($linha['status_iclass'] == NULL){ ?>
             
             <a href="?pg=clientes-by-tecnicos-today&iclass&os=<?php echo $linha['id_instalacao'];?>&data=<?php echo $_GET['data']; ?>">
             <span class="glyphicon glyphicon-random" style="color:blue" title="enviado" data-toggle="tooltip"></span>
