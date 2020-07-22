@@ -110,6 +110,7 @@ $confirmacao->execute();
 $linha = $confirmacao->fetch(PDO::FETCH_ASSOC);
 $setor = $linha['setor'];
 $idusuario = $linha['idusuario'];
+$nome = $linha['nome'];
 $linha = $confirmacao ->rowCount();
 
 if ($linha == 1 ){
@@ -118,6 +119,7 @@ if ($linha == 1 ){
     setcookie ("usuario", $usuario);
     setcookie ("senha", $senha);
     setcookie ("setor", $setor);
+    setcookie ("nome", $nome);
     
     header('location: home.php');
 

@@ -8,7 +8,7 @@ $usuarioC = $_COOKIE["usuario"];
 $senhaC = $_COOKIE["senha"];
 
 
-$sql = $pdo->query("SELECT * FROM usuario WHERE usuario='$usuarioC'");
+$sql = $pdo->query("SELECT * FROM usuarios WHERE usuario='$usuarioC'");
 $sql->execute();
 $query = $sql->fetch(PDO::FETCH_ASSOC);
 
@@ -22,7 +22,7 @@ $foto = $query['foto'];
 if (isset($_GET['submit'])){
 
 // Recupera os dados dos campos
- $usuario = $_POST['usuario'];
+ $nome = $_POST['nome'];
  $senha = $_POST['senha'];
  $foto = $_FILES["foto"];
 // Se a foto estiver sido selecionada
@@ -40,7 +40,7 @@ $nome_imagem = md5(uniqid(time())) . "." . $ext[1];
   move_uploaded_file($foto["tmp_name"], $caminho_imagem);   
  
   // Insere os dados no banco 
-  $sql = $pdo->prepare("UPDATE usuario SET usuario='$usuario', senha='$senha', foto='$nome_imagem' WHERE idusuario='$idusuario'");
+  $sql = $pdo->prepare("UPDATE usuarios SET usuario='$usuario', senha='$senha', foto='$nome_imagem' WHERE idusuario='$idusuario'");
   $sql->execute();
   echo "<script>location.href='index.php?alterado'</script>";   
   // Se os dados forem inseridos com sucesso 
@@ -48,7 +48,7 @@ $nome_imagem = md5(uniqid(time())) . "." . $ext[1];
   // Se houver mensagens de erro, exibe-as 
   if (count($error) != 0) { foreach ($error as $erro) { echo $erro . "<br />"; } } 
 
-} else  { $sql = $pdo->prepare("UPDATE usuario SET usuario='$usuario', senha='$senha' WHERE idusuario='$idusuario'");
+} else  { $sql = $pdo->prepare("UPDATE usuarios SET nome='$nome', senha='$senha' WHERE idusuario='$idusuario'");
 $sql->execute();  
 			echo "<script>location.href='index.php?alterado'</script>";
 		}  
@@ -78,12 +78,19 @@ $sql->execute();
 
 <div class="form-group">
 <form method="post" enctype="multipart/form-data" name="cadastro" action="?pg=perfil&submit">
-
+<input type="hidden" name="usuario" value="<?php echo $usuario ?>">
 <div class="form-group">
-<input type="text" class="form-control" placeholder="Nome do Usuário" name="usuario" value="<?php echo $usuario;?>">
+<label for="">Usuário</label>
+<input type="text" class="form-control" disabled placeholder="Nome do Usuário" name="usuario" value="<?php echo $usuario;?>">
 </div>
 
 <div class="form-group">
+<label for="">Digite seu nome de Exibicao</label>
+<input type="text" class="form-control" placeholder="Nome do Usuário" name="nome" value="<?php echo $nome;?>">
+</div>
+
+<div class="form-group">
+<label for="">Digite nova Senha</label>
 <input type="password" class="form-control" placeholder="Digite a Senha" name="senha" value="<?php echo $senha;?>">
 </div>
 

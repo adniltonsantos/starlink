@@ -2,6 +2,7 @@
 $pdo = conectar();
 
 $usuario = $_COOKIE["usuario"];
+// $nome = $_COOKIE["nome"];
 
 $user=$pdo->prepare("SELECT * FROM usuarios WHERE usuario=:usuario");
 $user->bindValue(':usuario',$usuario,PDO::PARAM_STR);
@@ -11,14 +12,15 @@ $linha = $user->Fetch(PDO::FETCH_ASSOC);
 $usuario = $linha['usuario'];
 $foto = $linha['foto'];
 $setor = $linha['setor'];
+$nome = $linha['nome'];
 ?>
 <aside id="bloco-menu">
 
 <!-- Bloco da informações do Perfil-->
    <div id="bloco-user">
    <a href="home.php"><img id="icon-user" class="img-circle" src="img/<?php echo $foto;?>" alt="Icone do Usuário"></a>
-   <div id="user"><?php echo $usuario;?></div>
-   <!-- <div id="edit-perfil"><a href="?pg=perfil" class="active">Editar Perfil</a></div> -->
+   <div id="user"><?php echo $nome;?></div>
+   <div id="edit-perfil"><a href="?pg=perfil" class="active">Editar Perfil</a></div>
    <div id="edit-perfil"><a href="encerra.php" class="active">Sair </a></div>
    </div>
 
