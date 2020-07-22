@@ -274,7 +274,7 @@ INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
 INNER JOIN setores as s ON s.id_setor=b.fk_id_setor
 WHERE c.tipo='$tipo' AND c.status_cliente='aguardando-agendamento'
 AND s.id_setor='1'
-ORDER BY c.data_cadastro ASC");
+ORDER BY c.data_cadastro ASC, c.id_cliente ASC");
 $consulta->execute();
 $linha = $consulta->fetch(PDO::FETCH_ASSOC)
 ?>
