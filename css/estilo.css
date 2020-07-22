@@ -9,10 +9,10 @@ header a:visited {color :white;}
 
 
 /* Bloco Lateral do Usuario e Menus */
-aside {display: none;}
-@media (min-width: 768px) {
+/* aside {display: none;} */
+/* @media (min-width: 768px) { */
 aside{position: fixed; top: 50px; left: 0; bottom: 0; display: block;}
-}
+/* } */
 aside#bloco-menu {background: #EEEEEE; border-right: 1px solid #CCCCCC;}
 aside #bloco-user{display: table;  width: 200px; height: 50px; border-bottom: 1px solid #CCCCCC; }
 aside img#icon-user{padding:10px; float: left; width: 80px; height: 80px;}
