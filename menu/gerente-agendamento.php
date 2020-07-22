@@ -25,6 +25,7 @@
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-cto">CTO</a></li>
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-cancelou">CANCELOU</a></li>
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-indis">INDISPONIBILIDADE</a></li>
+                    <li class="dropdown-sub-menu"><a href="?pg=clientes-reagendar">REAGENDAR</a></li>
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-rede">REDE</a></li>
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-rc">RETORNO DE CLIENTE</a></li>
                  </ul> 

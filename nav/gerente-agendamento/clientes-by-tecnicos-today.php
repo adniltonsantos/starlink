@@ -32,6 +32,7 @@ $total = $agendadosql->rowCount();
 
         <thead>
         <tr>
+        <th>iclass</th>
         <th>O.S</th>
         <th>COD</th>
         <th>Nome do Cliente</th>
@@ -49,6 +50,18 @@ $total = $agendadosql->rowCount();
         ?>
 
         <tr>
+        <td>
+          <?php if($linha['status_iclass'] == '0'){ ?>
+            
+            <a href="?pg=clientes-by-tecnicos-today&iclass&os=<?php echo $linha['id_instalacao'];?>&data=<?php echo $_GET['data']; ?>">
+            <span class="glyphicon glyphicon-random" style="color:blue" title="enviado" data-toggle="tooltip"></span>
+            </a>
+            <?php } else { ?>
+            <span class="glyphicon glyphicon-random" style="color:red" title="Nao enviado" data-toggle="tooltip"></span> 
+           
+
+          <?php } ?>
+        </td>
         <td><?php echo $linha['id_instalacao']?></td>
         <td><?php echo $linha['cod_cliente']?></td>
         <td><?php echo $linha['nomeCliente']?></td>
@@ -122,6 +135,7 @@ $total = $agendadosql->rowCount();
               <option value="CANCELOU">CANCELOU</option>
               <option value="INDIS">INDISPONIBILIDADE</option>
               <option value="INFRA">INFRAESTRUTURA</option>
+              <option value="REAGENDAR">REAGENDAR</option>
               <option value="REDE">REDE</option>
               <option value="RC">RETORNO DE CLIENTE</option>
             </select>
@@ -246,7 +260,7 @@ document.getElementById("myForm").submit();
   $cliente = $pdo->prepare("UPDATE clientes SET status_cliente='ativo' WHERE id_cliente='$id_cliente'");
   $cliente->execute();
   
-  echo "<script>location.href='?pg=clientes-by-tecnicos-today&selecionado'</script>"; 
+  echo "<script>location.href='?pg=clientes-by-tecnicos-today'</script>"; 
  } ?>
 
 <?php if (isset($_GET['resolucao'])){
@@ -255,7 +269,7 @@ $motivo =  $_POST['motivo'];
 $os = $_POST['os'];
 $sql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='$motivo' WHERE id_instalacao='$os'");
 $sql->execute();
-echo "<script>location.href='?pg=clientes-by-tecnicos-today&selecionado'</script>"; 
+echo "<script>location.href='?pg=clientes-by-tecnicos-today'</script>"; 
 } ?>
 
 <?php if (isset($_GET['transferencia'])){
@@ -265,7 +279,7 @@ $os = $_POST['os'];
 $id_usuario = $_COOKIE['idusuario'];
 $sql = $pdo->prepare("UPDATE instalacoes SET fk_id_tecnico='$id_tecnico', fk_id_usuario='$id_usuario' WHERE id_instalacao='$os'");
 $sql->execute();
-echo "<script>location.href='?pg=clientes-by-tecnicos-today&selecionado'</script>"; 
+echo "<script>location.href='?pg=clientes-by-tecnicos-today'</script>"; 
 } ?>
 
 <?php if (isset($_GET['reagendar'])){
@@ -275,8 +289,22 @@ $data_agendamento = $_POST['data_agendamento'];
 $id_usuario = $_COOKIE['idusuario'];
 $sql = $pdo->prepare("UPDATE instalacoes SET data_agendamento='$data_agendamento', fk_id_usuario='$id_usuario' WHERE id_instalacao='$os'");
 $sql->execute();
-echo "<script>location.href='?pg=clientes-by-tecnicos-today&selecionado'</script>"; 
+echo "<script>location.href='?pg=clientes-by-tecnicos-today'</script>"; 
 } ?>
+
+<?php 
+if (isset($_GET['iclass'])){
+
+    $data = $_GET['data'];
+    $os = $_GET['os'];
+
+    $ossql = $pdo->prepare("UPDATE instalacoes SET status_iclass='1' where id_instalacao='$os' ");
+    $ossql->execute();
+   
+
+    echo "<script>location.href='?pg=clientes-by-tecnicos-today'</script>"; 
+}
+?>
 
  <!-- Paginação em Jquery-->
 

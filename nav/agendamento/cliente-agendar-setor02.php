@@ -34,11 +34,12 @@ location.href = src;
   <td><span style="color:white;background:#836FFF	; padding:8px 15px">Setor 0<?php echo $setor='1'?></span></td>
   
   <?php 
+  $tipo = "res";
   $dataHoje = date('Y-m-d');
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -48,7 +49,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -57,7 +58,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -66,7 +67,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -75,7 +76,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -84,7 +85,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -93,7 +94,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -102,7 +103,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -116,7 +117,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -126,7 +127,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -135,7 +136,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -144,7 +145,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -153,7 +154,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -162,7 +163,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -171,7 +172,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -180,7 +181,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -194,7 +195,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -204,7 +205,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -213,7 +214,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -222,7 +223,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -231,7 +232,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -240,7 +241,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -249,7 +250,7 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
@@ -258,12 +259,11 @@ location.href = src;
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
   INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro
-  WHERE i.status_agendamento='agendado' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
+  WHERE i.status_agendamento='agendado' AND c.tipo='$tipo' AND i.data_agendamento='$dataHoje' AND b.fk_id_setor='$setor'");
   $hoje1->execute();
   echo "<td>".$hoje1->rowCount()."</td>";
   ?>
 </tr>
-
 
 </table>
 <?php 

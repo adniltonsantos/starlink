@@ -63,6 +63,7 @@ onclick="document.getElementById('myForm').submit()";
         
         <thead>
         <tr>
+        <th>Iclass</th>
         <th>O.S</th>
         <th>COD</th>
         <th>Nome do Cliente</th>
@@ -89,6 +90,18 @@ onclick="document.getElementById('myForm').submit()";
         ?>
 
         <tr>
+        <td>
+          <?php if($linha['status_iclass'] == '0'){ ?>
+            
+            <a href="?pg=clientes-by-tecnicos-all&iclass&os=<?php echo $linha['id_instalacao'];?>&data=<?php echo $_GET['data']; ?>&data2=<?php echo $_GET['data']; ?>">
+            <span class="glyphicon glyphicon-random" style="color:blue" title="enviado" data-toggle="tooltip"></span>
+            </a>
+            <?php } else { ?>
+            <span class="glyphicon glyphicon-random" style="color:red" title="Nao enviado" data-toggle="tooltip"></span> 
+           
+
+          <?php } ?>
+        </td>
         <td><?php echo $linha['id_instalacao']?></td>
         <td><?php echo $linha['cod_cliente']?></td>
         <td><?php echo $linha['nomeCliente']?></td>
@@ -178,6 +191,7 @@ onclick="document.getElementById('myForm').submit()";
               <option value="CTO">CTO</option>
               <option value="CANCELOU">CANCELOU</option>
               <option value="INDIS">INDISPONIBILIDADE</option>
+              <option value="REAGENDAR">REAGENDAR</option>
               <option value="REDE">REDE</option>
               <option value="RC">RETORNO DE CLIENTE</option>
             </select>
@@ -391,7 +405,7 @@ echo "<script>location.href='?pg=clientes-by-tecnicos-all&between&data=".$data."
 
 <?php 
 if (isset($_GET['comentario'])){
-    $data =  $_POST['data'];
+    $data1 =  $_POST['data'];
     $data2 =  $_POST['data2'];
 
     $comentario = $_POST['comentario'];
@@ -403,9 +417,26 @@ if (isset($_GET['comentario'])){
     values ('$comentario','$data','$idusuario','$id_cliente')");
     $comentsql->execute();
 
+    echo "<script>location.href='?pg=clientes-by-tecnicos-all&between&data=".$data1."&data2=".$data2."'</script>"; 
+}
+?>
+
+
+<?php 
+if (isset($_GET['iclass'])){
+
+    $data = $_GET['data'];
+    $data2 = $_GET['data2'];
+    $os = $_GET['os'];
+
+    $ossql = $pdo->prepare("UPDATE instalacoes SET status_iclass='1' where id_instalacao='$os' ");
+    $ossql->execute();
+   
+
     echo "<script>location.href='?pg=clientes-by-tecnicos-all&between&data=".$data."&data2=".$data2."'</script>"; 
 }
 ?>
+
 
  <!-- Paginação em Jquery-->
 

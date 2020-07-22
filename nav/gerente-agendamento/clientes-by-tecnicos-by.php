@@ -77,6 +77,7 @@ location.href = src;
         
         <thead>
         <tr>
+        <th>Iclass</th>
         <th>O.S</th>
         <th>COD</th>
         <th>Nome do Cliente</th>
@@ -104,7 +105,19 @@ location.href = src;
 
         ?>
 
-<tr>
+        <tr>
+        <td>
+          <?php if($linha['status_iclass'] == '0'){ ?>
+            
+            <a href="?pg=clientes-by-tecnicos-by&iclass&os=<?php echo $linha['id_instalacao'];?>&data=<?php echo $_GET['data']; ?>&data2=<?php echo $_GET['data']; ?>&id_tecnico=<?php echo $_GET['id_tecnico']; ?>">
+            <span class="glyphicon glyphicon-random" style="color:blue" title="enviado" data-toggle="tooltip"></span>
+            </a>
+            <?php } else { ?>
+            <span class="glyphicon glyphicon-random" style="color:red" title="Nao enviado" data-toggle="tooltip"></span> 
+           
+
+          <?php } ?>
+        </td>
         <td><?php echo $linha['id_instalacao']?></td>
         <td><?php echo $linha['cod_cliente']?></td>
         <td><?php echo $linha['nomeCliente']?></td>
@@ -197,6 +210,7 @@ location.href = src;
               <option value="CTO">CTO</option>
               <option value="CANCELOU">CANCELOU</option>
               <option value="INDIS">INDISPONIBILIDADE</option>
+              <option value="REAGENDAR">REAGENDAR</option>
               <option value="REDE">REDE</option>
               <option value="RC">RETORNO DE CLIENTE</option>
             </select>
@@ -435,6 +449,22 @@ if (isset($_GET['comentario'])){
 
     echo "<script>location.href='?pg=clientes-by-tecnicos-by&between&data=".$data."&data2=".$data2."&id_tecnico=".$pg_id_tecnico."'</script>";  
   }
+?>
+
+<?php 
+if (isset($_GET['iclass'])){
+
+    $data = $_GET['data'];
+    $data2 = $_GET['data2'];
+    $pg_id_tecnico = $_GET['id_tecnico'];
+    $os = $_GET['os'];
+
+    $ossql = $pdo->prepare("UPDATE instalacoes SET status_iclass='1' where id_instalacao='$os' ");
+    $ossql->execute();
+   
+
+    echo "<script>location.href='?pg=clientes-by-tecnicos-by&between&data=".$data."&data2=".$data2."&id_tecnico=".$pg_id_tecnico."'</script>";  
+}
 ?>
 
     
