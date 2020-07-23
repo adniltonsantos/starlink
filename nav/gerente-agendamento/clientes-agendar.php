@@ -326,7 +326,8 @@ location.href = src;
 
         <span class="glyphicon glyphicon-comment"></span>
         <?php } ?>
-        </a></td>
+        </a>
+    </td>
     </tr>
 
 

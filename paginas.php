@@ -3,8 +3,19 @@
 if(isset($_GET['pg'])){
 
 switch($_GET['pg']){
+
+	// SETOR DE VENDAS
+
+	case'cliente-sem-contato-vendas';
+	include "nav/vendas/cliente-sem-contato-vendas.php";
+	break;
+
+	case'cliente-cancelou-vendas';
+	include "nav/vendas/cliente-cancelou-vendas.php";
+	break;
 	// SETOR ATENDIMENTO
-		// Cadastra Transferência
+
+		
 		case'cliente-inseri-transf';
 		include "nav/atendimento/cliente-inseri-transf.php";
 		break;
@@ -33,9 +44,9 @@ switch($_GET['pg']){
 		case'cliente-transferencia';
 		include "nav/agendamento/cliente-transferencia.php";
 		break;
-		//Clientes
+	
 		case'cliente-sem-contato';
-		include "nav/cliente-sem-contato.php";
+		include "nav/agendamento/cliente-sem-contato.php";
 		break;
 		//Clientes
 		case'cliente-whats';
