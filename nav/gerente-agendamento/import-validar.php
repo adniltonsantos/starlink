@@ -222,8 +222,12 @@ if (isset($_GET['migration'])){
     if( $vendedor == 'Suporte (EliteSoft)'){
       $vendedor = 'atendimento';
     }
-    if( $vendedor == 'Cleide - Boiçucanga' OR 'Tatiane - Boiçucanga'){
-      $vendedor = 'equipe-vendas';
+    if( $vendedor == 'Cleide - Boiçucanga'){
+      $vendedor = 'cleide';
+    }
+
+    if( $vendedor == 'Tatiane - Boiçucanga'){
+      $vendedor = 'tatiane';
     }
     
     $sql .= "('$cod_cliente','$data_cadastro','$nome','$endereco','$referencia','$dd','$fone','$fax','$celular','$tipo','$status_cliente','$fk_id_bairro','$vendedor'),";
