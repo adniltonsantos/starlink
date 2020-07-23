@@ -23,7 +23,7 @@ if(isset($_GET['submit'])){
                  }
         
               unset($values[0]);
-      
+                //  echo $values[1];
             $sql = "INSERT INTO prevclientes (cod_cliente, nome, referencia,dd,fone,fax,celular,endereco,bairro,data_cadastro, vendedor) VALUES "
                  . implode(',',$values); 
          

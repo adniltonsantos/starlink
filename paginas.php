@@ -202,7 +202,11 @@ switch($_GET['pg']){
 		break;
 
 	// GERENTE DE AGENDAMENTO
-	
+
+		case'agendamento-dashboard';
+		include "nav/gerente-agendamento/agendamento-dashboard.php";
+		break;
+
 		case'clientes-correcao';
 		include "nav/gerente-agendamento/clientes-correcao.php";
 		break;

@@ -3,6 +3,7 @@
 <?php if($setor == 'adm/agendamento'){ ?>
    <nav id="menu">
         <ul>
+        <li><a href='?pg=agendamento-dashboard'>DashBoard</a></li>
          <li><a href='#'>Clientes</a>
                 <ul class="dropdown-sub"> 
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-correcao">Correção</a></li>
