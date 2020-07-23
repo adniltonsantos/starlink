@@ -230,6 +230,8 @@ if (isset($_GET['migration'])){
       $vendedor = 'tatiane';
     }
     
+    $vendedor;
+
     $sql .= "('$cod_cliente','$data_cadastro','$nome','$endereco','$referencia','$dd','$fone','$fax','$celular','$tipo','$status_cliente','$fk_id_bairro','$vendedor'),";
     }
 
