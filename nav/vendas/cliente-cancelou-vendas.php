@@ -37,7 +37,7 @@ if (isset($_GET['comentario'])){
         <th>COD</th>
         <th>Nome do Cliente</th>
         <th>Data do Contrato</th>
-        <th>comentario</th>
+        <th colspan="3">Funcoes</th>
         </tr>
         </thead>
        
@@ -45,7 +45,7 @@ if (isset($_GET['comentario'])){
 
       
       
-        $agendadosql = $pdo->prepare("SELECT *, nome as nomeCliente from clientes WHERE status_cliente='cancelou' ORDER BY data_cadastro ASC ");
+        $agendadosql = $pdo->prepare("SELECT *, nome as nomeCliente from clientes WHERE status_cliente='cancelou' ORDER BY data_cadastro DESC ");
       
         $agendadosql->execute();
         while($linha = $agendadosql->fetch(PDO::FETCH_ASSOC)){
@@ -72,6 +72,11 @@ if (isset($_GET['comentario'])){
 
             <span class="glyphicon glyphicon-comment"></span>
             <?php } ?>
+            </a>
+        </td>
+        <td>            
+            <a href="?pg=cliente-cancelou-vendas&desativar&id_cliente=<?php echo $linha['id_cliente']?>">
+            <span class="glyphicon glyphicon-off" title="Desativar" data-toggle="tooltip"></span>
             </a>
         </td>
         </tr>
@@ -143,6 +148,19 @@ if (isset($_GET['retornar'])){
     $id_cliente = $_GET['id_cliente'];
 
     $ossql = $pdo->prepare("UPDATE clientes SET status_cliente='aguardando-agendamento' where id_cliente='$id_cliente' ");
+    $ossql->execute();
+   
+
+    echo "<script>location.href='?pg=cliente-cancelou-vendas'</script>"; 
+}
+?>
+
+<?php 
+if (isset($_GET['desativar'])){
+
+    $id_cliente = $_GET['id_cliente'];
+
+    $ossql = $pdo->prepare("UPDATE clientes SET status_cliente='desativando' where id_cliente='$id_cliente' ");
     $ossql->execute();
    
 
