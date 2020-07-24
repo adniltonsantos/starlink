@@ -61,22 +61,7 @@ switch($_GET['pg']){
 		break;
 
 
-		
-		//Clientes - Concluido
-		case'clientes-concluido-today';
-		include "nav/clientes-concluido-today.php";
-		break;
 
-		//Clientes - Concluido
-		case'clientes-concluido-all';
-		include "nav/clientes-concluido-all.php";
-		break;
-
-		//Clientes - Concluido
-		case'clientes-concluido-tecnico';
-		include "nav/clientes-concluido-tecnico.php";
-		break;
-		
 
 
 		//Producao - Terceiros
@@ -258,7 +243,21 @@ switch($_GET['pg']){
 		case'clientes-transferencias';
 		include "nav/gerente-agendamento/clientes-transferencias.php";
 		break;
+		//Clientes - Concluido
+		case'clientes-concluido-today';
+		include "nav/gerente-agendamento/clientes-concluido-today.php";
+		break;
 
+		//Clientes - Concluido
+		case'clientes-concluido-all';
+		include "nav/gerente-agendamento/clientes-concluido-all.php";
+		break;
+
+		//Clientes - Concluido
+		case'clientes-concluido-tecnico';
+		include "nav/gerente-agendamento/clientes-concluido-tecnico.php";
+		break;
+		
 		//Import XLS
 		case'import-xls';
 		include "nav/gerente-agendamento/import-xls.php";

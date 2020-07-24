@@ -20,6 +20,18 @@ if (isset($_GET['comentario'])){
 }
 ?>
 
+<?php 
+if (isset($_GET['semcontato'])){
+
+
+    $id_cliente = $_GET['id_cliente'];
+   
+    $semContatosql = $pdo->prepare("UPDATE clientes SET status_cliente='sem-contato' WHERE id_cliente='$id_cliente'");
+    $semContatosql->execute();
+
+    echo "<script>location.href='?pg=cliente-whats</script>";  
+}
+?>
 
 <?php 
 if (isset($_GET['update'])){
@@ -57,7 +69,7 @@ if (isset($_GET['update'])){
         <th>COD</th>
         <th>Nome do Cliente</th>
         <th>Data do Cadastro</th>
-        <th colspan="2">Funçoes</th>
+        <th colspan="3">Funçoes</th>
         </tr>
         </thead>
        
@@ -90,6 +102,7 @@ if (isset($_GET['update'])){
         <?php } ?>
         </a>
         </td>
+        <td class="centro-table"><a href="?pg=cliente-whats&semcontato&id_cliente=<?php echo $linha['id_cliente'];?>"><div data-target="#myModal<?php echo $linha['id_cliente']?>" class="glyphicon glyphicon-erase" title="Sem Contato" data-toggle="tooltip"></div></td>
         </tr>
 
 

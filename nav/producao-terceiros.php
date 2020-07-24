@@ -50,7 +50,7 @@
         $data = $_GET['data'];  
         $data2 = $_GET['data2'];
 
-        $tecnicossql = $pdo->prepare("SELECT * FROM tecnicos WHERE tipo='terceiro'");
+        $tecnicossql = $pdo->prepare("SELECT * FROM tecnicos WHERE tipo='terceiro' ORDER BY nome ASC");
         $tecnicossql->execute();
       
   

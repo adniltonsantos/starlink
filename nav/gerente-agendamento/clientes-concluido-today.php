@@ -1,4 +1,4 @@
-<?php require_once "config.php"; $pdo = conectar(); require_once "function.php";?>
+<?php require_once "config.php"; $pdo = conectar(); ?>
 
 <section>
 
