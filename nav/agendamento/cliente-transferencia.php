@@ -4,6 +4,42 @@
 <section>
 <div id="janela">
 <div id="conteudo">
+
+<?php 
+if (isset($_GET['comentario'])){
+
+    $comentario = $_POST['comentario'];
+    $data = date('Y-m-d H:i:s');
+    $idusuario = $_COOKIE['idusuario'];
+    $id_cliente = $_POST['id_cliente'];
+   
+    $comentsql = $pdo->prepare("INSERT INTO comentarios (comentario,data_comentario,fk_id_usuario,fk_id_cliente)
+    values ('$comentario','$data','$idusuario','$id_cliente')");
+    $comentsql->execute();
+
+    echo "<script>location.href='?pg=cliente-transferencia</script>";  
+}
+?>
+
+<!-- Atualizando o cliente com o bairro correto -->
+<?php 
+if (isset($_GET['update'])){
+
+    $data = $_POST['data'];
+    $fk_id_cliente = $_POST['id_cliente'];
+    $idusuario = $_COOKIE["idusuario"];
+    $tipo = $_POST['tipo'];
+
+    $insertsql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='agendado',fk_id_tecnico='0',data_agendamento='$data' WHERE fk_id_cliente='$fk_id_cliente'");
+    $insertsql->execute();
+    
+    $updatesql = $pdo->prepare("UPDATE clientes SET status_cliente='agendado' WHERE id_cliente='$fk_id_cliente' ");
+    $updatesql->execute();
+
+  echo "<script>location.href='?pg=cliente-transferencia</script>";  
+}
+?>
+
 <legend>Transferência</legend>
 
 
@@ -157,42 +193,10 @@
 </table>
   
 
-<!-- Atualizando o cliente com o bairro correto -->
-<?php 
-if (isset($_GET['update'])){
-
-    $data = $_POST['data'];
-    $fk_id_cliente = $_POST['id_cliente'];
-    $idusuario = $_COOKIE["idusuario"];
-    $tipo = $_POST['tipo'];
-
-    $insertsql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='agendado',fk_id_tecnico='0',data_agendamento='$data' WHERE fk_id_cliente='$fk_id_cliente'");
-    $insertsql->execute();
-    
-    $updatesql = $pdo->prepare("UPDATE clientes SET status_cliente='agendado' WHERE id_cliente='$fk_id_cliente' ");
-    $updatesql->execute();
-
-  echo "<script>location.href='?pg=cliente-transferencia&selecionado&tipo=$tipo'</script>";  
-}
-?>
 
 
-<?php 
-if (isset($_GET['comentario'])){
-    $tipo = $_POST['tipo'];
 
-    $comentario = $_POST['comentario'];
-    $data = date('Y-m-d H:i:s');
-    $idusuario = $_COOKIE['idusuario'];
-    $id_cliente = $_POST['id_cliente'];
-   
-    $comentsql = $pdo->prepare("INSERT INTO comentarios (comentario,data_comentario,fk_id_usuario,fk_id_cliente)
-    values ('$comentario','$data','$idusuario','$id_cliente')");
-    $comentsql->execute();
 
-    echo "<script>location.href='?pg=cliente-transferencia&selecionado&tipo=$tipo'</script>";  
-}
-?>
 
 </div>
 </div><!-- Fecha Id Janela-->
