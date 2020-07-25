@@ -1,5 +1,9 @@
 
-<?php require_once "config.php"; $pdo = conectar(); require_once "function.php"; ?>
+<?php $sqlTransf = $pdo->prepare("SELECT * FROM instalacoes where tipo_instalacao='transfres' AND tipo_instalacao='transfcond' OR status_agendamento='agendar'");
+$sqlTransf->execute();
+
+?>
+
 <?php if($setor == 'adm/agendamento'){ ?>
    <nav id="menu">
         <ul>
@@ -38,7 +42,7 @@
                     <li class="dropdown-sub-menu"><a href="?pg=import-validar">Inconsistências</a></li> 
                 </ul> 
             </li>
-            <li><a href='?pg=clientes-transferencias'>Transferencia</a></li>
+            <li><a href='?pg=clientes-transferencias'>Transferencia <span class="badge badge-primary" style="float:right; margin-right:10px"><?php echo $total = $sqlTransf->rowCount(); ?></span></a></li>          
             <li><a href=''>Concluidos</a>
             <ul class="dropdown-sub"> 
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-concluido-today">Hoje</a></li>
