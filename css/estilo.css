@@ -83,16 +83,6 @@ table.venda tfoot th{
   font-size:14px;
 }
 
-/* fluxo de caixa */
-.mes {font-size: 10px; margin-top: 10px; margin-bottom: 10px;}
-.mes a:link {color:#FFFFFF; opacity: 1.0;}
-.mes a:hover {color:#FFFFFF; text-decoration: none;}
-.mes a:visited {color:#FFFFFF;}
-.bloco-fluxo{width: 800px; display: block;}
-.receita {width: 380px; float: left;}
-.despesa {width: 380px; float: left; margin-left: 40px;}
-.resumo {width: 800px; clear: both;}
-.panel-footer{margin-top: -20px;}
 
 
 .wellv{margin-top: 10px; width: 630px;  height: 290px; float: left; overflow-x: hidden; background-color: #f5f5f5; border-radius: 4px;   border: 1px solid #e3e3e3;}

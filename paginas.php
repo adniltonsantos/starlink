@@ -55,10 +55,6 @@ switch($_GET['pg']){
 		
 
 
-		//Clientes
-		case'clientes-pesquisa';
-		include "nav/clientes-pesquisa.php";
-		break;
 
 
 
@@ -257,6 +253,16 @@ switch($_GET['pg']){
 		case'clientes-concluido-tecnico';
 		include "nav/gerente-agendamento/clientes-concluido-tecnico.php";
 		break;
+
+		
+		case'clientes-pesquisa';
+		include "nav/gerente-agendamento/clientes-pesquisa.php";
+		break;
+
+		case'clientes-referencia';
+		include "nav/gerente-agendamento/clientes-referencia.php";
+		break;
+		
 		
 		//Import XLS
 		case'import-xls';

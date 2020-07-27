@@ -10,9 +10,10 @@ $sqlTransf->execute();
         <li><a href='?pg=agendamento-dashboard'>DashBoard</a></li>
          <li><a href='#'>Clientes</a>
                 <ul class="dropdown-sub"> 
+                    <li class="dropdown-sub-menu"><a href="?pg=clientes-pesquisa">Por COD</a></li>
+                    <!-- <li class="dropdown-sub-menu"><a href="?pg=clientes-referencia">Por REF</a></li> -->
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-correcao">Correção</a></li>
-                    <li class="dropdown-sub-menu"><a href="?pg=clientes-pesquisa">Pesquisar</a></li>
-                 </ul> 
+                </ul> 
             </li>
             <li><a href='?pg=clientes-agendar'>Agendar</a></li>
           
@@ -42,7 +43,7 @@ $sqlTransf->execute();
                     <li class="dropdown-sub-menu"><a href="?pg=import-validar">Inconsistências</a></li> 
                 </ul> 
             </li>
-            <li><a href='?pg=clientes-transferencias'>Transferencia <span class="badge badge-primary" style="float:right; margin-right:10px"><?php echo $total = $sqlTransf->rowCount(); ?></span></a></li>          
+            <li><a href='?pg=clientes-transferencias'>Transferencia <span class="badge badge-primary" style="float:right; margin-right:10px;background-color:red"><?php echo $total = $sqlTransf->rowCount(); ?></span></a></li>          
             <li><a href=''>Concluidos</a>
             <ul class="dropdown-sub"> 
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-concluido-today">Hoje</a></li>
