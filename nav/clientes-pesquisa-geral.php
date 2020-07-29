@@ -168,6 +168,18 @@ if(isset($_GET['selecionado'])){
           echo "Indisponivel na região";
         }
 
+        if($status == 'REAGENDAR'){
+          echo "Setor de agendamento irá reagendar o Assinante houve algum problema no local e assinante pediu uma reagendamento para outra data ";
+        }
+
+        if($status == 'REDE'){
+          echo "Cliente que a empresa tem que fazer REDE, está com supervir de infraestrutura de rede CARLOS e sua equipe ";
+        }
+
+        if($status == 'RC'){
+          echo "Estivemos no local , existe uma pendencia do cliente e o mesmo informou que entrar em contato com a empresa assim que resolver a pendência";
+        }
+
         if($status == 'INFRA'){
           $inst = $pdo->prepare("SELECT * FROM instalacoes as i 
           INNER JOIN tecnicos as t ON i.fk_id_tecnico=t.id_tecnico
@@ -175,9 +187,10 @@ if(isset($_GET['selecionado'])){
           $inst->execute();
           $linhainst = $inst->fetch(PDO::FETCH_ASSOC); 
           if($inst->rowCount()){
-            echo "Cliente ativado em ".dataBR($linhainst['data_fechamento']);
+            echo "Cliente foi agendado em  ".dataBR($linhainst['data_agendamento']);
             echo " pelo técnico ";
             echo $linhainst['nome'];
+            echo " porém não foi concluido com problema de infraestutura do cliente";
           }    
         }
       
@@ -204,6 +217,21 @@ if(isset($_GET['selecionado'])){
         }      
       }
       
+      if($status == 'RC'){
+        $inst = $pdo->prepare("SELECT * FROM instalacoes as i 
+        INNER JOIN tecnicos as t ON i.fk_id_tecnico=t.id_tecnico
+        WHERE i.fk_id_cliente='$id_cliente' AND i.status_agendamento='RC'");
+        $inst->execute();
+        $linhainst = $inst->fetch(PDO::FETCH_ASSOC); 
+        if($inst->rowCount()){
+          echo "Aguardando Retorno do Cliente - ";
+          echo "Cliente foi agendado em  ".dataBR($linhainst['data_agendamento']);
+          echo " pelo técnico ";
+          echo $linhainst['nome'];
+          echo " porém não foi concluido com algum problema interno e o cliente ficou de procurar a empresa";
+        }    
+      }
+
     ?>
 
    
@@ -221,6 +249,128 @@ if(isset($_GET['selecionado'])){
 
 
 
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal<?php echo $linha['id_cliente']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"><?php echo $linha['nomeCliente']?></h4>
+      </div>
+
+
+      <form method="POST"  id="agendar<?php echo $linha['id_cliente'];?>" action="?pg=clientes-pesquisa&update">
+          <input type="hidden" name="id_cliente" value="<?php echo $linha['id_cliente']?>">
+          <input type="hidden" name="tipo" value="<?php echo $linha['tipo']?>">
+          <input type="hidden" name="cod_cliente" value="<?php echo $linha['cod_cliente']?>">
+         
+          <div style="padding:20px">
+          
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="">Técnico</label>
+                <select name="tecnico" required class="form-control" style="width:200px;" autofocus>
+                <option value="">Selecione o Técnico</option>
+                <option value="25">SEM TECNICO</option>
+                <?php 
+                $tecnicosql = $pdo->prepare("SELECT * FROM tecnicos WHERE status_tecnico='ativo' ORDER BY nome ASC");
+                $tecnicosql->execute();
+                while($linha2 = $tecnicosql->fetch(PDO::FETCH_ASSOC)){
+                ?>
+                
+              
+                <option value="<?php echo $linha2['id_tecnico'] ?>"><?php echo $linha2['nome'] ?></option>
+                <?php } ?>
+                </select>  
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="">Data de Instalação</label>
+              <input  required name="data" type="date" class="form-control">
+            </div>
+        </div>
+        
+        <button onclick="document.getElementById('agendar<?php echo $linha['id_cliente'];?>').submit()"; class="btn btn-primary">Agendar</button></div>    
+        
+       
+        </div>    
+          </form>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal Reagendar -->
+<div class="modal fade" id="myModalR<?php echo $linha['id_cliente']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Reagendar - <?php echo $linha['nomeCliente'];?></h4>
+      </div>
+
+<?php
+      $inst = $pdo->prepare("SELECT * FROM instalacoes as i 
+        INNER JOIN tecnicos as t ON i.fk_id_tecnico=t.id_tecnico
+        WHERE i.fk_id_cliente='$id_cliente' AND i.status_agendamento='agendado'");
+        $inst->execute();
+        $linhainst = $inst->fetch(PDO::FETCH_ASSOC); 
+              
+?>
+      <form method="POST"  id="reagendar<?php echo $linhainst['id_instalacao'];?>" action="?pg=clientes-pesquisa&reagendar">
+         
+         <input type="hidden" name="id_instalacao" value="<?php echo $linhainst['id_instalacao'];?>">
+          <input type="hidden" name="id_cliente" value="<?php echo $linha['id_cliente']?>">
+          <input type="hidden" name="cod_cliente" value="<?php echo $linha['cod_cliente']?>">
+         
+          <div style="padding:20px">
+          
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="">Técnico</label>
+                <select name="tecnico" required class="form-control" style="width:200px;" autofocus>
+                <option value="">Selecione o Técnico</option>
+                <option value="25">SEM TECNICO</option>
+                <?php 
+                $tecnicosql = $pdo->prepare("SELECT * FROM tecnicos WHERE status_tecnico='ativo' ORDER BY nome ASC");
+                $tecnicosql->execute();
+                while($linha2 = $tecnicosql->fetch(PDO::FETCH_ASSOC)){
+                ?>
+                
+              
+                <option value="<?php echo $linha2['id_tecnico'];?>" <?php echo selected( $linhainst['fk_id_tecnico'], $linha2['id_tecnico'] ); ?>><?php echo $linha2['nome'] ?></option>
+                <?php } ?>
+                </select>  
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="">Data de Instalação</label>
+              <input  required name="data" type="date" class="form-control" value="<?php echo $linhainst['data_agendamento'];?>">
+            </div>
+        </div>
+        
+        <button onclick="document.getElementById('reagendar<?php echo $linhainst['id_instalacao'];?>').submit()"; class="btn btn-primary">Reagendar</button></div>    
+        
+       
+        </div>    
+          </form>
+
+
+    </div>
+  </div>
+</div>
+
+
+
 <?php }  ?>
 
 
@@ -230,3 +380,38 @@ if(isset($_GET['selecionado'])){
 </div><!-- Fecha Id Janela-->
 </section>
 <!-- Atualizando o cliente com o bairro correto -->
+<?php 
+if (isset($_GET['update'])){
+
+    $cod_cliente = $_POST['cod_cliente'];
+    $data = $_POST['data'];
+    $fk_id_tecnico = $_POST['tecnico'];
+    $fk_id_cliente = $_POST['id_cliente'];
+    $idusuario = $_COOKIE["idusuario"];
+    $tipo = $_POST['tipo'];
+
+    $insertsql = $pdo->prepare("INSERT INTO instalacoes (fk_id_usuario,fk_id_tecnico,fk_id_cliente,data_agendamento,status_agendamento) values
+    ('$idusuario','$fk_id_tecnico','$fk_id_cliente','$data','agendado') ");
+    $insertsql->execute();
+    
+    $updatesql = $pdo->prepare("UPDATE clientes SET status_cliente='agendado' WHERE id_cliente='$fk_id_cliente' ");
+    $updatesql->execute();
+
+  echo "<script>location.href='?pg=clientes-pesquisa&search&selecionado&cod=".$cod_cliente."&ponto=".$fk_id_cliente."'</script>";  
+}
+?>
+<?php 
+if (isset($_GET['reagendar'])){
+    $id_instalacao = $_POST['id_instalacao'];
+    $cod_cliente = $_POST['cod_cliente'];
+    $data = $_POST['data'];
+    $fk_id_tecnico = $_POST['tecnico'];
+    $fk_id_cliente = $_POST['id_cliente'];
+    $idusuario = $_COOKIE["idusuario"];
+
+    $updatesql = $pdo->prepare("UPDATE instalacoes SET fk_id_tecnico='$fk_id_tecnico',data_agendamento='$data' WHERE id_instalacao='$id_instalacao' ");
+    $updatesql->execute();
+
+  echo "<script>location.href='?pg=clientes-pesquisa&search&selecionado&cod=".$cod_cliente."&ponto=".$fk_id_cliente."'</script>";  
+}
+?>
