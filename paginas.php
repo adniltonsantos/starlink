@@ -224,6 +224,11 @@ switch($_GET['pg']){
 		include "nav/gerente-agendamento/clientes-indis.php";
 		break;
 
+		case'clientes-infra';
+		include "nav/gerente-agendamento/clientes-infra.php";
+		break;
+
+
 		case'clientes-cto';
 		include "nav/gerente-agendamento/clientes-cto.php";
 		break;
