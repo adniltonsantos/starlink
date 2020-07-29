@@ -34,7 +34,7 @@ location.href = src;
               <select name="id_tecnico" required class="form-control"  onchange="Redireciona(this)">
               <option value="">Selecione o Técnico</option>
               <?php 
-              $tecnicosql = $pdo->prepare("SELECT * FROM tecnicos WHERE status_tecnico='ativo'");
+              $tecnicosql = $pdo->prepare("SELECT * FROM tecnicos WHERE status_tecnico='ativo' ORDER BY nome ASC");
               $tecnicosql->execute();
               while($linha = $tecnicosql->fetch(PDO::FETCH_ASSOC)){
               ?>
@@ -205,11 +205,14 @@ location.href = src;
             <input type="hidden" name="data" value="<?php echo $_GET['data']?>">
             <input type="hidden" name="data2" value="<?php echo $_GET['data2']?>">
             <input type="hidden" name="pg_id_tecnico" value="<?php echo $_GET['id_tecnico']?>">
+            <input type="hidden" name="id_cliente" value="<?php echo $linha['id_cliente'] ?>">
+
             <label for="">Motivo</label>
             <select class="form-control" name="motivo">
               <option value="CTO">CTO</option>
               <option value="CANCELOU">CANCELOU</option>
               <option value="INDIS">INDISPONIBILIDADE</option>
+              <option value="INFRA">INFRAESTRUTURA</option>
               <option value="REAGENDAR">REAGENDAR</option>
               <option value="REDE">REDE</option>
               <option value="RC">RETORNO DE CLIENTE</option>
@@ -394,8 +397,16 @@ $data2 =  $_POST['data2'];
 $motivo =  $_POST['motivo'];
 $pg_id_tecnico =  $_POST['pg_id_tecnico'];
 $os = $_POST['os'];
+$id_cliente = $_POST['id_cliente'];
+
+
 $sql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='$motivo' WHERE id_instalacao='$os'");
 $sql->execute();
+
+$cliente = $pdo->prepare("UPDATE clientes SET status_cliente='$motivo' WHERE id_cliente='$id_cliente'");
+$cliente->execute();
+
+
 echo "<script>location.href='?pg=clientes-by-tecnicos-by&between&data=".$data."&data2=".$data2."&id_tecnico=".$pg_id_tecnico."'</script>"; 
 } ?>
 

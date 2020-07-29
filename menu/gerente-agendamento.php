@@ -11,6 +11,7 @@ $sqlTransf->execute();
          <li><a href='#'>Clientes</a>
                 <ul class="dropdown-sub"> 
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-pesquisa">Por COD</a></li>
+                    <li class="dropdown-sub-menu"><a href="?pg=clientes-pesquisa-ref">Por REF</a></li>
                     <!-- <li class="dropdown-sub-menu"><a href="?pg=clientes-referencia">Por REF</a></li> -->
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-correcao">Correção</a></li>
                 </ul> 

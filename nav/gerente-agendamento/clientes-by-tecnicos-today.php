@@ -129,6 +129,7 @@ $total = $agendadosql->rowCount();
       <div style="padding:20px">
           <form method="POST" id="motivo<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-by-tecnicos-today&selecionado&resolucao">
             <input type="hidden" name="os" value="<?php echo $linha['id_instalacao'] ?>">
+            <input type="hidden" name="id_cliente" value="<?php echo $linha['id_cliente'] ?>">
             <label for="">Motivo</label>
             <select class="form-control" name="motivo">
               <option value="CTO">CTO</option>
@@ -267,8 +268,14 @@ document.getElementById("myForm").submit();
 
 $motivo =  $_POST['motivo'];
 $os = $_POST['os'];
+$id_cliente = $_POST['id_cliente'];
+
 $sql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='$motivo' WHERE id_instalacao='$os'");
 $sql->execute();
+
+$cliente = $pdo->prepare("UPDATE clientes SET status_cliente='$motivo' WHERE id_cliente='$id_cliente'");
+$cliente->execute();
+
 echo "<script>location.href='?pg=clientes-by-tecnicos-today'</script>"; 
 } ?>
 

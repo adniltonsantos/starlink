@@ -184,6 +184,7 @@ onclick="document.getElementById('myForm').submit()";
       <div style="padding:20px">
           <form method="POST" id="motivo<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-by-tecnicos-all&between&resolucao">
             <input type="hidden" name="os" value="<?php echo $linha['id_instalacao'] ?>">
+            <input type="hidden" name="id_cliente" value="<?php echo $linha['id_cliente'] ?>">
             <input type="hidden" name="data" value="<?php echo $_GET['data']?>">
               <input type="hidden" name="data2" value="<?php echo $_GET['data2']?>">
             <label for="">Motivo</label>
@@ -191,6 +192,7 @@ onclick="document.getElementById('myForm').submit()";
               <option value="CTO">CTO</option>
               <option value="CANCELOU">CANCELOU</option>
               <option value="INDIS">INDISPONIBILIDADE</option>
+              <option value="INFRA">INFRAESTRUTURA</option>
               <option value="REAGENDAR">REAGENDAR</option>
               <option value="REDE">REDE</option>
               <option value="RC">RETORNO DE CLIENTE</option>
@@ -370,8 +372,14 @@ $data =  $_POST['data'];
 $data2 =  $_POST['data2'];
 $motivo =  $_POST['motivo'];
 $os = $_POST['os'];
+$id_cliente = $_POST['id_cliente'];
+
 $sql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='$motivo' WHERE id_instalacao='$os'");
 $sql->execute();
+
+$cliente = $pdo->prepare("UPDATE clientes SET status_cliente='$motivo' WHERE id_cliente='$id_cliente'");
+$cliente->execute();
+
 echo "<script>location.href='?pg=clientes-by-tecnicos-all&between&data=".$data."&data2=".$data2."'</script>"; 
 } ?>
 

@@ -168,6 +168,18 @@ if(isset($_GET['selecionado'])){
           echo "Indisponivel na região";
         }
 
+        if($status == 'REAGENDAR'){
+          echo "Setor de agendamento irá reagendar o Assinante houve algum problema no local e assinante pediu uma reagendamento para outra data ";
+        }
+
+        if($status == 'REDE'){
+          echo "Cliente que a empresa tem que fazer REDE, está com supervir de infraestrutura de rede CARLOS e sua equipe ";
+        }
+
+        if($status == 'RC'){
+          echo "Estivemos no local , existe uma pendencia do cliente e o mesmo informou que entrar em contato com a empresa assim que resolver a pendência";
+        }
+
         if($status == 'INFRA'){
           $inst = $pdo->prepare("SELECT * FROM instalacoes as i 
           INNER JOIN tecnicos as t ON i.fk_id_tecnico=t.id_tecnico
