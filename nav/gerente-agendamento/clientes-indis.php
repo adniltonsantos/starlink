@@ -33,7 +33,7 @@
         $agendadosql = $pdo->prepare("SELECT *, c.nome as nomeCliente from instalacoes as i 
         INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente
         INNER JOIN tecnicos as t ON i.fk_id_tecnico=t.id_tecnico
-        WHERE status_agendamento='CANCELOU' 
+        WHERE status_agendamento='INDIS' 
         ORDER BY i.data_agendamento ASC ");
       
         $agendadosql->execute();
