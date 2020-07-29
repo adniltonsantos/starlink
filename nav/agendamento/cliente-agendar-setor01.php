@@ -432,7 +432,7 @@ if (isset($_GET['update'])){
 
 
     $insertsql = $pdo->prepare("INSERT INTO instalacoes (fk_id_usuario,fk_id_tecnico,fk_id_cliente,data_agendamento,status_agendamento,tipo_instalacao) values
-    ('$idusuario','0','$fk_id_cliente','$data','agendado','res') ");
+    ('$idusuario','25','$fk_id_cliente','$data','agendado','res') ");
     $insertsql->execute();
     
     $updatesql = $pdo->prepare("UPDATE clientes SET status_cliente='agendado' WHERE id_cliente='$fk_id_cliente' ");

@@ -7,6 +7,7 @@ $sqlTransf->execute();
 <?php if($setor == 'agendamento'){ ?>
    <nav id="menu">
         <ul>
+            <li><a href='?pg=clientes-pesquisa'>Cliente Pesquisa</a></li>  
             <li><a href='?pg=cliente-agendar'>Geral</a></li>  
             <li><a href='?pg=cliente-agendar-setor01'>Setor 01</a></li>  
             <li><a href='?pg=cliente-agendar-setor02'>Setor 02</a></li> 

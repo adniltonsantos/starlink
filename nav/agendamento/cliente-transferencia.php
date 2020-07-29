@@ -30,7 +30,7 @@ if (isset($_GET['update'])){
     $idusuario = $_COOKIE["idusuario"];
     $tipo = $_POST['tipo'];
 
-    $insertsql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='agendado',fk_id_tecnico='0',data_agendamento='$data' WHERE fk_id_cliente='$fk_id_cliente'");
+    $insertsql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='agendado',fk_id_tecnico='25',data_agendamento='$data' WHERE fk_id_cliente='$fk_id_cliente'");
     $insertsql->execute();
     
     $updatesql = $pdo->prepare("UPDATE clientes SET status_cliente='agendado' WHERE id_cliente='$fk_id_cliente' ");

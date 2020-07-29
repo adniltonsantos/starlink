@@ -364,7 +364,7 @@ location.href = src;
                 <label for="">Técnico</label>
                 <select name="tecnico" required class="form-control" style="width:200px;" autofocus>
                 <option value="">Selecione o Técnico</option>
-                <option value="0">SEM TECNICO</option>
+                <option value="25">SEM TECNICO</option>
                 <?php 
                 $tecnicosql = $pdo->prepare("SELECT * FROM tecnicos WHERE status_tecnico='ativo' ORDER BY nome ASC");
                 $tecnicosql->execute();
