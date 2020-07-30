@@ -4,6 +4,20 @@
 
 <div id="janela">
 
+
+<?php 
+if (isset($_GET['cancelou'])){
+
+
+    $id_cliente = $_GET['id_cliente'];
+   
+    $cancelasql = $pdo->prepare("UPDATE clientes SET status_cliente='cancelou' WHERE id_cliente='$id_cliente'");
+    $cancelasql->execute();
+    echo "<script>alert('Cliente Cancelado com Sucesso'); location.href='?pg=cliente-whats'</script>"; 
+}
+?>
+
+
 <?php 
 if (isset($_GET['comentario'])){
 
@@ -69,7 +83,7 @@ if (isset($_GET['update'])){
         <th>COD</th>
         <th>Nome do Cliente</th>
         <th>Data do Cadastro</th>
-        <th colspan="3">Funçoes</th>
+        <th colspan="4">Funçoes</th>
         </tr>
         </thead>
        
@@ -103,6 +117,7 @@ if (isset($_GET['update'])){
         </a>
         </td>
         <td class="centro-table"><a href="?pg=cliente-whats&semcontato&id_cliente=<?php echo $linha['id_cliente'];?>"><div data-target="#myModal<?php echo $linha['id_cliente']?>" class="glyphicon glyphicon-erase" title="Sem Contato" data-toggle="tooltip"></div></td>
+        <td class="centro-table"><a href="?pg=cliente-whats&cancelou&id_cliente=<?php echo $linha['id_cliente'];?>"><div  onclick="if (! confirm('Deseja Cancelar o cliente com o código , <?php echo $linha['cod_cliente']; ?>')) { return false; }"class="glyphicon glyphicon-remove" title="Cancelou" data-toggle="tooltip"></div></td>
         </tr>
 
 
