@@ -267,8 +267,8 @@ switch($_GET['pg']){
 		include "nav/gerente-agendamento/clientes-concluido-tecnico.php";
 		break;
 
-		case'clientes-pesquisa-geral';
-		include "nav/clientes-pesquisa-geral.php";
+		case'clientes-pesquisa';
+		include "nav/gerente-agendamento/clientes-pesquisa.php";
 		break;
 
 
@@ -280,7 +280,10 @@ switch($_GET['pg']){
 		include "nav/gerente-agendamento/clientes-referencia.php";
 		break;
 		
-		
+		case'clientes-pesquisa-geral';
+		include "nav/clientes-pesquisa-geral.php";
+		break;
+
 		//Import XLS
 		case'import-xls';
 		include "nav/gerente-agendamento/import-xls.php";
