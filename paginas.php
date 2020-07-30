@@ -21,6 +21,10 @@ switch($_GET['pg']){
 		break;
 
 	// SETOR DE AGENDAMENTO
+		case'cliente-pesquisa';
+		include "nav/agendamento/cliente-pesquisa.php";
+		break;
+
 		case'cliente-agendar';
 		include "nav/agendamento/cliente-agendar.php";
 		break;
@@ -51,6 +55,10 @@ switch($_GET['pg']){
 		//Clientes
 		case'cliente-whats';
 		include "nav/agendamento/cliente-whats.php";
+		break;
+
+		case'cliente-by-agendamento';
+		include "nav/agendamento/cliente-by-agendamento.php";
 		break;
 		
 
@@ -263,9 +271,6 @@ switch($_GET['pg']){
 		include "nav/clientes-pesquisa-geral.php";
 		break;
 
-		case'clientes-pesquisa';
-		include "nav/gerente-agendamento/clientes-pesquisa.php";
-		break;
 
 		case'clientes-pesquisa-ref';
 		include "nav/gerente-agendamento/clientes-pesquisa-ref.php";

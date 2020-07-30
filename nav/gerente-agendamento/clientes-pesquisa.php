@@ -179,6 +179,9 @@ if(isset($_GET['selecionado'])){
         if($status == 'RC'){
           echo "Estivemos no local , existe uma pendencia do cliente e o mesmo informou que entrar em contato com a empresa assim que resolver a pendência";
         }
+        if($status == 'whats'){
+          echo "Aguardando Retorno de Cliente via WhatsApp";
+        }
 
         if($status == 'INFRA'){
           $inst = $pdo->prepare("SELECT * FROM instalacoes as i 
@@ -197,6 +200,14 @@ if(isset($_GET['selecionado'])){
 
       if($status == 'Serviço Habilitado'){
         echo "Serviço Habilitado, cliente ativo antes da criação do sistema";
+      }
+      
+      if($status == 'transferindo'){
+        echo "Cliente está sendo transferido, aguardando agendamento";
+      }
+
+      if($status == 'sem-contato'){
+        echo "Cliente Sem Contato , repassado para o setor de Vendas";
       }
 
 

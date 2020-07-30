@@ -181,7 +181,7 @@ if(isset($_GET['submit'])){
     $trans->execute();
 
     // Update no pont
-    $cliente = $pdo->prepare("UPDATE clientes SET fk_id_bairro='$id_bairro',endereco='$endereco' WHERE id_cliente='$id_cliente'");
+    $cliente = $pdo->prepare("UPDATE clientes SET fk_id_bairro='$id_bairro',endereco='$endereco', status_cliente='transferindo' WHERE id_cliente='$id_cliente'");
     $cliente->execute();
 
     // insert instalacoes

@@ -2,7 +2,7 @@
 <script>
 function Redireciona(obj)
 {
-var src = "?pg=clientes-pesquisa&search&selecionado&cod=<?php 
+var src = "?pg=cliente-pesquisa&search&selecionado&cod=<?php 
     if(isset($_POST['cod_cliente'])){
         echo $_POST['cod_cliente'];
         }else{
@@ -19,7 +19,7 @@ location.href = src;
 <!-- Parte da mensagem que os dados foram salvos -->
 <?php if(isset($_GET['sucesso'])){?>
 <div class="alert alert-success">
-<a href="?pg=clientes-pesquisa" class="close" data-dismiss="alert">&times;</a>
+<a href="?pg=cliente-pesquisa" class="close" data-dismiss="alert">&times;</a>
 <strong>Sucesso!</strong> Transferência criada com sucesso.
 </div>
 <?php } ?>
@@ -27,7 +27,7 @@ location.href = src;
 
 <legend>Procure pelo código</legend>
     
-<form method="POST" name="search" action="?pg=clientes-pesquisa&search">
+<form method="POST" name="search" action="?pg=cliente-pesquisa&search">
 
     <div class="row">
 
@@ -54,7 +54,7 @@ location.href = src;
     <div class="col-lg-6">
             <div class="input-group">
             <span class="input-group-btn">
-                <form method="POST" action="?pg=clientes-pesquisa&search">
+                <form method="POST" action="?pg=cliente-pesquisa&search">
                 <select class="form-control" name="ponto"  id="ponto" onchange="Redireciona(this)">
                 <option value="">Selecione o Ponto </option>
                 <?php 
@@ -210,7 +210,6 @@ if(isset($_GET['selecionado'])){
         echo "Cliente Sem Contato , repassado para o setor de Vendas";
       }
 
-
  
 
       if($status == 'cancelou'){
@@ -273,7 +272,7 @@ if(isset($_GET['selecionado'])){
       </div>
 
 
-      <form method="POST"  id="agendar<?php echo $linha['id_cliente'];?>" action="?pg=clientes-pesquisa&update">
+      <form method="POST"  id="agendar<?php echo $linha['id_cliente'];?>" action="?pg=cliente-pesquisa&update">
           <input type="hidden" name="id_cliente" value="<?php echo $linha['id_cliente']?>">
           <input type="hidden" name="tipo" value="<?php echo $linha['tipo']?>">
           <input type="hidden" name="cod_cliente" value="<?php echo $linha['cod_cliente']?>">
@@ -336,7 +335,7 @@ if(isset($_GET['selecionado'])){
         $linhainst = $inst->fetch(PDO::FETCH_ASSOC); 
               
 ?>
-      <form method="POST"  id="reagendar<?php echo $linhainst['id_instalacao'];?>" action="?pg=clientes-pesquisa&reagendar">
+      <form method="POST"  id="reagendar<?php echo $linhainst['id_instalacao'];?>" action="?pg=cliente-pesquisa&reagendar">
          
          <input type="hidden" name="id_instalacao" value="<?php echo $linhainst['id_instalacao'];?>">
           <input type="hidden" name="id_cliente" value="<?php echo $linha['id_cliente']?>">
@@ -408,7 +407,7 @@ if (isset($_GET['update'])){
     $updatesql = $pdo->prepare("UPDATE clientes SET status_cliente='agendado' WHERE id_cliente='$fk_id_cliente' ");
     $updatesql->execute();
 
-  echo "<script>location.href='?pg=clientes-pesquisa&search&selecionado&cod=".$cod_cliente."&ponto=".$fk_id_cliente."'</script>";  
+  echo "<script>location.href='?pg=cliente-pesquisa&search&selecionado&cod=".$cod_cliente."&ponto=".$fk_id_cliente."'</script>";  
 }
 ?>
 <?php 
@@ -423,6 +422,6 @@ if (isset($_GET['reagendar'])){
     $updatesql = $pdo->prepare("UPDATE instalacoes SET fk_id_tecnico='$fk_id_tecnico',data_agendamento='$data' WHERE id_instalacao='$id_instalacao' ");
     $updatesql->execute();
 
-  echo "<script>location.href='?pg=clientes-pesquisa&search&selecionado&cod=".$cod_cliente."&ponto=".$fk_id_cliente."'</script>";  
+  echo "<script>location.href='?pg=cliente-pesquisa&search&selecionado&cod=".$cod_cliente."&ponto=".$fk_id_cliente."'</script>";  
 }
 ?>
