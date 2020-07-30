@@ -37,6 +37,7 @@ if (isset($_GET['comentario'])){
         <th>COD</th>
         <th>Nome do Cliente</th>
         <th>Data do Contrato</th>
+        <th>Vendedor</th>
         <th colspan="3">Funcoes</th>
         </tr>
         </thead>
@@ -56,6 +57,7 @@ if (isset($_GET['comentario'])){
         <td><?php echo $linha['cod_cliente']?></td>
         <td><?php echo $linha['nome']?></td>
         <td><?php echo $data = dataBR($linha['data_cadastro']);?></td>
+        <td><?php echo $linha['vendedor']?></td>
         <td>            
             <a href="?pg=cliente-cancelou-vendas&retornar&id_cliente=<?php echo $linha['id_cliente']?>">
             <span class="glyphicon glyphicon-repeat" title="Retornar" data-toggle="tooltip"></span>
