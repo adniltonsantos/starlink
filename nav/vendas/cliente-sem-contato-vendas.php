@@ -58,7 +58,7 @@ if (isset($_GET['comentario'])){
         <td><?php echo $data = dataBR($linha['data_cadastro']);?></td>
         <td>            
             <a href="?pg=cliente-sem-contato-vendas&retornar&id_cliente=<?php echo $linha['id_cliente']?>">
-            <span class="glyphicon glyphicon-repeat" title="Retornar" data-toggle="tooltip"></span>
+            <span class="glyphicon glyphicon-repeat" title="Retornar" data-toggle="tooltip" onclick="if (! confirm('Deseja Retornar para o agendamento o cliente com o codigo , <?php echo $linha['cod_cliente']; ?>')) { return false; }"></span>
             </a>
         </td>
         <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal5<?php echo $linha['id_cliente']?>"  title="Comentário" data-toggle="tooltip">
@@ -76,7 +76,7 @@ if (isset($_GET['comentario'])){
         </td>
         <td>            
             <a href="?pg=cliente-sem-contato-vendas&desativar&id_cliente=<?php echo $linha['id_cliente']?>">
-            <span class="glyphicon glyphicon-off" title="Retornar" data-toggle="tooltip"></span>
+            <span class="glyphicon glyphicon-off" title="Desativar" data-toggle="tooltip" onclick="if (! confirm('Deseja Cancelar o cliente com o código , <?php echo $linha['cod_cliente']; ?>')) { return false; }"></span>
             </a>
         </td>
         <td></td>

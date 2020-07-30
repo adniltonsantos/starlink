@@ -13,6 +13,7 @@ if (isset($_GET['cancelou'])){
    
     $cancelasql = $pdo->prepare("UPDATE clientes SET status_cliente='cancelou' WHERE id_cliente='$id_cliente'");
     $cancelasql->execute();
+    
     echo "<script>alert('Cliente Cancelado com Sucesso'); location.href='?pg=cliente-whats'</script>"; 
 }
 ?>
