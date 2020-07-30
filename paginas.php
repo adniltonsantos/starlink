@@ -3,6 +3,21 @@
 if(isset($_GET['pg'])){
 
 switch($_GET['pg']){
+		// SETOR DE INFRA
+
+		case'cliente-indis';
+		include "nav/infra/cliente-indis.php";
+		break;
+
+		case'cliente-cto';
+		include "nav/infra/cliente-cto.php";
+		break;
+
+
+		case'cliente-rede';
+		include "nav/infra/cliente-rede.php";
+		break;
+
 
 	// SETOR DE VENDAS
 
