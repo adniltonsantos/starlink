@@ -101,13 +101,13 @@ if(isset($_GET['selecionado'])){
 
   <!-- List group -->
   <ul class="list-group">
-    <li class="list-group-item"><strong>COD : </strong><?php echo $cod = $linha['cod_cliente']?></li>
-    <li class="list-group-item"><strong>TIPO DE INSTALACAO : </strong><?php $tipo = $linha['tipo']; if($tipo == 'res'){ echo "Residência";}else{ echo "Condominio";}?></li>
+    <li class="list-group-item"><strong>COD : </strong><?php echo $cod = $linha['cod_cliente']?> | <strong>TIPO DE INSTALACAO : </strong><?php $tipo = $linha['tipo']; if($tipo == 'res'){ echo "Residência";}else{ echo "Condominio";}?></li>
     <li class="list-group-item"><strong>NOME : </strong><?php echo $bairro = $linha['nomeCliente']?></li>
     <li class="list-group-item"><strong>BAIRRO : </strong><?php echo $bairro = $linha['nome']?> | <strong>END : </strong><?php echo $bairro = $linha['endereco']?></li>
     <li class="list-group-item"><strong>REFERENCIA : </strong><?php echo $referencia = $linha['referencia']?></li>
     <li class="list-group-item"><strong>CELULAR  : </strong><?php echo $celular = $linha['celular']?><strong> | DD  : </strong><?php echo $bairro = $linha['dd']?> - <?php echo $bairro = $linha['fone']?> | <strong>Fax</strong> - <?php echo $bairro = $linha['fax']?> - </li>
     <li class="list-group-item"><strong>VENDEDOR : </strong><?php echo $vendedor = $linha['vendedor']?></li>
+    <li class="list-group-item"><strong>DATA DO CONTRATO : </strong><?php echo dataBR($data_cadastro = $linha['data_cadastro']);?></li>
     <li class="list-group-item"><strong>Status Atual : </strong>
     <span style="color:red">
     
