@@ -42,7 +42,7 @@
         <tr>
           <th>Nome</th>
           <th>Normal</th>
-          <th>Cond Tubulação</th>
+          <th>Tubulação</th>
           <th>Total</th>
         </tr>
         </thead>
