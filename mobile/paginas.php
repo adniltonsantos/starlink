@@ -8,11 +8,6 @@ switch($_GET['pg']){
 		include "nav/producao.php";
 		break;
 
-		//Import XLS
-		case'import-consulta';
-		include "nav/import-consulta.php";
-		break;	
-
 		default:
 		include ("home.php");
 		break;

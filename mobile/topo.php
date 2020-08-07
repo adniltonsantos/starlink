@@ -30,9 +30,9 @@
         <a class="nav-link" href="?pg=producao">Producao</a>
       </li>
 
-			<li class="nav-item">
+			<!-- <li class="nav-item">
         <a class="nav-link" href="#">CTO</a>
-      </li>
+      </li> -->
      
      
     </ul>
