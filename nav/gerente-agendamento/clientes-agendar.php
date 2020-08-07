@@ -314,6 +314,7 @@ location.href = src;
     <td><?php echo $bairro = $linha['nomeBairro']?></span></td>
     <td><?php echo $bairro = $linha['referencia']?></span></td>
     <td><?php echo $dataBR = dataBR($linha['data_cadastro']);?></span></td>
+    <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal1<?php echo $linha['id_cliente']?>" class="glyphicon glyphicon-ok-sign" title="Finalizar" data-toggle="tooltip"></a></td>
     <td class="centro-table"><a href="?pg=clientes-agendar&id_cliente=<?php echo $linha['id_cliente'];?>"><div aria-hidden="true" data-toggle="modal" data-target="#myModal<?php echo $linha['id_cliente']?>" class="glyphicon glyphicon-time"></div></td>
     <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal5<?php echo $linha['id_cliente']?>"  title="Comentário" data-toggle="tooltip">
         <?php 
@@ -328,8 +329,75 @@ location.href = src;
         <?php } ?>
         </a>
     </td>
+    <td class="centro-table"><a href="?pg=clientes-agendar&cancelou&id_cliente=<?php echo $linha['id_cliente'];?>&tipo=<?php echo $_GET['tipo']?>"><div  onclick="if (! confirm('Deseja Cancelar o cliente com o código , <?php echo $linha['cod_cliente']; ?>')) { return false; }"class="glyphicon glyphicon-remove" title="Cancelou" data-toggle="tooltip"></div></td>
     </tr>
 
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal1<?php echo $linha['id_cliente']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Finalizar - <?php echo $linha['nomeCliente']?></h4>
+      </div>
+
+      <div style="padding:20px">
+          <form method="POST" id="finalizar<?php echo $linha['id_cliente'];?>" action="?pg=clientes-agendar&finalizar">
+          <input type="hidden" name="id_cliente" value="<?php echo $linha['id_cliente']?>">
+          <input type="hidden" name="tipo" value="<?php echo $linha['tipo']?>">
+      
+
+              <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="">Técnico</label>
+                <select name="tecnico" required class="form-control" style="width:200px;" autofocus>
+                <option value="">Selecione o Técnico</option>
+                <option value="25">SEM TECNICO</option>
+                <?php 
+                $tecnicosql = $pdo->prepare("SELECT * FROM tecnicos WHERE status_tecnico='ativo' ORDER BY nome ASC");
+                $tecnicosql->execute();
+                while($linha2 = $tecnicosql->fetch(PDO::FETCH_ASSOC)){
+                ?>
+                
+              
+                <option value="<?php echo $linha2['id_tecnico'] ?>"><?php echo $linha2['nome'] ?></option>
+                <?php } ?>
+                </select>  
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="">Data de Instalação</label>
+              <input  required name="data" type="date" class="form-control">
+            </div>
+        </div>
+
+
+            <?php 
+            $id_cliente = $linha['id_cliente'];
+            $sqltipo = $pdo->prepare("SELECT tipo from clientes WHERE id_cliente='$id_cliente'");
+            $sqltipo->execute();
+            $tipo = $sqltipo->fetch(PDO::FETCH_ASSOC);
+   
+            if($tipo['tipo'] == 'cond'){  ?>
+              <br /><br />
+              <select class="form-control" name="tipoInstalacao" id="tipoInstalacao">
+              <option value="finalizado">Normal</option>
+              <option value="finalizado2">Condominio Tubulação</option>
+              </select>
+
+            <?php } ?>
+        
+          <br />
+          <br />
+          <button onclick="document.getElementById('finalizar<?php echo $linha['id_cliente'];?>').submit()"; class="btn btn-primary">OK</button>  
+          </form>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal<?php echo $linha['id_cliente']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -452,6 +520,27 @@ location.href = src;
 </table>
   
 
+<?php if (isset($_GET['finalizar'])){
+$data =  $_POST['data'];
+$fk_id_cliente = $_POST['id_cliente'];
+$tipo = $_POST['tipo'];
+$idusuario = $_COOKIE["idusuario"];
+$fk_id_tecnico = $_POST['tecnico'];
+$tipoInstalacao = $_POST['tipoInstalacao'];
+
+
+$insertsql = $pdo->prepare("INSERT INTO instalacoes (fk_id_usuario,fk_id_tecnico,fk_id_cliente,data_agendamento,data_fechamento,status_agendamento,tipo_instalacao) values
+('$idusuario','$fk_id_tecnico','$fk_id_cliente','$data','$data','$tipoInstalacao','$tipo') ");
+$insertsql->execute();
+
+$cliente = $pdo->prepare("UPDATE clientes SET status_cliente='ativo' WHERE id_cliente='$fk_id_cliente'");
+$cliente->execute();
+
+echo "<script>location.href='?pg=clientes-agendar&selecionado&tipo=$tipo'</script>";  
+} ?>
+
+
+
 <!-- Atualizando o cliente com o bairro correto -->
 <?php 
 if (isset($_GET['update'])){
@@ -489,6 +578,20 @@ if (isset($_GET['comentario'])){
 
     echo "<script>location.href='?pg=clientes-agendar&selecionado&tipo=$tipo'</script>";  
 }
+?>
+
+<?php 
+if (isset($_GET['cancelou'])){
+
+    $tipo = $_GET['tipo'];
+    $id_cliente = $_GET['id_cliente'];
+   
+    $cancelasql = $pdo->prepare("UPDATE clientes SET status_cliente='cancelou' WHERE id_cliente='$id_cliente'");
+    $cancelasql->execute();
+    
+    echo "<script>alert('Cliente Cancelado com Sucesso'); location.href='?pg=clientes-agendar&selecionado&tipo=$tipo'</script>"; 
+}
+
 ?>
 
  <!-- Paginação em Jquery-->
