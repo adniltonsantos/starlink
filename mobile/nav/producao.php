@@ -40,9 +40,9 @@
 <table class="table table-hover">
         <thead>
         <tr>
-          <th>Nome do Técnico</th>
-          <th>Residencia / Cond Aereo</th>
-          <th>Condominio Tubulação</th>
+          <th>Nome</th>
+          <th>Normal</th>
+          <th>Cond Tubulação</th>
           <th>Total</th>
         </tr>
         </thead>
