@@ -95,7 +95,7 @@ if (isset($_GET['alterado'])){ ?>
 
 <?php 
 
-include "config.php";
+include "../config.php";
 $pdo = conectar();
 
 if (isset($_GET['submit'])){
@@ -103,36 +103,28 @@ if (isset($_GET['submit'])){
 $usuario = $_POST['usuario'];
 $senha = $_POST['senha'];
 
-$confirmacao = $pdo ->prepare("SELECT * FROM usuarios WHERE usuario=:usuario AND senha=:senha");
+$confirmacao = $pdo ->prepare("SELECT * FROM tecnicos WHERE username=:usuario AND password_t=:senha");
 $confirmacao->bindValue(':usuario',$usuario , PDO::PARAM_STR);
 $confirmacao->bindValue(':senha',$senha , PDO::PARAM_STR);
 $confirmacao->execute();
 $linha = $confirmacao->fetch(PDO::FETCH_ASSOC);
-$setor = $linha['setor'];
-$idusuario = $linha['idusuario'];
+$id_tecnico = $linha['id_tecnico'];
 $nome = $linha['nome'];
 $linha = $confirmacao ->rowCount();
 
 if ($linha == 1 ){
 
-    setcookie ("idusuario", $idusuario);
-    setcookie ("usuario", $usuario);
-    setcookie ("senha", $senha);
-    setcookie ("setor", $setor);
+    setcookie ("id_tecnico", $id_tecnico);
     setcookie ("nome", $nome);
-    
+  
     header('location: home.php');
 
 
 }else{ ?>
   
-  <div class="alert alert-danger alert-dismissable">
-   <button type="button" class="close" data-dismiss="alert" 
-      aria-hidden="true">
-      &times;
-   </button>
+  <div class="alert alert-danger" role="alert">
   <strong> Erro !</strong> Usuário ou Senha inválida.
-</div>
+  </div>
 
 <?php } } ?>
 

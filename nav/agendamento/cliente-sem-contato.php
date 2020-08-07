@@ -3,6 +3,19 @@
 <section>
 
 <div id="janela">
+<?php 
+if (isset($_GET['cancelou'])){
+
+
+    $id_cliente = $_GET['id_cliente'];
+   
+    $cancelasql = $pdo->prepare("UPDATE clientes SET status_cliente='cancelou' WHERE id_cliente='$id_cliente'");
+    $cancelasql->execute();
+    
+    echo "<script>alert('Cliente Cancelado com Sucesso'); location.href='?pg=cliente-sem-contato'</script>"; 
+}
+?>
+
 
 <?php 
 if (isset($_GET['comentario'])){
@@ -90,6 +103,8 @@ if (isset($_GET['update'])){
         <?php } ?>
         </a>
         </td>
+        <td class="centro-table"><a href="?pg=cliente-sem-contato&cancelou&id_cliente=<?php echo $linha['id_cliente'];?>"><div  onclick="if (! confirm('Deseja Cancelar o cliente com o código , <?php echo $linha['cod_cliente']; ?>')) { return false; }"class="glyphicon glyphicon-remove" title="Cancelou" data-toggle="tooltip"></div></td>
+       
         </tr>
 
 
