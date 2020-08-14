@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale1">
     
     <title>Intranet</title>    
-	<!-- Logo do Sistema na Aba -->
+	<!-- Logo do Sistema -->
 	<link rel="icon" href="img/logo.png" type="image/gif" sizes="16x16">
     <!-- Link do Java e Css do Bootsrap -->
     <script type="text/javascript" src="js/jquery.js"></script>
