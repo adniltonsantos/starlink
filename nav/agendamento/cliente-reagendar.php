@@ -62,7 +62,7 @@ if (isset($_GET['update'])){
     $consulta = $pdo->prepare("SELECT *, c.nome as nomeCliente , b.nome as nomeBairro FROM instalacoes as i
     INNER JOIN clientes as c ON c.id_cliente=i.fk_id_cliente
     INNER JOIN bairros as b ON b.id_bairro=c.fk_id_bairro
-    WHERE i.tipo_instalacao='res' AND i.status_agendamento='REAGENDAR'
+    WHERE i.status_agendamento='REAGENDAR'
     ");
     $consulta->execute();
     while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){ ?>
