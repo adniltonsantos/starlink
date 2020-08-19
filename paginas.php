@@ -76,6 +76,10 @@ switch($_GET['pg']){
 		case'cliente-sem-contato';
 		include "nav/agendamento/cliente-sem-contato.php";
 		break;
+		//Clientes
+		case'cliente-whats';
+		include "nav/agendamento/cliente-whats.php";
+		break;
 
 		// SETOR DE AGENDAMENTO2
 		case'cliente-pesquisa';

@@ -96,5 +96,5 @@ include_once('menu/suporte.php');
 
 ?>
 
-<div class="version">Versão do Sistema 3.0</div>
+
 </aside>

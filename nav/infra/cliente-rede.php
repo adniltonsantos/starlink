@@ -4,6 +4,58 @@
 
 <div id="janela">
 
+<?php 
+if (isset($_GET['comentario'])){
+
+    $comentario = $_POST['comentario'];
+    $data = date('Y-m-d H:i:s');
+    $idusuario = $_COOKIE['idusuario'];
+    $id_cliente = $_POST['id_cliente'];
+   
+    $comentsql = $pdo->prepare("INSERT INTO comentarios (comentario,data_comentario,fk_id_usuario,fk_id_cliente)
+    values ('$comentario','$data','$idusuario','$id_cliente')");
+    $comentsql->execute();
+
+    echo "<script>location.href='?pg=cliente-rede</script>";  
+}
+?>
+
+<?php 
+if (isset($_GET['cancelou'])){
+
+
+    $id_cliente = $_GET['id_cliente'];
+    $id_instalacao = $_GET['id_instalacao'];
+    $data = date('Y-m-d');
+
+    $instalasql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='cancelou', data_fechamento='$data' WHERE id_instalacao='$id_instalacao'");
+    $instalasql->execute();
+   
+    $cancelasql = $pdo->prepare("UPDATE clientes SET status_cliente='cancelou' WHERE id_cliente='$id_cliente'");
+    $cancelasql->execute();
+    
+    echo "<script>alert('Cliente Cancelado com Sucesso'); location.href='?pg=cliente-rede'</script>"; 
+}
+?>
+
+<?php 
+if (isset($_GET['retornar'])){
+
+
+    $id_instalacao = $_GET['id_instalacao'];
+    $id_cliente = $_GET['id_cliente'];
+
+   
+    $instalasql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='REDE' WHERE id_instalacao='$id_instalacao'");
+    $instalasql->execute();
+
+    $cancelasql = $pdo->prepare("UPDATE clientes SET status_cliente='REDE' WHERE id_cliente='$id_cliente'");
+    $cancelasql->execute();
+    
+    echo "<script>alert('Cliente Retornado com Sucesso'); location.href='?pg=cliente-rede'</script>"; 
+}
+?>
+
 <legend>Condominios para fazer Rede</legend>
 
 <!-- Formulario de Pesquisa em Jquery-->
@@ -45,71 +97,74 @@
         <td><?php echo $linha['nomeCliente']?></td>
         <td><?php echo $linha['referencia']?></td>
         <td><?php echo $linha['endereco']?></td>
+        <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal5<?php echo $linha['id_cliente']?>"  title="Comentário" data-toggle="tooltip">
+        <?php 
+          $id_cliente = $linha['id_cliente'];
+          $comentariosql = $pdo->prepare("SELECT * from comentarios WHERE fk_id_cliente='$id_cliente'");
+          $comentariosql->execute(); 
+          if($comentariosql->rowCount() > 0){ ?> 
+        <span class="glyphicon glyphicon-comment" style="color:red"></span>
+        <?php } else { ?>
+
+        <span class="glyphicon glyphicon-comment"></span>
+        <?php } ?>
+        </a>
+        </td>
+        <!-- <td class="centro-table"><a href="?pg=cliente-rede&retornar&id_instalacao=<?php echo $linha['id_instalacao'];?>&id_cliente=<?php echo $linha['id_cliente'];?>"><div  onclick="if (! confirm('Deseja Retornar a instalacao para o agendamento COD - <?php echo $linha['cod_cliente']; ?>')) { return false; }"class="glyphicon glyphicon-retweet" title="Retornar" data-toggle="tooltip"></div></td> -->
+        <td class="centro-table"><a href="?pg=cliente-rede&cancelou&id_instalacao=<?php echo $linha['id_instalacao'];?>&id_cliente=<?php echo $linha['id_cliente'];?>"><div  onclick="if (! confirm('Deseja Cancelar a instalação, COD - <?php echo $linha['cod_cliente']; ?>')) { return false; }"class="glyphicon glyphicon-remove" title="Cancelou" data-toggle="tooltip"></div></td>
+       
         </tr>
 
-        
 <!-- Modal -->
-<div class="modal fade" id="myModal<?php echo $linha['id_instalacao']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<div class="modal fade" id="myModal5<?php echo $linha['id_cliente']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
 
       <div class="modal-header">
+<?php echo $linha['cod_cliente']?> - <?php echo $linha['nomeCliente']?>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"><?php echo $linha['nomeCliente']?></h4>
-      </div>
+    
+     </div>
+     <div style="padding:20px">
 
-
-      <form method="POST" id="retornar<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-cto&update">
-          <input type="hidden" name="id_instalacao" value="<?php echo $linha['id_instalacao']?>">
-         
-          <div style="padding:20px">
+      <form method="POST" id="comentario<?php echo $linha['id_cliente'];?>" action="?pg=cliente-rede&comentario">
+          <input type="hidden" name="id_cliente" value="<?php echo $id_cliente = $linha['id_cliente']?>">
+          <input type="hidden" name="tipo" value="<?php echo $_GET['tipo']?>">
           
-
-          <ul class="list-group">
-          <li class="list-group-item disabled">Dados do Integrator</li>
-          <li class="list-group-item">Bairro : <?php echo $linha['nomeBairro']?> </li>
-          <li class="list-group-item">Endereço: <?php echo $linha['endereco']?></li>
-          <li class="list-group-item">Referência: <?php echo $linha['referencia']?></li>
-          <li class="list-group-item">Celular: <?php echo $linha['celular']?></li>
-          <li class="list-group-item">Outro Celular: <?php echo $linha['celular2']?></li>
-          <li class="list-group-item">Telefone: <?php echo $linha['telefone']?></li>
-          </ul>
-
-          <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="">Técnico</label>
-                <select name="tecnico" required class="form-control" style="width:200px;" autofocus>
-                <option value="">Selecione o Técnico</option>
-                <?php 
-                $tecnicosql = $pdo->prepare("SELECT * FROM tecnicos WHERE status_tecnico='ativo'");
-                $tecnicosql->execute();
-                while($linha2 = $tecnicosql->fetch(PDO::FETCH_ASSOC)){
-                ?>
-                
-              
-                <option value="<?php echo $linha2['id_tecnico'] ?>"><?php echo $linha2['nome'] ?></option>
-                <?php } ?>
-                </select>  
-            </div>
-
-            <div class="form-group col-md-6">
-              <label for="">Data de Instalação</label>
-              <input  required name="data" type="date" class="form-control">
-            </div>
-        </div>
-        
-        <button onclick="document.getElementById('retornar<?php echo $linha['id_instalacao'];?>').submit()"; class="btn btn-primary">Reagendar</button>  
-             
-        
-       
-        </div>    
+          
+          <label for="">Comentário</label>
+          <textarea name="comentario" required cols="30" rows="2" class="form-control"></textarea> 
+            <br />
+            <button onclick="document.getElementById('comentario<?php echo $linha['id_cliente'];?>').submit()"; class="btn btn-primary">Comentar</button></div>    
           </form>
 
+          <ul class="list-group"style="margin:10px">
+          <?php 
+            $comentariosql = $pdo->prepare("SELECT * from comentarios as c INNER JOIN 
+            usuarios as u ON u.idusuario = c.fk_id_usuario
+            WHERE c.fk_id_cliente='$id_cliente' ORDER BY c.data_comentario DESC");
+            $comentariosql->execute();
+             while($linha = $comentariosql->fetch(PDO::FETCH_ASSOC)){
+            
+          ?>
+            
+              <li class="list-group-item" style="margin-bottom:20px; ">
+              <div style="padding:10px"><?php echo $linha['comentario']?></div>
+              <div class="badge"> 
+                <?php $data = str_replace("/", "-", $linha['data_comentario']);
+                echo date('d/m/Y H:i:s', strtotime($data))?>
+              </div>
+             
+              <div class="badge" style="background:#6495ED">escrito por : <?php echo $linha['usuario'];?></div></li>
+  
+                 
+      <?php } ?>
+      </ul>
+       </div>
 
     </div>
   </div>
 </div>
-
 
 <?php }?>
 </table>
