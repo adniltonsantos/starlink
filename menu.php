@@ -87,9 +87,11 @@ $nome = $linha['nome'];
 <?php 
 include_once('menu/gerente-agendamento.php');
 include_once('menu/agendamento.php');
+include_once('menu/agendamento2.php');
 include_once('menu/atendimento.php');
 include_once('menu/vendas.php');
 include_once('menu/infra.php');
+include_once('menu/suporte.php');
 
 
 ?>

@@ -11,7 +11,7 @@ $data = $_GET['data'];
 $agendadosql = $pdo->prepare("SELECT *, c.nome as nomeCliente from instalacoes as i 
 INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente
 INNER JOIN bairros as b on b.id_bairro=c.fk_id_bairro
-WHERE status_agendamento='agendado' AND tipo='res' AND
+WHERE status_agendamento='agendado' AND tipo='cond' AND
 fk_id_tecnico='25' AND 
 data_agendamento='$data'
 ORDER BY i.data_agendamento ASC ");
@@ -21,7 +21,7 @@ $total = $agendadosql->rowCount();
 ?>
 
 
-<legend>Agendamento do Marcio <span style="float:right">Total ( <?php echo $total ?> )</span>
+<legend>Agendamento do Marcelo <span style="float:right">Total ( <?php echo $total ?> )</span>
 </legend>
 
 
@@ -36,7 +36,7 @@ $total = $agendadosql->rowCount();
 </div>
 </form>
 
-<form method="POST" name="myForm" id="myForm"  action="?pg=clientes-by-agendamento&filtro" >  
+<form method="POST" name="myForm" id="myForm"  action="?pg=clientes-by-agendamento2&filtro" >  
    <div class="form-group col-md-4">
      <label for="">Data do Agendamento</label>
       <input type="date" name="data" class="form-control" value="<?php echo $_GET['data'];?>">
@@ -78,7 +78,7 @@ $total = $agendadosql->rowCount();
         <td>
           <?php if($linha['status_iclass'] == NULL){ ?>
             
-            <a href="?pg=clientes-by-agendamento&iclass&os=<?php echo $linha['id_instalacao'];?>&data=<?php echo $_GET['data']; ?>">
+            <a href="?pg=clientes-by-agendamento2&iclass&os=<?php echo $linha['id_instalacao'];?>&data=<?php echo $_GET['data']; ?>">
             <span class="glyphicon glyphicon-random" style="color:blue" title="enviado" data-toggle="tooltip"></span>
             </a>
             <?php } else { ?>
@@ -122,7 +122,7 @@ $total = $agendadosql->rowCount();
 
       <div style="padding:20px">
       
-          <form method="POST" id="transferencia<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-by-agendamento&transferencia">
+          <form method="POST" id="transferencia<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-by-agendamento2&transferencia">
           
               <label for="inputEmail4">Técnico </label>
               <input type="hidden" name="os" value="<?php echo $linha['id_instalacao']?>">
@@ -163,7 +163,7 @@ $total = $agendadosql->rowCount();
         <h4 class="modal-title" id="myModalLabel"><?php echo $linha['nomeCliente']?></h4>
       </div>
 
-      <form method="POST" id="reagendar<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-by-agendamento&reagendar">
+      <form method="POST" id="reagendar<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-by-agendamento2&reagendar">
       <input type="hidden" name="os" value="<?php echo $linha['id_instalacao']?>">
       <input type="hidden" name="data" value="<?php echo $_GET['data']?>">
 
@@ -205,7 +205,7 @@ $total = $agendadosql->rowCount();
      </div>
      <div style="padding:20px">
 
-      <form method="POST" id="comentario<?php echo $linha['id_cliente'];?>" action="?pg=clientes-by-agendamento&comentario">
+      <form method="POST" id="comentario<?php echo $linha['id_cliente'];?>" action="?pg=clientes-by-agendamento2&comentario">
           <input type="hidden" name="id_cliente" value="<?php echo $id_cliente = $linha['id_cliente']?>">
           <input type="hidden" name="data2" value="<?php echo $_GET['data']?>">
           
@@ -272,7 +272,7 @@ $id_usuario = $_COOKIE['idusuario'];
 
 $sql = $pdo->prepare("UPDATE instalacoes SET fk_id_tecnico='$id_tecnico', fk_id_usuario='$id_usuario' WHERE id_instalacao='$os'");
 $sql->execute();
-echo "<script>location.href='?pg=clientes-by-agendamento&data=".$data."'</script>"; 
+echo "<script>location.href='?pg=clientes-by-agendamento2&data=".$data."'</script>"; 
 } ?>
 
 <?php if (isset($_GET['reagendar'])){
@@ -285,7 +285,7 @@ $data = $_POST['data'];
 $sql = $pdo->prepare("UPDATE instalacoes SET data_agendamento='$data_agendamento', fk_id_usuario='$id_usuario' WHERE id_instalacao='$os'");
 $sql->execute();
 
-echo "<script>location.href='?pg=clientes-by-agendamento&data=".$data."'</script>"; 
+echo "<script>location.href='?pg=clientes-by-agendamento2&data=".$data."'</script>"; 
 } ?>
 
 
@@ -303,7 +303,7 @@ if (isset($_GET['comentario'])){
     values ('$comentario','$data','$idusuario','$id_cliente')");
     $comentsql->execute();
 
-    echo "<script>location.href='?pg=clientes-by-agendamento&data=".$data2."'</script>"; 
+    echo "<script>location.href='?pg=clientes-by-agendamento2&data=".$data2."'</script>"; 
 }
 ?>
 
@@ -313,7 +313,7 @@ if (isset($_GET['filtro'])){
     $data = $_POST['data'];
    
 
-    echo "<script>location.href='?pg=clientes-by-agendamento&data=".$data."'</script>"; 
+    echo "<script>location.href='?pg=clientes-by-agendamento2&data=".$data."'</script>"; 
 }
 ?>
 
@@ -328,7 +328,7 @@ if (isset($_GET['iclass'])){
     $ossql->execute();
    
 
-    echo "<script>location.href='?pg=clientes-by-agendamento&data=".$data."'</script>"; 
+    echo "<script>location.href='?pg=clientes-by-agendamento2&data=".$data."'</script>"; 
 }
 ?>
  <!-- Paginação em Jquery-->

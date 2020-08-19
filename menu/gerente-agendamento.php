@@ -21,6 +21,7 @@ $sqlTransf->execute();
             <li><a href='#'>Agendados</a>
             <ul class="dropdown-sub"> 
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-by-agendamento&data=<?php echo $data = date('Y-m-d')?>">Por Marcio</a></li>
+                    <li class="dropdown-sub-menu"><a href="?pg=clientes-by-agendamento2&data=<?php echo $data = date('Y-m-d')?>">Por Marcelo</a></li>
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-by-tecnicos-today">Hoje</a></li>
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-by-tecnicos-all&between&data=<?php echo date('Y-m-d')?>&data2=<?php echo date('Y-m-d')?>">Geral</a></li>
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-by-tecnicos-by&between&data=<?php echo date('Y-m-d')?>&data2=<?php echo date('Y-m-d')?>">Por Técnico</a></li>

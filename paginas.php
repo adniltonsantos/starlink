@@ -76,20 +76,41 @@ switch($_GET['pg']){
 		case'cliente-sem-contato';
 		include "nav/agendamento/cliente-sem-contato.php";
 		break;
-		//Clientes
-		case'cliente-whats';
-		include "nav/agendamento/cliente-whats.php";
+
+		// SETOR DE AGENDAMENTO2
+		case'cliente-pesquisa';
+		include "nav/agendamento/cliente-pesquisa.php";
 		break;
 
-		case'cliente-by-agendamento';
-		include "nav/agendamento/cliente-by-agendamento.php";
+		case'cliente-agendar2';
+		include "nav/agendamento2/cliente-agendar.php";
+		break;
+
+		case'cliente-agendar-bairro2';
+		include "nav/agendamento2/cliente-agendar-by-bairro.php";
+		break;
+
+		case'cliente-reagendar2';
+		include "nav/agendamento2/cliente-reagendar.php";
+		break;
+
+		case'cliente-transferencia2';
+		include "nav/agendamento2/cliente-transferencia.php";
+		break;
+	
+		case'cliente-sem-contato2';
+		include "nav/agendamento2/cliente-sem-contato.php";
+		break;
+
+		//Clientes
+		case'cliente-whats2';
+		include "nav/agendamento2/cliente-whats.php";
+		break;
+
+		case'cliente-by-agendamento2';
+		include "nav/agendamento2/cliente-by-agendamento.php";
 		break;
 		
-
-
-
-
-
 
 
 		//Producao - Terceiros
@@ -231,6 +252,11 @@ switch($_GET['pg']){
 		case'clientes-by-agendamento';
 		include "nav/gerente-agendamento/clientes-by-agendamento.php";
 		break;
+
+		case'clientes-by-agendamento2';
+		include "nav/gerente-agendamento/clientes-by-agendamento2.php";
+		break;
+
 
 		case'clientes-by-tecnicos-today';
 		include "nav/gerente-agendamento/clientes-by-tecnicos-today.php";

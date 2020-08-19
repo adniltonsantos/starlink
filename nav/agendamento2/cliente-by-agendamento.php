@@ -5,15 +5,13 @@
 <div id="janela">
 <?php 
 
-$data = $_GET['data'];
               
               
 $agendadosql = $pdo->prepare("SELECT *, c.nome as nomeCliente from instalacoes as i 
 INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente
 INNER JOIN bairros as b on b.id_bairro=c.fk_id_bairro
-WHERE status_agendamento='agendado' AND tipo='res' AND
-fk_id_tecnico='25' AND 
-data_agendamento='$data'
+WHERE status_agendamento='agendado' AND tipo='cond' AND
+fk_id_tecnico='25'
 ORDER BY i.data_agendamento ASC ");
 $agendadosql->execute();
 $total = $agendadosql->rowCount();
@@ -21,7 +19,7 @@ $total = $agendadosql->rowCount();
 ?>
 
 
-<legend>Agendamento do Marcio <span style="float:right">Total ( <?php echo $total ?> )</span>
+<legend>Agendamento por Marcelo <span style="float:right">Total ( <?php echo $total ?> )</span>
 </legend>
 
 
@@ -30,23 +28,13 @@ $total = $agendadosql->rowCount();
 <form method="post" action="exemplo.html" class="pesquise" >     
 
 
-<div class="form-group col-md-6">
+<div class="form-group col-md-12">
      <label for="">Procure por qualquer dado do campo</label>
-     <input type="text" id="pesquisar" name="pesquisar" class="form-control" placeholder="Digite o Código de Barra ou o Nome do Produto" />
+     <input type="text" id="pesquisar" name="pesquisar" class="form-control" placeholder="Pesquise" />
 </div>
 </form>
 
-<form method="POST" name="myForm" id="myForm"  action="?pg=clientes-by-agendamento&filtro" >  
-   <div class="form-group col-md-4">
-     <label for="">Data do Agendamento</label>
-      <input type="date" name="data" class="form-control" value="<?php echo $_GET['data'];?>">
-   </div>
 
-   <div class="form-group col-md-2" style="margin-top:25px">
-     <label for=""></label>
-     <button type="submit"  onclick="document.getElementById('myForm').submit()"; class="btn btn-primary">Filtar</button>
-    
-   </div>
 </form>
 <!-- Fecha Formulario-->
 
@@ -56,7 +44,6 @@ $total = $agendadosql->rowCount();
 
         <thead>
         <tr>
-        <th>Iclass</th>
         <th>O.S</th>
         <th>COD</th>
         <th>Nome do Cliente</th>
@@ -75,24 +62,11 @@ $total = $agendadosql->rowCount();
         ?>
 
         <tr>
-        <td>
-          <?php if($linha['status_iclass'] == NULL){ ?>
-            
-            <a href="?pg=clientes-by-agendamento&iclass&os=<?php echo $linha['id_instalacao'];?>&data=<?php echo $_GET['data']; ?>">
-            <span class="glyphicon glyphicon-random" style="color:blue" title="enviado" data-toggle="tooltip"></span>
-            </a>
-            <?php } else { ?>
-            <span class="glyphicon glyphicon-random" style="color:red" title="Nao enviado" data-toggle="tooltip"></span> 
-           
-
-          <?php } ?>
-        </td>
         <td><?php echo $linha['id_instalacao']?></td>
         <td><?php echo $linha['cod_cliente']?></td>
         <td><?php echo $linha['nomeCliente']?></td>
         <td><?php echo $linha['nome']?></td>
         <td><?php echo $dataBRagendamento = dataBR($linha['data_agendamento']);?></td>
-        <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal1<?php echo $linha['id_instalacao']?>" class="glyphicon glyphicon-transfer" title="Transferir" data-toggle="tooltip"></a></td> 
         <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal2<?php echo $linha['id_instalacao']?>" class="glyphicon glyphicon glyphicon-time" title="Reagendar" data-toggle="tooltip"></a></td>
         <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal3<?php echo $linha['id_instalacao']?>"  title="Comentário" data-toggle="tooltip">
         <?php 
@@ -109,48 +83,6 @@ $total = $agendadosql->rowCount();
         </tr>
 
 
-  <!-- Modal -->
-  <div class="modal fade" id="myModal1<?php echo $linha['id_instalacao']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Transferência - <?php echo $linha['nomeCliente']?></h4>
-      </div>
-
-
-      <div style="padding:20px">
-      
-          <form method="POST" id="transferencia<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-by-agendamento&transferencia">
-          
-              <label for="inputEmail4">Técnico </label>
-              <input type="hidden" name="os" value="<?php echo $linha['id_instalacao']?>">
-              <input type="hidden" name="data" value="<?php echo $_GET['data']?>">
-                <select name="id_tecnico" required class="form-control">
-                    <option value="">Selecione o Técnico</option>
-                    <?php 
-                        //Pegando todos Produto na loja
-                        $produto = $pdo->query("SELECT * FROM tecnicos WHERE status_tecnico = 'ativo' ORDER BY nome ASC");
-                        $produto->execute();
-                        while($linha2 = $produto->fetch(PDO::FETCH_ASSOC)){
-                        ?>
-                        
-                        <option value="<?php echo $linha2['id_tecnico'] ?>" <?php echo selected( $_POST['id_tecnico'], $linha2['id_tecnico'] ); ?> ><?php echo $linha2['nome']; ?></option>
-                      <?php } ?>
-                  </select>
-                  <br />
-                  
-                  <button onclick="document.getElementById('transferencia<?php echo $linha['id_instalacao'];?>').submit()"; class="btn btn-primary">OK</button>  
-         
-              
-          </form>
- 
-        </div>
- 
-    </div>
-  </div>
-</div>
 
 
   <!-- Modal -->
@@ -163,7 +95,7 @@ $total = $agendadosql->rowCount();
         <h4 class="modal-title" id="myModalLabel"><?php echo $linha['nomeCliente']?></h4>
       </div>
 
-      <form method="POST" id="reagendar<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-by-agendamento&reagendar">
+      <form method="POST" id="reagendar<?php echo $linha['id_instalacao'];?>" action="?pg=cliente-by-agendamento&reagendar">
       <input type="hidden" name="os" value="<?php echo $linha['id_instalacao']?>">
       <input type="hidden" name="data" value="<?php echo $_GET['data']?>">
 
@@ -205,7 +137,7 @@ $total = $agendadosql->rowCount();
      </div>
      <div style="padding:20px">
 
-      <form method="POST" id="comentario<?php echo $linha['id_cliente'];?>" action="?pg=clientes-by-agendamento&comentario">
+      <form method="POST" id="comentario<?php echo $linha['id_cliente'];?>" action="?pg=cliente-by-agendamento&comentario">
           <input type="hidden" name="id_cliente" value="<?php echo $id_cliente = $linha['id_cliente']?>">
           <input type="hidden" name="data2" value="<?php echo $_GET['data']?>">
           
@@ -263,18 +195,6 @@ document.getElementById("myForm").submit();
 </script>  
 
 
-<?php if (isset($_GET['transferencia'])){
-
-$id_tecnico =  $_POST['id_tecnico'];
-$os = $_POST['os'];
-$data = $_POST['data'];
-$id_usuario = $_COOKIE['idusuario'];
-
-$sql = $pdo->prepare("UPDATE instalacoes SET fk_id_tecnico='$id_tecnico', fk_id_usuario='$id_usuario' WHERE id_instalacao='$os'");
-$sql->execute();
-echo "<script>location.href='?pg=clientes-by-agendamento&data=".$data."'</script>"; 
-} ?>
-
 <?php if (isset($_GET['reagendar'])){
 
 $os = $_POST['os'];
@@ -285,7 +205,7 @@ $data = $_POST['data'];
 $sql = $pdo->prepare("UPDATE instalacoes SET data_agendamento='$data_agendamento', fk_id_usuario='$id_usuario' WHERE id_instalacao='$os'");
 $sql->execute();
 
-echo "<script>location.href='?pg=clientes-by-agendamento&data=".$data."'</script>"; 
+echo "<script>location.href='?pg=cliente-by-agendamento&data=".$data."'</script>"; 
 } ?>
 
 
@@ -303,34 +223,10 @@ if (isset($_GET['comentario'])){
     values ('$comentario','$data','$idusuario','$id_cliente')");
     $comentsql->execute();
 
-    echo "<script>location.href='?pg=clientes-by-agendamento&data=".$data2."'</script>"; 
+    echo "<script>location.href='?pg=cliente-by-agendamento&data=".$data2."'</script>"; 
 }
 ?>
 
-<?php 
-if (isset($_GET['filtro'])){
-
-    $data = $_POST['data'];
-   
-
-    echo "<script>location.href='?pg=clientes-by-agendamento&data=".$data."'</script>"; 
-}
-?>
-
-
-<?php 
-if (isset($_GET['iclass'])){
-
-    $data = $_GET['data'];
-    $os = $_GET['os'];
-
-    $ossql = $pdo->prepare("UPDATE instalacoes SET status_iclass='1' where id_instalacao='$os' ");
-    $ossql->execute();
-   
-
-    echo "<script>location.href='?pg=clientes-by-agendamento&data=".$data."'</script>"; 
-}
-?>
  <!-- Paginação em Jquery-->
 
     
