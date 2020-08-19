@@ -10,7 +10,7 @@
 $agendadosql = $pdo->prepare("SELECT *, c.nome as nomeCliente from instalacoes as i 
 INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente
 INNER JOIN bairros as b on b.id_bairro=c.fk_id_bairro
-WHERE status_agendamento='agendado' AND
+WHERE status_agendamento='agendado' AND tipo='res' AND
 fk_id_tecnico='25'
 ORDER BY i.data_agendamento ASC ");
 $agendadosql->execute();

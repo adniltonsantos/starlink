@@ -111,8 +111,8 @@ switch($_GET['pg']){
 		include "nav/agendamento2/cliente-whats.php";
 		break;
 
-		case'cliente-by-agendamento2';
-		include "nav/agendamento2/cliente-by-agendamento.php";
+		case'cliente-by-agendamento';
+		include "nav/agendamento/cliente-by-agendamento.php";
 		break;
 		
 
@@ -260,6 +260,8 @@ switch($_GET['pg']){
 		case'clientes-by-agendamento2';
 		include "nav/gerente-agendamento/clientes-by-agendamento2.php";
 		break;
+
+	
 
 
 		case'clientes-by-tecnicos-today';
