@@ -4,10 +4,6 @@ if(isset($_GET['pg'])){
 
 switch($_GET['pg']){
 
-		case'cliente-indis';
-		include "nav/infra/cliente-indis.php";
-		break;
-
 		// SETOR DE INFRA
 
 		case'cliente-indis';
@@ -21,6 +17,10 @@ switch($_GET['pg']){
 
 		case'cliente-rede';
 		include "nav/infra/cliente-rede.php";
+		break;
+
+		case'producao-terceiro2';
+		include "nav/infra/producao-terceiro2.php";
 		break;
 
 
