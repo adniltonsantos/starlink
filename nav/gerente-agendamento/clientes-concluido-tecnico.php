@@ -34,7 +34,7 @@ location.href = src;
               <select name="id_tecnico" required class="form-control"  onchange="Redireciona(this)">
               <option value="">Selecione o Técnico</option>
               <?php 
-              $tecnicosql = $pdo->prepare("SELECT * FROM tecnicos WHERE status_tecnico='ativo'");
+              $tecnicosql = $pdo->prepare("SELECT * FROM tecnicos WHERE status_tecnico='ativo' ORDER BY nome ASC");
               $tecnicosql->execute();
               while($linha = $tecnicosql->fetch(PDO::FETCH_ASSOC)){
               ?>
@@ -68,11 +68,27 @@ location.href = src;
 
 
 <!-- Filtro por Técnico entre Datas -->
-<?php if (isset($_GET['between'])){ ?>
+<?php if (isset($_GET['between'])){ 
+  
+  $id_tecnico = $_GET['id_tecnico'];
+  $data = $_GET['data'];  
+  $data2 = $_GET['data2'];
+
+  $agendadosql = $pdo->prepare("SELECT *, c.nome as nomeCliente from instalacoes as i 
+  INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente
+  INNER JOIN tecnicos as t ON i.fk_id_tecnico=t.id_tecnico
+  WHERE status_agendamento='finalizado' AND
+  i.fk_id_tecnico = $id_tecnico AND
+  DATE(data_agendamento) BETWEEN '$data' AND '$data2'");
+  $agendadosql->execute();
+  $total = $agendadosql->rowCount();
+
+?>
      
 
         <br />
-        <label for="">O.S Finalizadas</label>
+        <label for=""><span style="float:right;color:red">Total ( <?php echo $total ?> )</span></label>
+       
         <table class="table table-hover">
         
         <thead>
@@ -87,18 +103,8 @@ location.href = src;
        
         <?php 
 
-        $id_tecnico = $_GET['id_tecnico'];
-        $data = $_GET['data'];  
-        $data2 = $_GET['data2'];
-
-        $agendadosql = $pdo->prepare("SELECT *, c.nome as nomeCliente from instalacoes as i 
-        INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente
-        INNER JOIN tecnicos as t ON i.fk_id_tecnico=t.id_tecnico
-        WHERE status_agendamento='finalizado' AND
-        i.fk_id_tecnico = $id_tecnico AND
-        DATE(data_agendamento) BETWEEN '$data' AND '$data2'");
-      
-        $agendadosql->execute();
+  
+        
         while($linha = $agendadosql->fetch(PDO::FETCH_ASSOC)){
 
         ?>
