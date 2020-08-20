@@ -408,13 +408,7 @@ if(isset($_GET['selecionado'])){
           <input type="hidden" name="id_cliente" value="<?php echo $id_cliente = $linha['id_cliente']?>">
           <input type="hidden" name="tipo" value="<?php echo $tipo = $linha['tipo']?>">
          
-          
-          
-          <label for="">Comentário</label>
-          <textarea name="comentario" required cols="30" rows="2" class="form-control"></textarea> 
-            <br />
-            <button onclick="document.getElementById('comentario<?php echo $linha['id_cliente'];?>').submit()"; class="btn btn-primary">Comentar</button></div>    
-          </form>
+        
 
           <ul class="list-group"style="margin:10px">
           <?php 
