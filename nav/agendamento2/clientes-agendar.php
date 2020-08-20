@@ -514,6 +514,7 @@ echo "<script>alert('Cliente Finalizado com Sucesso'); location.href='?pg=client
 
 
 
+
 <!-- Atualizando o cliente com o bairro correto -->
 <?php 
 if (isset($_GET['update'])){

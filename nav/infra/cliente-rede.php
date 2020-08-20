@@ -3,6 +3,27 @@
 <section>
 
 <div id="janela">
+<?php 
+
+if (isset($_GET['finalizar'])){
+$data =  $_POST['data'];
+$fk_id_cliente = $_POST['id_cliente'];
+$id_instalacao = $_POST['id_instalacao'];
+$tipo = $_POST['tipo'];
+$idusuario = $_COOKIE["idusuario"];
+$fk_id_tecnico = $_POST['tecnico'];
+$tipoInstalacao = $_POST['tipoInstalacao'];
+
+
+$updateInst = $pdo->prepare("UPDATE instalacoes SET fk_id_tecnico='$fk_id_tecnico',status_agendamento='$tipoInstalacao', data_fechamento='$data' WHERE id_instalacao='$id_instalacao'");
+$updateInst->execute();
+
+
+$cliente = $pdo->prepare("UPDATE clientes SET status_cliente='ativo' WHERE id_cliente='$fk_id_cliente'");
+$cliente->execute();
+
+echo "<script>alert('Cliente Finalizado com Sucesso'); location.href='?pg=cliente-rede'</script>";
+} ?>
 
 <?php 
 if (isset($_GET['comentario'])){
@@ -97,6 +118,7 @@ if (isset($_GET['retornar'])){
         <td><?php echo $linha['nomeCliente']?></td>
         <td><?php echo $linha['referencia']?></td>
         <td><?php echo $linha['endereco']?></td>
+        <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal1<?php echo $linha['id_cliente']?>" class="glyphicon glyphicon-ok-sign" title="Finalizar" data-toggle="tooltip"></a></td>
         <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal5<?php echo $linha['id_cliente']?>"  title="Comentário" data-toggle="tooltip">
         <?php 
           $id_cliente = $linha['id_cliente'];
@@ -114,6 +136,65 @@ if (isset($_GET['retornar'])){
         <td class="centro-table"><a href="?pg=cliente-rede&cancelou&id_instalacao=<?php echo $linha['id_instalacao'];?>&id_cliente=<?php echo $linha['id_cliente'];?>"><div  onclick="if (! confirm('Deseja Cancelar a instalação, COD - <?php echo $linha['cod_cliente']; ?>')) { return false; }"class="glyphicon glyphicon-remove" title="Cancelou" data-toggle="tooltip"></div></td>
        
         </tr>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal1<?php echo $linha['id_cliente']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Finalizar - <?php echo $linha['nomeCliente']?></h4>
+      </div>
+
+      <div style="padding:20px">
+          <form method="POST" id="finalizar<?php echo $linha['id_cliente'];?>" action="?pg=cliente-rede&finalizar">
+          <input type="hidden" name="id_cliente" value="<?php echo $linha['id_cliente']?>">
+          <input type="hidden" name="id_instalacao" value="<?php echo $linha['id_instalacao']?>">
+          <input type="hidden" name="tipo" value="<?php echo $linha['tipo']?>">
+      
+
+              <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="">Técnico</label>
+                <select name="tecnico" required class="form-control" style="width:200px;" autofocus>
+                <option value="">Selecione o Técnico</option>
+                <option value="24">OLEVER</option>
+                <option value="16">VINICIUS</option>
+                </select>  
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="">Data de Instalação</label>
+              <input  required name="data" type="date" class="form-control">
+            </div>
+        </div>
+
+
+            <?php 
+            $id_cliente = $linha['id_cliente'];
+            $sqltipo = $pdo->prepare("SELECT tipo from clientes WHERE id_cliente='$id_cliente'");
+            $sqltipo->execute();
+            $tipo = $sqltipo->fetch(PDO::FETCH_ASSOC);
+   
+            if($tipo['tipo'] == 'cond'){  ?>
+              <br /><br />
+              <select class="form-control" name="tipoInstalacao" id="tipoInstalacao">
+              <option value="finalizado">Normal</option>
+              <option value="finalizado2">Condominio Tubulação</option>
+              </select>
+
+            <?php } ?>
+        
+          <br />
+          <br />
+          <button onclick="document.getElementById('finalizar<?php echo $linha['id_cliente'];?>').submit()"; class="btn btn-primary">OK</button>  
+          </form>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal5<?php echo $linha['id_cliente']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
