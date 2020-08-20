@@ -108,6 +108,7 @@ if(isset($_GET['selecionado'])){
     <li class="list-group-item"><strong>REFERENCIA : </strong><?php echo $referencia = $linha['referencia']?></li>
     <li class="list-group-item"><strong>CELULAR  : </strong><?php echo $celular = $linha['celular']?><strong> | DD  : </strong><?php echo $bairro = $linha['dd']?> - <?php echo $bairro = $linha['fone']?> | <strong>Fax</strong> - <?php echo $bairro = $linha['fax']?> - </li>
     <li class="list-group-item"><strong>VENDEDOR : </strong><?php echo $vendedor = $linha['vendedor']?></li>
+    <li class="list-group-item"><strong>DATA DO CONTRATO : </strong><?php echo $vendedor = $linha['data_cadastro']?></li>
     <li class="list-group-item"><strong>Status Atual : </strong>
     <span style="color:red">
     
@@ -407,9 +408,6 @@ if(isset($_GET['selecionado'])){
           <input type="hidden" name="id_cliente" value="<?php echo $id_cliente = $linha['id_cliente']?>">
           <input type="hidden" name="tipo" value="<?php echo $tipo = $linha['tipo']?>">
          
-          
-          
-          
 
           <ul class="list-group"style="margin:10px">
           <?php 
