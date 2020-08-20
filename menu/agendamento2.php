@@ -15,7 +15,7 @@ $sqlReagendar->execute();
    <nav id="menu">
         <ul>
             <li><a href='?pg=cliente-pesquisa'>Cliente Pesquisa</a></li>  
-            <li><a href='?pg=cliente-agendar2'>Geral</a></li>  
+            <li><a href='?pg=clientes-agendar2'>Agendar</a></li>  
             <li><a href='?pg=cliente-agendar-bairro2'>Por Bairro</a></li>
             <li><a href='?pg=cliente-reagendar2'>Reagendar <span class="badge badge-primary" style="float:right; margin-right:10px; background-color:red"><?php echo $totaltransf = $sqlReagendar->rowCount(); ?></span></a></li>          
             <li><a href='?pg=cliente-transferencia2'>Transferencia <span class="badge badge-primary" style="float:right; margin-right:10px; background-color:red"><?php echo $totaltransf = $sqlTransf->rowCount(); ?></span></a></li>          

@@ -305,7 +305,7 @@ location.href = src;
     <?php 
 
     $tipo = $_GET['tipo'];
-    $consulta = $pdo->prepare("SELECT *, c.nome as nomeCliente , b.nome as nomeBairro from clientes as c INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro WHERE c.tipo='$tipo' AND c.status_cliente='aguardando-agendamento' ORDER BY c.data_cadastro ASC");
+    $consulta = $pdo->prepare("SELECT *, c.nome as nomeCliente , b.nome as nomeBairro from clientes as c INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro WHERE c.tipo='$tipo' AND c.status_cliente='aguardando-agendamento' ORDER BY c.data_cadastro ASC ,c.cod_cliente ASC");
     $consulta->execute();
     while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){ ?>
     <tr>

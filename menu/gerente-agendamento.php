@@ -37,10 +37,11 @@ $sqlTransf->execute();
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-reagendar">REAGENDAR</a></li>
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-rede">REDE</a></li>
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-rc">RETORNO DE CLIENTE</a></li>
+                    <li class="dropdown-sub-menu"><a href="?pg=clientes-whats">AGUARDANDO WHATS</a></li>
+                    <li class="dropdown-sub-menu"><a href="?pg=clientes-sem-contato">SEM CONTATO</a></li>
                  </ul> 
             </li>
-            <li><a href='?pg=producao-terceiros'>Produção Terceiros</a></li>
-            <li><a href='#'>Importar</a>            
+            <li><a href='?pg=producao-terceiros'>Produção Terceiros</a></li>         
                 <ul class="dropdown-sub"> 
                     <li class="dropdown-sub-menu"><a href="?pg=import-xls">CSV</a></li>
                     <li class="dropdown-sub-menu"><a href="?pg=import-validar">Inconsistências</a></li> 
@@ -54,6 +55,7 @@ $sqlTransf->execute();
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-concluido-tecnico">Por Técnico</a></li>
                  </ul> 
             </li>
+            <li><a href='#'>Importar</a>   
          </ul>
 
          

@@ -249,6 +249,17 @@ if(isset($_GET['selecionado'])){
   
     </span>
     </li>
+    <li class="list-group-item">
+      <button type="button" class="btn btn-info btn-sm" aria-hidden="true" data-toggle="modal" data-target="#myModal2<?php echo $linha['id_cliente']?>"><div>Comentário 
+      <?php 
+      $id_cliente = $linha['id_cliente'];
+      $comentariosql = $pdo->prepare("SELECT * from comentarios WHERE fk_id_cliente='$id_cliente'");
+      $comentariosql->execute(); 
+      if($comentariosql->rowCount() > 0){ ?> 
+      <span class="glyphicon glyphicon-eye-open" style="margin:0px 0 0 5px"></span>
+      <?php } ?>
+      </button>
+      </li>
    
 
 
@@ -381,6 +392,58 @@ if(isset($_GET['selecionado'])){
 </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="myModal2<?php echo $linha['id_cliente']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+<?php echo $linha['cod_cliente']?> - <?php echo $linha['nomeCliente']?>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    
+     </div>
+     <div style="padding:20px">
+
+      <form method="POST" id="comentario<?php echo $linha['id_cliente'];?>" action="?pg=clientes-pesquisa&comentario">
+          <input type="hidden" name="id_cliente" value="<?php echo $id_cliente = $linha['id_cliente']?>">
+          <input type="hidden" name="tipo" value="<?php echo $tipo = $linha['tipo']?>">
+         
+          
+          
+          <label for="">Comentário</label>
+          <textarea name="comentario" required cols="30" rows="2" class="form-control"></textarea> 
+            <br />
+            <button onclick="document.getElementById('comentario<?php echo $linha['id_cliente'];?>').submit()"; class="btn btn-primary">Comentar</button></div>    
+          </form>
+
+          <ul class="list-group"style="margin:10px">
+          <?php 
+            $comentariosql = $pdo->prepare("SELECT * from comentarios as c INNER JOIN 
+            usuarios as u ON u.idusuario = c.fk_id_usuario
+            WHERE c.fk_id_cliente='$id_cliente' ORDER BY c.data_comentario DESC");
+            $comentariosql->execute();
+             while($linha = $comentariosql->fetch(PDO::FETCH_ASSOC)){
+            
+          ?>
+            
+              <li class="list-group-item" style="margin-bottom:20px; ">
+              <div style="padding:10px"><?php echo $linha['comentario']?></div>
+              <div class="badge"> 
+                <?php $data = str_replace("/", "-", $linha['data_comentario']);
+                echo date('d/m/Y H:i:s', strtotime($data))?>
+              </div>
+             
+              <div class="badge" style="background:#6495ED">escrito por : <?php echo $linha['usuario'];?></div></li>
+  
+                 
+      <?php } ?>
+      </ul>
+       </div>
+
+    </div>
+  </div>
+</div>
+
 
 <?php }  ?>
 
@@ -424,5 +487,24 @@ if (isset($_GET['reagendar'])){
     $updatesql->execute();
 
   echo "<script>location.href='?pg=clientes-pesquisa&search&selecionado&cod=".$cod_cliente."&ponto=".$fk_id_cliente."'</script>";  
+}
+
+
+?>
+
+
+<?php 
+if (isset($_GET['comentario'])){
+
+    $comentario = $_POST['comentario'];
+    $data = date('Y-m-d H:i:s');
+    $idusuario = $_COOKIE['idusuario'];
+    $id_cliente = $_POST['id_cliente'];
+   
+    $comentsql = $pdo->prepare("INSERT INTO comentarios (comentario,data_comentario,fk_id_usuario,fk_id_cliente)
+    values ('$comentario','$data','$idusuario','$id_cliente')");
+    $comentsql->execute();
+
+    echo "<script>location.href='?pg=cliente-pesquisa'</script>"; 
 }
 ?>
