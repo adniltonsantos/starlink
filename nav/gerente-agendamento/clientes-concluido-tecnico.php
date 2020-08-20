@@ -77,7 +77,7 @@ location.href = src;
   $agendadosql = $pdo->prepare("SELECT *, c.nome as nomeCliente from instalacoes as i 
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente
   INNER JOIN tecnicos as t ON i.fk_id_tecnico=t.id_tecnico
-  WHERE i.status_agendamento='finalizado' AND i.status_agendamento='finalizado2' AND 
+  WHERE status_agendamento='finalizado'
   i.fk_id_tecnico = $id_tecnico AND
   DATE(data_agendamento) BETWEEN '$data' AND '$data2'");
   $agendadosql->execute();

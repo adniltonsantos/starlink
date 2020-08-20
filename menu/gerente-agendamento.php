@@ -42,11 +42,8 @@ $sqlTransf->execute();
                  </ul> 
             </li>
             <li><a href='?pg=producao-terceiros'>Produção Terceiros</a></li>         
-                <ul class="dropdown-sub"> 
-                    <li class="dropdown-sub-menu"><a href="?pg=import-xls">CSV</a></li>
-                    <li class="dropdown-sub-menu"><a href="?pg=import-validar">Inconsistências</a></li> 
-                </ul> 
-            </li>
+          
+          
             <li><a href='?pg=clientes-transferencias'>Transferencia <span class="badge badge-primary" style="float:right; margin-right:10px;background-color:red"><?php echo $total = $sqlTransf->rowCount(); ?></span></a></li>          
             <li><a href=''>Concluidos</a>
             <ul class="dropdown-sub"> 
@@ -55,7 +52,12 @@ $sqlTransf->execute();
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-concluido-tecnico">Por Técnico</a></li>
                  </ul> 
             </li>
-            <li><a href='#'>Importar</a>   
+            <li><a href='#'>Importar</a>
+            <ul class="dropdown-sub"> 
+                    <li class="dropdown-sub-menu"><a href="?pg=import-xls">CSV</a></li>
+                    <li class="dropdown-sub-menu"><a href="?pg=import-validar">Inconsistências</a></li> 
+                </ul>   
+            </li>
          </ul>
 
          
