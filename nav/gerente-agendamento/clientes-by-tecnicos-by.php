@@ -255,7 +255,7 @@ location.href = src;
                     <option value="">Selecione o Técnico</option>
                     <?php 
                         //Pegando todos Produto na loja
-                        $produto = $pdo->query("SELECT * FROM tecnicos WHERE status_tecnico = 'ativo'");
+                        $produto = $pdo->query("SELECT * FROM tecnicos WHERE status_tecnico = 'ativo' ORDER BY nome ASC");
                         $produto->execute();
                         while($linha2 = $produto->fetch(PDO::FETCH_ASSOC)){
                         ?>
@@ -384,8 +384,9 @@ $os =  $_POST['os'];
 $pg_id_tecnico =  $_POST['pg_id_tecnico'];
 $data_fechamento = $_POST['data_fechamento'];
 $id_cliente = $_POST['id_cliente'];
+$status_agendamento =  $_POST['status_agendamento'];
 
-$sql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='finalizado' , data_fechamento='$data_fechamento' WHERE id_instalacao='$os'");
+$sql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='$status_agendamento' , data_fechamento='$data_fechamento' WHERE id_instalacao='$os'");
 $sql->execute();
 
 $cliente = $pdo->prepare("UPDATE clientes SET status_cliente='ativo' WHERE id_cliente='$id_cliente'");

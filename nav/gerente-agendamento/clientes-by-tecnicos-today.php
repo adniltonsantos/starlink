@@ -72,7 +72,6 @@ $total = $agendadosql->rowCount();
         <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal3<?php echo $linha['id_instalacao']?>" class="glyphicon glyphicon-transfer" title="Transferir" data-toggle="tooltip"></a></td> 
         <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal4<?php echo $linha['id_instalacao']?>" class="glyphicon glyphicon glyphicon-time" title="Reagendar" data-toggle="tooltip"></a></td>
         </tr>
-
   <!-- Modal -->
   <div class="modal fade" id="myModal1<?php echo $linha['id_instalacao']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -84,17 +83,20 @@ $total = $agendadosql->rowCount();
       </div>
 
       <div style="padding:20px">
-          <form method="POST" id="finalizar<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-by-tecnicos-today&selecionado&finalizar">
-            <input type="hidden" name="os" value="<?php echo $linha['id_instalacao'] ?>">
+          <form method="POST" id="finalizar<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-by-tecnicos-all&between&finalizar">
             <input type="hidden" name="id_cliente" value="<?php echo $linha['id_cliente'] ?>">
+            <input type="hidden" name="os" value="<?php echo $linha['id_instalacao'] ?>">
+            <input type="hidden" name="data" value="<?php echo $_GET['data']?>">
+              <input type="hidden" name="data2" value="<?php echo $_GET['data2']?>">
             Tem certeza que deseja finalizar a o.s de nº <strong><?php echo $linha['id_instalacao']; ?></strong> ?
-          <br />  <br />  
-          <label for="">Data do fechamenteo</label>
-          <input style="width:200px" required name="data" type="date" class="form-control">
+            <br />  <br />  
 
-          <?php 
+            <label for="">Data do fechamenteo</label>
+            <input style="width:200px" required name="data_fechamento" type="date" class="form-control">
+
+            <?php 
             $id_instalacao = $linha['id_instalacao'];
-            $sqltipo = $pdo->prepare("SELECT tipo_instalacao from instalacoes as i INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente WHERE id_instalacao = '$id_instalacao'");
+            $sqltipo = $pdo->prepare("SELECT tipo from instalacoes as i INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente WHERE id_instalacao = '$id_instalacao'");
             $sqltipo->execute();
             $tipo = $sqltipo->fetch(PDO::FETCH_ASSOC);
    
@@ -173,7 +175,7 @@ $total = $agendadosql->rowCount();
                     <option value="">Selecione o Técnico</option>
                     <?php 
                         //Pegando todos Produto na loja
-                        $produto = $pdo->query("SELECT * FROM tecnicos WHERE status_tecnico = 'ativo'");
+                        $produto = $pdo->query("SELECT * FROM tecnicos WHERE status_tecnico = 'ativo' ORDER BY nome ASC");
                         $produto->execute();
                         while($linha2 = $produto->fetch(PDO::FETCH_ASSOC)){
                         ?>
@@ -255,7 +257,7 @@ document.getElementById("myForm").submit();
   $id_cliente =  $_POST['id_cliente'];
   $data_fechamento = $_POST['data'];
   
-  $sql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='finalizado' , data_fechamento='$data_fechamento' WHERE id_instalacao='$os'");
+  $sql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='$status_agendamento' , data_fechamento='$data_fechamento' WHERE id_instalacao='$os'");
   $sql->execute();
 
   $cliente = $pdo->prepare("UPDATE clientes SET status_cliente='ativo' WHERE id_cliente='$id_cliente'");

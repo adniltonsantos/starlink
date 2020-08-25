@@ -231,7 +231,7 @@ onclick="document.getElementById('myForm').submit()";
                     <option value="">Selecione o Técnico</option>
                     <?php 
                         //Pegando todos Produto na loja
-                        $produto = $pdo->query("SELECT * FROM tecnicos WHERE status_tecnico = 'ativo'");
+                        $produto = $pdo->query("SELECT * FROM tecnicos WHERE status_tecnico = 'ativo' ORDER BY nome ASC");
                         $produto->execute();
                         while($linha2 = $produto->fetch(PDO::FETCH_ASSOC)){
                         ?>
@@ -356,9 +356,10 @@ $data =  $_POST['data'];
 $data2 =  $_POST['data2'];
 $os =  $_POST['os'];
 $data_fechamento = $_POST['data_fechamento'];
+$status_agendamento =  $_POST['status_agendamento'];
 $id_cliente = $_POST['id_cliente'];
 
-$sql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='finalizado' , data_fechamento='$data_fechamento' WHERE id_instalacao='$os'");
+$sql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='$status_agendamento' , data_fechamento='$data_fechamento' WHERE id_instalacao='$os'");
 $sql->execute();
 
 $cliente = $pdo->prepare("UPDATE clientes SET status_cliente='ativo' WHERE id_cliente='$id_cliente'");

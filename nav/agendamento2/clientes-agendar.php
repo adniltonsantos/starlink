@@ -1,6 +1,14 @@
 <?php require_once "config.php"; $pdo = conectar(); require_once "function.php";?>
 
 
+<script>
+function Redireciona(obj)
+{
+var src = "?pg=clientes-agendar2&selecionado&tipo="+obj.value;
+location.href = src;
+}
+</script>
+
 <section>
 <div id="janela">
 <div id="conteudo">
@@ -26,7 +34,7 @@
   <td><span style="color:white;background:#836FFF	; padding:8px 15px">Setor 0<?php echo $setor='1'?></span></td>
   
   <?php 
-  $tipo = 'cond';
+  $tipo = $_GET['tipo'];
   $dataHoje = date('Y-m-d');
   $hoje1 = $pdo->prepare("SELECT * FROM instalacoes as i  
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente 
@@ -263,11 +271,20 @@
 <form method="post" action="exemplo.html" class="pesquise" >     
 
 
-<div class="form-group col-md-12">
+<div class="form-group col-md-9">
      <label for="">Pesquise</label>
      <input type="text" id="pesquisar" name="pesquisar" class="form-control" placeholder="Digite por qualquer parte do campo" />
 </div>
 
+
+   <div class="form-group col-md-3">
+     <label for="">Tipo de Instalação</label>
+     <select name="tipo" class="form-control" onchange="Redireciona(this)">
+       <option value="sel" <?php echo selected( $_GET['tipo'], "sel" ); ?> >Selecione o tipo</option>
+       <option value="cond" <?php echo selected( $_GET['tipo'], "cond" ); ?> >Condominio</option>
+       <option value="res" <?php echo selected( $_GET['tipo'], "res" ); ?> >Residencia</option>
+     </select>
+   </div>
 
 </form>
 
@@ -287,8 +304,8 @@
      
     <?php 
 
-    $tipo = 'cond';
-    $consulta = $pdo->prepare("SELECT *, c.nome as nomeCliente , b.nome as nomeBairro from clientes as c INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro WHERE c.tipo='$tipo' AND c.status_cliente='aguardando-agendamento' ORDER BY c.data_cadastro ASC");
+    $tipo = $_GET['tipo'];
+    $consulta = $pdo->prepare("SELECT *, c.nome as nomeCliente , b.nome as nomeBairro from clientes as c INNER JOIN bairros as b ON c.fk_id_bairro=b.id_bairro WHERE c.tipo='$tipo' AND c.status_cliente='aguardando-agendamento' ORDER BY c.data_cadastro ASC ,c.cod_cliente ASC");
     $consulta->execute();
     while($linha = $consulta->fetch(PDO::FETCH_ASSOC)){ ?>
     <tr>
@@ -316,71 +333,7 @@
     </tr>
 
 
-  <!-- Modal -->
-  <div class="modal fade" id="myModal1<?php echo $linha['id_cliente']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
 
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Finalizar - <?php echo $linha['nomeCliente']?></h4>
-      </div>
-
-      <div style="padding:20px">
-          <form method="POST" id="finalizar<?php echo $linha['id_cliente'];?>" action="?pg=clientes-agendar2&finalizar">
-          <input type="hidden" name="id_cliente" value="<?php echo $linha['id_cliente']?>">
-          <input type="hidden" name="tipo" value="<?php echo $linha['tipo']?>">
-      
-
-              <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="">Técnico</label>
-                <select name="tecnico" required class="form-control" style="width:200px;" autofocus>
-                <option value="">Selecione o Técnico</option>
-                <option value="25">SEM TECNICO</option>
-                <?php 
-                $tecnicosql = $pdo->prepare("SELECT * FROM tecnicos WHERE status_tecnico='ativo' ORDER BY nome ASC");
-                $tecnicosql->execute();
-                while($linha2 = $tecnicosql->fetch(PDO::FETCH_ASSOC)){
-                ?>
-                
-              
-                <option value="<?php echo $linha2['id_tecnico'] ?>"><?php echo $linha2['nome'] ?></option>
-                <?php } ?>
-                </select>  
-            </div>
-
-            <div class="form-group col-md-6">
-              <label for="">Data de Instalação</label>
-              <input  required name="data" type="date" class="form-control">
-            </div>
-        </div>
-
-
-            <?php 
-            $id_cliente = $linha['id_cliente'];
-            $sqltipo = $pdo->prepare("SELECT tipo from clientes WHERE id_cliente='$id_cliente'");
-            $sqltipo->execute();
-            $tipo = $sqltipo->fetch(PDO::FETCH_ASSOC);
-   
-            if($tipo['tipo'] == 'cond'){  ?>
-              <br /><br />
-              <select class="form-control" name="tipoInstalacao" id="tipoInstalacao">
-              <option value="finalizado">Normal</option>
-              <option value="finalizado2">Condominio Tubulação</option>
-              </select>
-
-            <?php } ?>
-        
-          <br />
-          <br />
-          <button onclick="document.getElementById('finalizar<?php echo $linha['id_cliente'];?>').submit()"; class="btn btn-primary">OK</button>  
-          </form>
-      </div>
-
-    </div>
-  </div>
-</div>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal<?php echo $linha['id_cliente']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -414,7 +367,9 @@
             <div class="form-group col-md-6">
                 <label for="">Técnico</label>
                 <select name="tecnico" required class="form-control" style="width:200px;" autofocus>
-                  <option value="25">SEM TECNICO</option>
+                <option value="">Selecione o Técnico</option>
+                <option value="25">SEM TECNICO</option>
+
                 </select>  
             </div>
 
@@ -509,9 +464,8 @@ $insertsql->execute();
 $cliente = $pdo->prepare("UPDATE clientes SET status_cliente='ativo' WHERE id_cliente='$fk_id_cliente'");
 $cliente->execute();
 
-echo "<script>alert('Cliente Finalizado com Sucesso'); location.href='?pg=clientes-agendar2&selecionado&tipo=$tipo''</script>";
+echo "<script>location.href='?pg=clientes-agendar2&selecionado&tipo=$tipo'</script>";  
 } ?>
-
 
 
 
@@ -525,14 +479,14 @@ if (isset($_GET['update'])){
     $idusuario = $_COOKIE["idusuario"];
     $tipo = $_POST['tipo'];
 
-    $insertsql = $pdo->prepare("INSERT INTO instalacoes (fk_id_usuario,fk_id_tecnico,fk_id_cliente,data_agendamento,status_agendamento) values
-    ('$idusuario','$fk_id_tecnico','$fk_id_cliente','$data','agendado') ");
+    $insertsql = $pdo->prepare("INSERT INTO instalacoes (fk_id_usuario,fk_id_tecnico,fk_id_cliente,data_agendamento,tipo_instalacao,status_agendamento) values
+    ('$idusuario','$fk_id_tecnico','$fk_id_cliente','$data','$tipo','agendado') ");
     $insertsql->execute();
     
     $updatesql = $pdo->prepare("UPDATE clientes SET status_cliente='agendado' WHERE id_cliente='$fk_id_cliente' ");
     $updatesql->execute();
 
-    echo "<script>alert('Cliente Agendado com Sucesso'); location.href='?pg=clientes-agendar2&selecionado&tipo=$tipo'</script>"; 
+  echo "<script>location.href='?pg=clientes-agendar2&selecionado&tipo=$tipo'</script>";  
 }
 ?>
 
