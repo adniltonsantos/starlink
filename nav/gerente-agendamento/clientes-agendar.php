@@ -297,7 +297,7 @@ location.href = src;
     <th>Bairro</th>
     <th>Referência</th>
     <th>Data de Cadastro</th>
-    <th colspan="2">Funções</th>
+    <th colspan="5">Funções</th>
     </tr>
     </thead>
 
@@ -315,6 +315,7 @@ location.href = src;
     <td><?php echo $bairro = $linha['referencia']?></span></td>
     <td><?php echo $dataBR = dataBR($linha['data_cadastro']);?></span></td>
     <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal1<?php echo $linha['id_cliente']?>" class="glyphicon glyphicon-ok-sign" title="Finalizar" data-toggle="tooltip"></a></td>
+    <!-- <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal2<?php echo $linha['id_cliente']?>" class="glyphicon glyphicon-info-sign" title="Resolucao" data-toggle="tooltip"></a></td> -->
     <td class="centro-table"><a href="?pg=clientes-agendar&id_cliente=<?php echo $linha['id_cliente'];?>"><div aria-hidden="true" data-toggle="modal" data-target="#myModal<?php echo $linha['id_cliente']?>" class="glyphicon glyphicon-time"></div></td>
     <td class="centro-table"><a href="" aria-hidden="true" data-toggle="modal" data-target="#myModal5<?php echo $linha['id_cliente']?>"  title="Comentário" data-toggle="tooltip">
         <?php 
@@ -398,6 +399,43 @@ location.href = src;
     </div>
   </div>
 </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal2<?php echo $linha['id_cliente']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Resolução - <?php echo $linha['nomeCliente']?></h4>
+      </div>
+      <div style="padding:20px">
+          <form method="POST" id="motivo<?php echo $linha['id_instalacao'];?>" action="?pg=clientes-by-tecnicos-all&between&resolucao">
+            <input type="hidden" name="os" value="<?php echo $linha['id_instalacao'] ?>">
+            <input type="hidden" name="id_cliente" value="<?php echo $linha['id_cliente'] ?>">
+            <input type="hidden" name="data" value="<?php echo $_GET['data']?>">
+              <input type="hidden" name="data2" value="<?php echo $_GET['data2']?>">
+            <label for="">Motivo</label>
+            <select class="form-control" name="motivo">
+              <option value="CTO">CTO</option>
+              <option value="CANCELOU">CANCELOU</option>
+              <option value="INDIS">INDISPONIBILIDADE</option>
+              <option value="INFRA">INFRAESTRUTURA</option>
+              <option value="REAGENDAR">REAGENDAR</option>
+              <option value="REDE">REDE</option>
+              <option value="RC">RETORNO DE CLIENTE</option>
+            </select>
+          
+
+          <br />
+          <button onclick="document.getElementById('motivo<?php echo $linha['id_instalacao'];?>').submit()"; class="btn btn-primary">OK</button>  
+          </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="myModal<?php echo $linha['id_cliente']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -515,6 +553,8 @@ location.href = src;
   </div>
 </div>
 
+
+
 <?php }  ?>
 
 </table>
@@ -561,6 +601,22 @@ if (isset($_GET['update'])){
   echo "<script>location.href='?pg=clientes-agendar&selecionado&tipo=$tipo'</script>";  
 }
 ?>
+
+<?php if (isset($_GET['resolucao'])){
+$data =  $_POST['data'];
+$data2 =  $_POST['data2'];
+$motivo =  $_POST['motivo'];
+$os = $_POST['os'];
+$id_cliente = $_POST['id_cliente'];
+
+$sql = $pdo->prepare("UPDATE instalacoes SET status_agendamento='$motivo' WHERE id_instalacao='$os'");
+$sql->execute();
+
+$cliente = $pdo->prepare("UPDATE clientes SET status_cliente='$motivo' WHERE id_cliente='$id_cliente'");
+$cliente->execute();
+
+echo "<script>location.href='?pg=clientes-by-tecnicos-all&between&data=".$data."&data2=".$data2."'</script>"; 
+} ?>
 
 
 <?php 

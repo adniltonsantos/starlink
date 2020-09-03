@@ -138,7 +138,7 @@ if(isset($_GET['selecionado'])){
       if($status == 'ativo'){
           $inst = $pdo->prepare("SELECT * FROM instalacoes as i 
           INNER JOIN tecnicos as t ON i.fk_id_tecnico=t.id_tecnico
-          WHERE i.fk_id_cliente='$id_cliente' AND i.status_agendamento='finalizado'");
+          WHERE i.fk_id_cliente='$id_cliente' AND (i.status_agendamento='finalizado' OR i.status_agendamento='finalizado2')");
           $inst->execute();
           $linhainst = $inst->fetch(PDO::FETCH_ASSOC); 
           if($inst->rowCount()){

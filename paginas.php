@@ -4,6 +4,19 @@ if(isset($_GET['pg'])){
 
 switch($_GET['pg']){
 
+	// SETOR DE SUPORTE
+
+	case'ativacao';
+	include "nav/suporte/ativacao.php";
+	break;
+
+	case'inseri-cto';
+	include "nav/suporte/inseri-cto.php";
+	break;
+
+	case'ativacao';
+	include "nav/suporte/ativacao.php";
+	break;
 		// SETOR DE INFRA
 
 		case'cliente-indis';
