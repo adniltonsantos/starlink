@@ -569,8 +569,8 @@ $fk_id_tecnico = $_POST['tecnico'];
 $tipoInstalacao = $_POST['tipoInstalacao'];
 
 
-$insertsql = $pdo->prepare("INSERT INTO instalacoes (fk_id_usuario,fk_id_tecnico,fk_id_cliente,data_agendamento,data_fechamento,status_agendamento,tipo_instalacao) values
-('$idusuario','$fk_id_tecnico','$fk_id_cliente','$data','$data','$tipoInstalacao','$tipo') ");
+$insertsql = $pdo->prepare("INSERT INTO instalacoes (fk_id_usuario,fk_id_tecnico,fk_id_cliente,data_agendamento,data_fechamento,status_agendamento) values
+('$idusuario','$fk_id_tecnico','$fk_id_cliente','$data','$data','$tipoInstalacao') ");
 $insertsql->execute();
 
 $cliente = $pdo->prepare("UPDATE clientes SET status_cliente='ativo' WHERE id_cliente='$fk_id_cliente'");
