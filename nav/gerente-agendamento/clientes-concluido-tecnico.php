@@ -83,7 +83,7 @@ location.href = src;
   $agendadosql = $pdo->prepare("SELECT * , c.nome as nomeCliente from instalacoes as i
   INNER JOIN clientes as c ON i.fk_id_cliente=c.id_cliente
   INNER JOIN tecnicos as t ON i.fk_id_tecnico=t.id_tecnico
-  WHERE i.fk_id_tecnico='13' AND (i.status_agendamento='finalizado' OR i.status_agendamento='finalizado2')
+  WHERE i.fk_id_tecnico='$id_tecnico' AND (i.status_agendamento='finalizado' OR i.status_agendamento='finalizado2')
   AND DATE(i.data_fechamento) BETWEEN '$data' AND '$data2'");
   $agendadosql->execute();
   $total = $agendadosql->rowCount();
