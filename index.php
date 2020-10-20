@@ -5,7 +5,7 @@
       <meta name="description" content="JKM">
     <meta name="viewport" content="width=device-width,initial-scale1">
     
-    <title>Starlink - rafael</title>    
+    <title>Starlink</title>    
   <!-- Logo do Sistema na Aba -->
   <link rel="icon" href="img/logo.png" type="image/gif" sizes="16x16">
     <!-- Link do Java e Css do Bootsrap -->
