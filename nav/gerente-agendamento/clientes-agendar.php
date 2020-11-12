@@ -388,7 +388,11 @@ location.href = src;
               <option value="finalizado2">Condominio Tubulação</option>
               </select>
 
+            <?php } else { ?>
+              <input type="hidden" value="finalizado" name="tipoInstalacao">
             <?php } ?>
+
+            
         
           <br />
           <br />
@@ -567,7 +571,6 @@ $tipo = $_POST['tipo'];
 $idusuario = $_COOKIE["idusuario"];
 $fk_id_tecnico = $_POST['tecnico'];
 $tipoInstalacao = $_POST['tipoInstalacao'];
-
 
 $insertsql = $pdo->prepare("INSERT INTO instalacoes (fk_id_usuario,fk_id_tecnico,fk_id_cliente,data_agendamento,data_fechamento,status_agendamento) values
 ('$idusuario','$fk_id_tecnico','$fk_id_cliente','$data','$data','$tipoInstalacao') ");
