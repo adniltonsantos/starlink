@@ -183,6 +183,10 @@ if(isset($_GET['selecionado'])){
           echo "Aguardando Retorno de Cliente via WhatsApp";
         }
 
+        if($status == 'aguardando-instalacaoHack'){
+          echo "Perdemos informaçoes devido o ataque Hacker.";
+        }
+
         if($status == 'INFRA'){
           $inst = $pdo->prepare("SELECT * FROM instalacoes as i 
           INNER JOIN tecnicos as t ON i.fk_id_tecnico=t.id_tecnico
