@@ -9,13 +9,15 @@
 <?php 
 if(isset($_GET['submit'])){
 
-echo $cto = $_POST['cto']; 
-echo $latitude = $_POST['latitude']; 
-echo $longitude = $_POST['longitude']; 
-echo $olt = $_POST['olt']; 
-echo $slot = $_POST['slot']; 
-echo $pon = $_POST['pon']; 
-echo $vlan = $_POST['vlan']; 
+var_dump ($cto = $_POST['cto']); 
+$latitude = $_POST['latitude']; 
+$longitude = $_POST['longitude']; 
+$olt = $_POST['olt']; 
+$slot = $_POST['slot']; 
+$pon = $_POST['pon']; 
+$vlan = $_POST['vlan']; 
+
+echo $cto * 5 ;
 
 }
 ?>
@@ -44,7 +46,7 @@ echo $vlan = $_POST['vlan'];
 
     <div class="form-group col-md-4">
       <label for="">Nome da Cto</label>
-      <input type="text" required class="form-control" name="cto" placeholder="Nome">
+      <input type="int"  required class="form-control" name="cto" placeholder="Nome">
     </div>
 
     <div class="form-group col-md-4">

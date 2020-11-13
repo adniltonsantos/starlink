@@ -1,6 +1,11 @@
 
-<?php $sqlTransf = $pdo->prepare("SELECT * FROM instalacoes where tipo_instalacao='transfres' AND tipo_instalacao='transfcond' OR status_agendamento='agendar'");
+<?php 
+
+$sqlTransf = $pdo->prepare("SELECT * FROM instalacoes where tipo_instalacao='transfres' AND tipo_instalacao='transfcond' OR status_agendamento='agendar'");
 $sqlTransf->execute();
+
+$sqlHack = $pdo->prepare("SELECT * FROM clientes where status_cliente='aguardando-instalacaoHack'");
+$sqlHack->execute();
 
 ?>
 
@@ -44,7 +49,9 @@ $sqlTransf->execute();
             <li><a href='?pg=producao-terceiros'>Produção Terceiros</a></li>         
           
           
-            <li><a href='?pg=clientes-transferencias'>Transferencia <span class="badge badge-primary" style="float:right; margin-right:10px;background-color:red"><?php echo $total = $sqlTransf->rowCount(); ?></span></a></li>          
+            <li><a href='?pg=clientes-transferencias'>Transferencia <span class="badge badge-primary" style="float:right; margin-right:10px;background-color:red"><?php echo $total = $sqlTransf->rowCount(); ?></span></a></li>  
+            <li><a href='?pg=clientes-hack'>HACK <span class="badge badge-primary" style="float:right; margin-right:10px;background-color:red"><?php echo $total = $sqlHack->rowCount(); ?></span></a></li>          
+                    
             <li><a href=''>Concluidos</a>
             <ul class="dropdown-sub"> 
                     <li class="dropdown-sub-menu"><a href="?pg=clientes-concluido-today">Hoje</a></li>

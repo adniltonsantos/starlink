@@ -330,6 +330,10 @@ switch($_GET['pg']){
 		case'clientes-transferencias';
 		include "nav/gerente-agendamento/clientes-transferencias.php";
 		break;
+
+		case'clientes-hack';
+		include "nav/gerente-agendamento/clientes-hack.php";
+		break;
 		//Clientes - Concluido
 		case'clientes-concluido-today';
 		include "nav/gerente-agendamento/clientes-concluido-today.php";
