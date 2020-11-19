@@ -156,7 +156,7 @@ if (isset($_GET['update'])){
      </div>
      <div style="padding:20px">
 
-      <form method="POST" id="comentario<?php echo $linha['id_cliente'];?>" action="s?pg=clientes-hack&comentario">
+      <form method="POST" id="comentario<?php echo $linha['id_cliente'];?>" action="?pg=clientes-hack&comentario">
           <input type="hidden" name="id_cliente" value="<?php echo $id_cliente = $linha['id_cliente']?>">
           <input type="hidden" name="tipo" value="<?php echo $_GET['tipo']?>">
           
