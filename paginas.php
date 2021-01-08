@@ -78,6 +78,10 @@ switch($_GET['pg']){
 		include "nav/agendamento/cliente-agendar-by-bairro.php";
 		break;
 
+		case'clientes-by-tecnicos-by2';
+		include "nav/agendamento/clientes-by-tecnicos-by2.php";
+		break;
+
 		case'cliente-reagendar';
 		include "nav/agendamento/cliente-reagendar.php";
 		break;
