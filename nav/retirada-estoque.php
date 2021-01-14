@@ -93,7 +93,7 @@ function FormataReais(fld, milSep, decSep, e) {
             
             <?php 
                 //Pegando todos Produto na loja
-                $tecnicos = $pdo->query("SELECT * FROM tecnicos");
+                $tecnicos = $pdo->query("SELECT * FROM tecnicos ORDER BY nome");
                 $tecnicos->execute();
                 while($linha = $tecnicos->fetch(PDO::FETCH_ASSOC)){
                 ?>
